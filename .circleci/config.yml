@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: nemuframework/gcc-nemu-cpp:0.6.0
+    steps:
+      - checkout:
+          path: /projects/codesmithyide/content-platform
+      - run:
+          name: Build
+          command: cd /projects/codesmithyide/content-platform/build/gnumake && make
+workflows:
+  version: 2
+  continuous_build:
+    jobs:
+      - build
+  weekly_build:
+    jobs:
+      - build
+    triggers:
+      - schedule:
+          cron: "0 8 * * 0"
+          filters:
+            branches:
+              only:
+                 - main
