@@ -8,7 +8,7 @@ jobs:
           path: /projects/codesmithyide/content-platform
       - run:
           name: Build
-          command: cd /projects/codesmithyide/content-platform/build/gnumake && make
+          command: cd /projects/codesmithyide/content-platform/web-server/build/gnumake && make
 workflows:
   version: 2
   continuous_build:
