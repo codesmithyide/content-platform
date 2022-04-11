@@ -153,8 +153,8 @@
     <ClCompile Include="..\..\src\WebServer\WebServer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform.hpp" />
-    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\WebServer\WebServer.hpp" />
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core.hpp" />
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\WebServer\WebServer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

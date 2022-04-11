@@ -29,8 +29,8 @@ library CodeSmithyContentPlatformCore
 
     headers
     {
-        ../../../include/CodeSmithy/ContentPlatform.hpp
-        ../../../include/CodeSmithy/ContentPlatform/WebServer/WebServer.hpp
+        ../../../include/CodeSmithy/ContentPlatform/Core.hpp
+        ../../../include/CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp
     }
 
     sources

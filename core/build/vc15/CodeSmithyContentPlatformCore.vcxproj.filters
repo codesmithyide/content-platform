@@ -17,10 +17,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform.hpp">
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\WebServer\WebServer.hpp">
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\WebServer\WebServer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
