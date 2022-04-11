@@ -7,10 +7,10 @@ jobs:
       - checkout:
           path: /projects/codesmithyide/content-platform
       - run:
-          name: Build Core library
+          name: Build CodeSmithyContentPlatformCore library
           command: cd /projects/codesmithyide/content-platform/core/build/gnumake && make
       - run:
-          name: Build
+          name: Build CodeSmithyContentPlatformWebServer binary
           command: cd /projects/codesmithyide/content-platform/web-server/build/gnumake && make
 workflows:
   version: 2
