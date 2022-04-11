@@ -7,6 +7,9 @@ jobs:
       - checkout:
           path: /projects/codesmithyide/content-platform
       - run:
+          name: Build Core library
+          command: cd /projects/codesmithyide/content-platform/core/build/gnumake && make
+      - run:
           name: Build
           command: cd /projects/codesmithyide/content-platform/web-server/build/gnumake && make
 workflows:
