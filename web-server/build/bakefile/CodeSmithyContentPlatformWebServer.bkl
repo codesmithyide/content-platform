@@ -1,3 +1,6 @@
+codesmithyidepath = envvar("CODESMITHYIDE");
+import $(codesmithyidepath)/content-platform/include/CodeSmithy/ContentPlatform/Core.bkl;
+
 toolsets = gnu vs2019 vs2017 vs2015 vs2013;
 
 gnu.makefile = ../gnumake/GNUmakefile;
@@ -6,13 +9,14 @@ vs2017.solutionfile = ../vc15/CodeSmithyContentPlatormWebServer.sln;
 vs2015.solutionfile = ../vc14/CodeSmithyContentPlatormWebServer.sln;
 vs2013.solutionfile = ../vc12/CodeSmithyContentPlatormWebServer.sln;
 
-program CodeSmithyContentPlatormWebServer
+program CodeSmithyContentPlatormWebServer : CodeSmithyContentPlatformCore
 {
     archs = x86 x86_64;
 
     if ($(toolset) == gnu)
     {
         cxx-compiler-options = "-std=c++11";
+        libs += CodeSmithyContentPlatformCore NemuWebFramework NemuCore IshikoHTTP IshikoNetworking IshikoTime IshikoText IshikoTypes IshikoLogging IshikoErrors fmt;
     }
 
     sources
