@@ -1,0 +1,23 @@
+nemupath = envvar("NEMU_CPP");
+import $(nemupath)/nemu/include/Nemu.bkl;
+
+setting CODESMITHYIDE_CONTENTPLATFORM_ROOT
+{
+    help = "Path to the CodeSmithyIDE/ContentPlatform installation";
+    default = '$(CODESMITHYIDE)/content-platform';
+}
+
+template CodeSmithyContentPlatformCore : Nemu
+{
+    includedirs += $(CODESMITHYIDE_CONTENTPLATFORM_ROOT)/include;
+
+    if ($(toolset) == gnu)
+    {
+        libdirs += $(CODESMITHYIDE_CONTENTPLATFORM_ROOT)/lib;
+    }
+
+    if ($(toolset) != gnu)
+    {
+        libdirs += $(CODESMITHYIDE_CONTENTPLATFORM_ROOT)/lib/$(arch);
+    }
+}

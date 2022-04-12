@@ -1,0 +1,44 @@
+nemupath = envvar("NEMU_CPP");
+import $(nemupath)/nemu/include/Nemu.bkl;
+
+toolsets = gnu vs2019 vs2017 vs2015 vs2013;
+
+gnu.makefile = ../gnumake/GNUmakefile;
+vs2019.solutionfile = ../vc16/CodeSmithyContentPlatformCore.sln;
+vs2017.solutionfile = ../vc15/CodeSmithyContentPlatformCore.sln;
+vs2015.solutionfile = ../vc14/CodeSmithyContentPlatformCore.sln;
+vs2013.solutionfile = ../vc12/CodeSmithyContentPlatformCore.sln;
+
+library CodeSmithyContentPlatformCore : Nemu
+{
+    includedirs += ../../../include/CodeSmithy/ContentPlatform;
+
+    if ($(toolset) == gnu)
+    {
+        cxx-compiler-options = "-std=c++11";
+        outputdir = ../../../lib;
+    }
+
+    if ($(toolset) != gnu)
+    {
+        archs = x86 x86_64;
+        outputdir = ../../../lib/$(arch);
+    }
+
+    if ($(config) == Debug)
+    {
+        basename = CodeSmithyContentPlatformCore-d;
+    }
+
+    headers
+    {
+        ../../../include/CodeSmithy/ContentPlatform/Core.hpp
+        ../../../include/CodeSmithy/ContentPlatform/Core/linkoptions.hpp
+        ../../../include/CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp
+    }
+
+    sources
+    {
+        ../../src/WebServer/WebServer.cpp
+    }
+}
