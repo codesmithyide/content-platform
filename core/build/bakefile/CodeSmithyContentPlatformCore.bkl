@@ -33,6 +33,7 @@ library CodeSmithyContentPlatformCore : Nemu
     headers
     {
         ../../../include/CodeSmithy/ContentPlatform/Core.hpp
+        ../../../include/CodeSmithy/ContentPlatform/Core/linkoptions.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp
     }
 

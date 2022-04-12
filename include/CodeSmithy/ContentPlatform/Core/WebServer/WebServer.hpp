@@ -7,7 +7,9 @@
 #ifndef _CODESMITHY_CONTENTPLATFORM_CORE_WEBSERVER_WEBSERVER_HPP_
 #define _CODESMITHY_CONTENTPLATFORM_CORE_WEBSERVER_WEBSERVER_HPP_
 
-#include <Nemu/WebFramework.hpp>
+#include <Ishiko/Logging.hpp>
+#include <Nemu.hpp>
+#include <memory>
 
 namespace CodeSmithy
 {
@@ -16,6 +18,13 @@ namespace ContentPlatform
 
 class WebServer
 {
+public:
+    WebServer(Ishiko::Logger& logger);
+
+    void run();
+
+private:
+    Nemu::WebApplication m_app;
 };
 
 }

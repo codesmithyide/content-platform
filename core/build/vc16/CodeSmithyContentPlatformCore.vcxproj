@@ -154,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core.hpp" />
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\linkoptions.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\WebServer\WebServer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
