@@ -4,6 +4,9 @@ jobs:
     docker:
       - image: nemuframework/gcc-nemu-cpp:0.6.0
     steps:
+      - run: 
+          name: "Set CODESMITHYIDE environment variables"
+          command: echo 'export CODESMITHYIDE="/projects/codesmithyide"' >> $BASH_ENV
       - checkout:
           path: /projects/codesmithyide/content-platform
       - run:
