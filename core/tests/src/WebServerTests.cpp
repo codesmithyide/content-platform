@@ -7,6 +7,7 @@
 #include "WebServerTests.hpp"
 #include "CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp"
 #include <Ishiko/Logging.hpp>
+#include <thread>
 
 using namespace CodeSmithy::ContentPlatform;
 using namespace Ishiko;
@@ -35,8 +36,15 @@ void WebServerTests::RunTest1(Test& test)
 
     WebServer server(log);
 
-    // TODO
-    //server.run();
+    std::thread serverThread(
+        [&server]()
+        {
+            server.run();
+        });
+
+    server.stop();
+
+    serverThread.join();
 
     ISHIKO_TEST_PASS();
 }
