@@ -16,7 +16,7 @@ program CodeSmithyContentPlatformCoreTests : IshikoTestFrameworkCore
     if ($(toolset) == gnu)
     {
         cxx-compiler-options = "-std=c++11";
-        libs += IshikoTestFramework IshikoTestFrameworkCore boost_filesystem;
+        libs += IshikoTestFramework IshikoTestFrameworkCore IshikoProcess boost_filesystem;
     }
 
     sources
