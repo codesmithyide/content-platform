@@ -1,3 +1,5 @@
+codesmithyidepath = envvar("CODESMITHYIDE");
+import $(codesmithyidepath)/content-platform/include/CodeSmithy/ContentPlatform/Core.bkl;
 ishikopath = envvar("ISHIKO_CPP");
 import $(ishikopath)/test-framework/include/Ishiko/TestFramework/Core.bkl;
 
@@ -9,7 +11,7 @@ vs2017.solutionfile = ../vc15/CodeSmithyContentPlatformCoreTests.sln;
 vs2015.solutionfile = ../vc14/CodeSmithyContentPlatformCoreTests.sln;
 vs2013.solutionfile = ../vc12/CodeSmithyContentPlatformCoreTests.sln;
 
-program CodeSmithyContentPlatformCoreTests : IshikoTestFrameworkCore
+program CodeSmithyContentPlatformCoreTests : CodeSmithyContentPlatformCore, IshikoTestFrameworkCore
 {
     archs = x86 x86_64;
 
@@ -19,8 +21,14 @@ program CodeSmithyContentPlatformCoreTests : IshikoTestFrameworkCore
         libs += IshikoTestFramework IshikoTestFrameworkCore IshikoProcess boost_filesystem;
     }
 
+    headers
+    {
+        ../../src/WebServerTests.hpp
+    }
+
     sources
     {
         ../../src/main.cpp
+        ../../src/WebServerTests.cpp
     }
 }
