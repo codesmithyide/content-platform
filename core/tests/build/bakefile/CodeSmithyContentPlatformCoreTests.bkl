@@ -1,0 +1,25 @@
+ishikopath = envvar("ISHIKO_CPP");
+import $(ishikopath)/test-framework/include/Ishiko/TestFramework/Core.bkl;
+
+toolsets = gnu vs2019 vs2017 vs2015 vs2013;
+
+gnu.makefile = ../gnumake/GNUmakefile;
+vs2019.solutionfile = ../vc16/CodeSmithyContentPlatformCoreTests.sln;
+vs2017.solutionfile = ../vc15/CodeSmithyContentPlatformCoreTests.sln;
+vs2015.solutionfile = ../vc14/CodeSmithyContentPlatformCoreTests.sln;
+vs2013.solutionfile = ../vc12/CodeSmithyContentPlatformCoreTests.sln;
+
+program CodeSmithyContentPlatformCoreTests : IshikoTestFrameworkCore
+{
+    archs = x86 x86_64;
+
+    if ($(toolset) == gnu)
+    {
+        cxx-compiler-options = "-std=c++11";
+    }
+
+    sources
+    {
+        ../../src/main.cpp
+    }
+}
