@@ -4,12 +4,12 @@ import $(codesmithyidepath)/content-platform/include/CodeSmithy/ContentPlatform/
 toolsets = gnu vs2019 vs2017 vs2015 vs2013;
 
 gnu.makefile = ../gnumake/GNUmakefile;
-vs2019.solutionfile = ../vc16/CodeSmithyContentPlatormWebServer.sln;
-vs2017.solutionfile = ../vc15/CodeSmithyContentPlatormWebServer.sln;
-vs2015.solutionfile = ../vc14/CodeSmithyContentPlatormWebServer.sln;
-vs2013.solutionfile = ../vc12/CodeSmithyContentPlatormWebServer.sln;
+vs2019.solutionfile = ../vc16/CodeSmithyContentPlatformWebServer.sln;
+vs2017.solutionfile = ../vc15/CodeSmithyContentPlatformWebServer.sln;
+vs2015.solutionfile = ../vc14/CodeSmithyContentPlatformWebServer.sln;
+vs2013.solutionfile = ../vc12/CodeSmithyContentPlatformWebServer.sln;
 
-program CodeSmithyContentPlatormWebServer : CodeSmithyContentPlatformCore
+program CodeSmithyContentPlatformWebServer : CodeSmithyContentPlatformCore
 {
     archs = x86 x86_64;
 
