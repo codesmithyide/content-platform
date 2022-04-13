@@ -7,6 +7,7 @@
 #include "WebServerTests.hpp"
 #include "CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp"
 #include <Ishiko/Logging.hpp>
+#include <thread>
 
 using namespace CodeSmithy::ContentPlatform;
 using namespace Ishiko;
@@ -15,6 +16,7 @@ WebServerTests::WebServerTests(const TestNumber& number, const TestContext& cont
     : TestSequence(number, "WebServer tests", context)
 {
     append<HeapAllocationErrorsTest>("Creation test 1", ConstructorTest1);
+    append<HeapAllocationErrorsTest>("run test 1", RunTest1);
 }
 
 void WebServerTests::ConstructorTest1(Test& test)
@@ -23,6 +25,26 @@ void WebServerTests::ConstructorTest1(Test& test)
     Ishiko::Logger log(sink);
 
     WebServer server(log);
+
+    ISHIKO_TEST_PASS();
+}
+
+void WebServerTests::RunTest1(Test& test)
+{
+    Ishiko::NullLoggingSink sink;
+    Ishiko::Logger log(sink);
+
+    WebServer server(log);
+
+    std::thread serverThread(
+        [&server]()
+        {
+            server.run();
+        });
+
+    server.stop();
+
+    serverThread.join();
 
     ISHIKO_TEST_PASS();
 }

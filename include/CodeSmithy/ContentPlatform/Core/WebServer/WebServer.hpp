@@ -22,6 +22,7 @@ public:
     WebServer(Ishiko::Logger& logger);
 
     void run();
+    void stop();
 
 private:
     Nemu::WebApplication m_app;
