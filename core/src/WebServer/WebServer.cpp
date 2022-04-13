@@ -31,3 +31,8 @@ void WebServer::run()
 {
     m_app.run();
 }
+
+void WebServer::stop()
+{
+    m_app.stop();
+}
