@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: nemuframework/gcc-nemu-cpp:0.6.0
+      - image: nemuframework/gcc-nemu-cpp:0.7.0
     steps:
       - run: 
           name: "Set CODESMITHYIDE environment variables"
@@ -12,6 +12,12 @@ jobs:
       - run:
           name: Build CodeSmithyContentPlatformCore library
           command: cd /projects/codesmithyide/content-platform/core/build/gnumake && make
+      - run:
+          name: Test build
+          command: cd /projects/codesmithyide/content-platform/core/tests/build/gnumake && make
+      - run:
+          name: Run the tests
+          command: cd /projects/codesmithyide/content-platform/core/tests/build/gnumake && ./CodeSmithyContentPlatformCoreTests
       - run:
           name: Build CodeSmithyContentPlatformWebServer binary
           command: cd /projects/codesmithyide/content-platform/web-server/build/gnumake && make
