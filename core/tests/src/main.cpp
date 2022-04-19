@@ -14,6 +14,10 @@ int main(int argc, char* argv[])
 {
     TestHarness theTestHarness("CodeSmithyContentPlatformCore Library Tests");
 
+    theTestHarness.context().setTestDataDirectory("../../data");
+    theTestHarness.context().setTestOutputDirectory("../../output");
+    theTestHarness.context().setReferenceDataDirectory("../../reference");
+
     TestSequence& theTests = theTestHarness.tests();
     theTests.append<WebServerTests>();
 
