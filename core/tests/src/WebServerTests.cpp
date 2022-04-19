@@ -6,6 +6,7 @@
 
 #include "WebServerTests.hpp"
 #include "CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp"
+#include <Ishiko/HTTP.hpp>
 #include <Ishiko/Logging.hpp>
 #include <thread>
 
@@ -17,24 +18,29 @@ WebServerTests::WebServerTests(const TestNumber& number, const TestContext& cont
 {
     append<HeapAllocationErrorsTest>("Creation test 1", ConstructorTest1);
     append<HeapAllocationErrorsTest>("run test 1", RunTest1);
+    append<HeapAllocationErrorsTest>("run test 2", RunTest2);
 }
 
 void WebServerTests::ConstructorTest1(Test& test)
 {
-    Ishiko::NullLoggingSink sink;
-    Ishiko::Logger log(sink);
+    boost::filesystem::path staticContentDir = test.context().getTestDataPath("content");
 
-    WebServer server(log);
+    NullLoggingSink sink;
+    Logger log(sink);
+
+    WebServer server(staticContentDir.string(), log);
 
     ISHIKO_TEST_PASS();
 }
 
 void WebServerTests::RunTest1(Test& test)
 {
-    Ishiko::NullLoggingSink sink;
-    Ishiko::Logger log(sink);
+    boost::filesystem::path staticContentDir = test.context().getTestDataPath("content");
 
-    WebServer server(log);
+    NullLoggingSink sink;
+    Logger log(sink);
+
+    WebServer server(staticContentDir.string(), log);
 
     std::thread serverThread(
         [&server]()
@@ -43,8 +49,38 @@ void WebServerTests::RunTest1(Test& test)
         });
 
     server.stop();
-
     serverThread.join();
 
+    ISHIKO_TEST_PASS();
+}
+
+void WebServerTests::RunTest2(Test& test)
+{
+    boost::filesystem::path staticContentDir = test.context().getTestDataPath("content");
+
+    NullLoggingSink sink;
+    Logger log(sink);
+
+    WebServer server(staticContentDir.string(), log);
+
+    std::thread serverThread(
+        [&server]()
+        {
+            server.run();
+        });
+
+    boost::filesystem::path outputPath(test.context().getTestOutputPath("WebServerTests_RunTest2.bin"));
+    std::ofstream responseFile(outputPath.string(), std::ios::out | std::ios::binary);
+    Error error;
+    HTTPClient::Get(IPv4Address::Localhost(), Port::http, "/", responseFile, error);
+
+    ISHIKO_TEST_FAIL_IF(error);
+
+    responseFile.close();
+
+    server.stop();
+    serverThread.join();
+
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest2.bin", "WebServerTests_RunTest2.bin");
     ISHIKO_TEST_PASS();
 }

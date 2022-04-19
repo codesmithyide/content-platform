@@ -19,7 +19,8 @@ namespace ContentPlatform
 class WebServer
 {
 public:
-    WebServer(Ishiko::Logger& logger);
+    // TODO: contentRootDir is probably not flexible enough but it will do for now
+    WebServer(const std::string& contentRootDir, Ishiko::Logger& logger);
 
     void run();
     void stop();

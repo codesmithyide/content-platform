@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: nemuframework/gcc-nemu-cpp:0.7.0
+      - image: nemuframework/gcc-nemu-cpp:0.8.0
     steps:
       - run: 
           name: "Set CODESMITHYIDE environment variables"

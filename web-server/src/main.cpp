@@ -19,7 +19,8 @@ int main(int argc, char* argv[])
         Ishiko::StreamLoggingSink sink(std::cout);
         Ishiko::Logger log(sink);
 
-        WebServer server(log);
+        // TODO: proper command line handling
+        WebServer server(argv[1], log);
         server.run();
 
         return 0;
