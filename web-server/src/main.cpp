@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 
         // TODO: get from config
         const std::string templatesRootDir = "${CODESMITHYIDE}/content-platform-themes/default/templates";
-        const std::string layoutsRootDir = "${CODESMITHYIDE}/content-platform-themes/default/layout";
+        const std::string layoutsRootDir = "${CODESMITHYIDE}/content-platform-themes/default/layouts";
         Presentation presentation(templatesRootDir, layoutsRootDir);
 
         WebServer server(presentation, log);
