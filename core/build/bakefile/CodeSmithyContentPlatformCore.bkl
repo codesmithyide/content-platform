@@ -11,7 +11,7 @@ vs2013.solutionfile = ../vc12/CodeSmithyContentPlatformCore.sln;
 
 library CodeSmithyContentPlatformCore : Nemu
 {
-    includedirs += ../../../include/CodeSmithy/ContentPlatform;
+    includedirs += ../../../include/CodeSmithy/ContentPlatform/Core;
 
     if ($(toolset) == gnu)
     {
@@ -33,12 +33,16 @@ library CodeSmithyContentPlatformCore : Nemu
     headers
     {
         ../../../include/CodeSmithy/ContentPlatform/Core.hpp
+        ../../../include/CodeSmithy/ContentPlatform/Core/Content.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/linkoptions.hpp
+        ../../../include/CodeSmithy/ContentPlatform/Core/Presentation.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp
     }
 
     sources
     {
+        ../../src/Content.cpp
+        ../../src/Presentation.cpp
         ../../src/WebServer/WebServer.cpp
     }
 }

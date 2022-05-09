@@ -50,6 +50,7 @@ endif
 #      ISHIKO_CPP_TYPES_ROOT                 Path to the Ishiko Types installation
 #      ISHIKO_CPP_HTTP_ROOT                  Path to the Ishiko HTTP installation
 #      NEMU_CPP_WEBFRAMEWORK_ROOT            Path to the Nemu WebFramework installation
+#      ISHIKO_CPP_PROCESS_ROOT               Path to the Ishiko Process installation
 #      MSTCH_ROOT                            Path to the mstch installation
 #      NEMU_CPP_MUSTACHETEMPLATEENGINE_ROOT  Path to the Nemu installation
 #      NEMU_CPP_ROOT                         Path to the Nemu installation
@@ -100,6 +101,8 @@ ISHIKO_CPP_TYPES_ROOT ?= $(ISHIKO_CPP)/types
 ISHIKO_CPP_HTTP_ROOT ?= $(ISHIKO_CPP)/http
 # Path to the Nemu WebFramework installation
 NEMU_CPP_WEBFRAMEWORK_ROOT ?= $(NEMU_CPP)/web-framework
+# Path to the Ishiko Process installation
+ISHIKO_CPP_PROCESS_ROOT ?= $(ISHIKO_CPP)/process
 # Path to the mstch installation
 MSTCH_ROOT ?= $(MSTCH)
 # Path to the Nemu installation
@@ -114,10 +117,10 @@ CODESMITHYIDE_CONTENTPLATFORM_ROOT ?= $(CODESMITHYIDE)/content-platform
 all: $(_builddir)CodeSmithyContentPlatformWebServer
 
 $(_builddir)CodeSmithyContentPlatformWebServer: $(_builddir)CodeSmithyContentPlatformWebServer_main.o
-	$(CXX) -o $@ $(LDFLAGS) $(_builddir)CodeSmithyContentPlatformWebServer_main.o -L$(ISHIKO_CPP_ERRORS_ROOT)/lib -L$(ISHIKO_CPP_TEXT_ROOT)/lib -L$(ISHIKO_CPP_NETWORKING_ROOT)/lib -L$(ISHIKO_CPP_BOOST_ROOT)/lib -L$(ISHIKO_CPP_FILESYSTEM_ROOT)/lib -L$(ISHIKO_CPP_FMT_ROOT)/lib -L$(ISHIKO_CPP_TIME_ROOT)/lib -L$(ISHIKO_CPP_LOGGING_ROOT)/lib -L$(NEMU_CPP_CORE_ROOT)/lib -L$(ISHIKO_CPP_TYPES_ROOT)/lib -L$(ISHIKO_CPP_HTTP_ROOT)/lib -L$(NEMU_CPP_WEBFRAMEWORK_ROOT)/lib -L$(MSTCH_ROOT)/src/$(config) -L$(NEMU_CPP_MUSTACHETEMPLATEENGINE_ROOT)/lib -L$(CODESMITHYIDE_CONTENTPLATFORM_ROOT)/lib -lCodeSmithyContentPlatformCore -lNemuWebFramework -lNemuCore -lIshikoHTTP -lIshikoNetworking -lIshikoFileSystem -lIshikoTime -lIshikoText -lIshikoTypes -lIshikoLogging -lIshikoErrors -lfmt -lboost_filesystem -pthread
+	$(CXX) -o $@ $(LDFLAGS) $(_builddir)CodeSmithyContentPlatformWebServer_main.o -L$(ISHIKO_CPP_ERRORS_ROOT)/lib -L$(ISHIKO_CPP_TEXT_ROOT)/lib -L$(ISHIKO_CPP_NETWORKING_ROOT)/lib -L$(ISHIKO_CPP_BOOST_ROOT)/lib -L$(ISHIKO_CPP_FILESYSTEM_ROOT)/lib -L$(ISHIKO_CPP_FMT_ROOT)/lib -L$(ISHIKO_CPP_TIME_ROOT)/lib -L$(ISHIKO_CPP_LOGGING_ROOT)/lib -L$(NEMU_CPP_CORE_ROOT)/lib -L$(ISHIKO_CPP_TYPES_ROOT)/lib -L$(ISHIKO_CPP_HTTP_ROOT)/lib -L$(NEMU_CPP_WEBFRAMEWORK_ROOT)/lib -L$(ISHIKO_CPP_PROCESS_ROOT)/lib -L$(MSTCH_ROOT)/src/$(config) -L$(NEMU_CPP_MUSTACHETEMPLATEENGINE_ROOT)/lib -L$(CODESMITHYIDE_CONTENTPLATFORM_ROOT)/lib -lCodeSmithyContentPlatformCore -lNemuMustacheTemplateEngine -lNemuWebFramework -lNemuCore -lIshikoHTTP -lIshikoNetworking -lIshikoFileSystem -lIshikoProcess -lIshikoTime -lIshikoText -lIshikoTypes -lIshikoLogging -lIshikoErrors -lmstch -lfmt -lboost_filesystem -pthread
 
 $(_builddir)CodeSmithyContentPlatformWebServer_main.o: ../../src/main.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_NETWORKING_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_LOGGING_ROOT)/include -I$(NEMU_CPP_CORE_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_HTTP_ROOT)/include -I$(NEMU_CPP_WEBFRAMEWORK_ROOT)/include -I$(MSTCH_ROOT)/include -I$(NEMU_CPP_MUSTACHETEMPLATEENGINE_ROOT)/include -I$(NEMU_CPP_ROOT)/include -I$(CODESMITHYIDE_CONTENTPLATFORM_ROOT)/include -std=c++11 ../../src/main.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -pthread -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_NETWORKING_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_LOGGING_ROOT)/include -I$(NEMU_CPP_CORE_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_HTTP_ROOT)/include -I$(NEMU_CPP_WEBFRAMEWORK_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(MSTCH_ROOT)/include -I$(NEMU_CPP_MUSTACHETEMPLATEENGINE_ROOT)/include -I$(NEMU_CPP_ROOT)/include -I$(CODESMITHYIDE_CONTENTPLATFORM_ROOT)/include -std=c++11 ../../src/main.cpp
 
 clean:
 	rm -f $(_builddir)*.o

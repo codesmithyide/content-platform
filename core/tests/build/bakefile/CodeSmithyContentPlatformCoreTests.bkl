@@ -18,7 +18,7 @@ program CodeSmithyContentPlatformCoreTests : CodeSmithyContentPlatformCore, Ishi
     if ($(toolset) == gnu)
     {
         cxx-compiler-options = "-std=c++11";
-        libs += CodeSmithyContentPlatformCore NemuWebFramework NemuCore IshikoHTTP IshikoNetworking IshikoTestFramework IshikoTestFrameworkCore IshikoDiff IshikoFileSystem IshikoProcess IshikoTime IshikoText IshikoTypes IshikoLogging IshikoErrors fmt boost_filesystem;
+        libs += CodeSmithyContentPlatformCore NemuMustacheTemplateEngine NemuWebFramework NemuCore IshikoHTTP IshikoNetworking IshikoTestFramework IshikoTestFrameworkCore IshikoDiff IshikoFileSystem IshikoProcess IshikoTime IshikoText IshikoTypes IshikoLogging IshikoErrors mstch fmt boost_filesystem;
     }
 
     headers
