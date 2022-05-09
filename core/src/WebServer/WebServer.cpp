@@ -4,7 +4,7 @@
     See https://github.com/codesmithyide/content-platform/blob/main/LICENSE.txt
 */
 
-#include "Core/WebServer/WebServer.hpp"
+#include "WebServer/WebServer.hpp"
 
 using namespace CodeSmithy::ContentPlatform;
 
