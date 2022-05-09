@@ -11,7 +11,7 @@ vs2013.solutionfile = ../vc12/CodeSmithyContentPlatformCore.sln;
 
 library CodeSmithyContentPlatformCore : Nemu
 {
-    includedirs += ../../../include/CodeSmithy/ContentPlatform;
+    includedirs += ../../../include/CodeSmithy/ContentPlatform/Core;
 
     if ($(toolset) == gnu)
     {
