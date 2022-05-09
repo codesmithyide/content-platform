@@ -8,19 +8,16 @@
 
 using namespace CodeSmithy::ContentPlatform;
 
-WebServer::WebServer(const std::string& contentRootDir, Ishiko::Logger& logger)
+WebServer::WebServer(const Presentation& presentation, Ishiko::Logger& logger)
     : m_app(
         std::make_shared<Nemu::SingleConnectionWebServer>(Ishiko::TCPServerSocket::AllInterfaces, Ishiko::Port::http,
             logger),
         logger)
 {
     // Set the mustache engine as the default template engine
-    // TODO: get from config
-    const std::string templatesRootDir = "${CODESMITHYIDE}/content-platform-themes/default/templates";
-    const std::string layoutsRootDir = "${CODESMITHYIDE}/content-platform-themes/default/layout";
     m_app.views().add(
         std::make_shared<Nemu::MustacheTemplateEngine>(
-            Nemu::MustacheTemplateEngine::Options(templatesRootDir, layoutsRootDir)));
+            Nemu::MustacheTemplateEngine::Options(presentation.templatesRootDir(), presentation.layoutsRootDir())));
 
     m_app.routes().append(
         Nemu::Route("/*",

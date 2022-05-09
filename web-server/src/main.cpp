@@ -20,7 +20,13 @@ int main(int argc, char* argv[])
         Ishiko::Logger log(sink);
 
         // TODO: proper command line handling
-        WebServer server(argv[1], log);
+
+        // TODO: get from config
+        const std::string templatesRootDir = "${CODESMITHYIDE}/content-platform-themes/default/templates";
+        const std::string layoutsRootDir = "${CODESMITHYIDE}/content-platform-themes/default/layout";
+        Presentation presentation(templatesRootDir, layoutsRootDir);
+
+        WebServer server(presentation, log);
         server.run();
 
         return 0;

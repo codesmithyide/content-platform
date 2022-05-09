@@ -23,24 +23,28 @@ WebServerTests::WebServerTests(const TestNumber& number, const TestContext& cont
 
 void WebServerTests::ConstructorTest1(Test& test)
 {
-    boost::filesystem::path staticContentDir = test.context().getTestDataPath("content");
+    boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/test-site-1/templates");
+    boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/test-site-1/layouts");
 
     NullLoggingSink sink;
     Logger log(sink);
 
-    WebServer server(staticContentDir.string(), log);
+    Presentation presentation(templatesDir.string(), layoutsDir.string());
+    WebServer server(presentation, log);
 
     ISHIKO_TEST_PASS();
 }
 
 void WebServerTests::RunTest1(Test& test)
 {
-    boost::filesystem::path staticContentDir = test.context().getTestDataPath("content");
+    boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/test-site-1/templates");
+    boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/test-site-1/layouts");
 
     NullLoggingSink sink;
     Logger log(sink);
 
-    WebServer server(staticContentDir.string(), log);
+    Presentation presentation(templatesDir.string(), layoutsDir.string());
+    WebServer server(presentation, log);
 
     std::thread serverThread(
         [&server]()
@@ -56,12 +60,14 @@ void WebServerTests::RunTest1(Test& test)
 
 void WebServerTests::RunTest2(Test& test)
 {
-    boost::filesystem::path staticContentDir = test.context().getTestDataPath("content");
+    boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/test-site-1/templates");
+    boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/test-site-1/layouts");
 
     NullLoggingSink sink;
     Logger log(sink);
 
-    WebServer server(staticContentDir.string(), log);
+    Presentation presentation(templatesDir.string(), layoutsDir.string());
+    WebServer server(presentation, log);
 
     std::thread serverThread(
         [&server]()

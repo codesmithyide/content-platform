@@ -7,4 +7,27 @@
 #ifndef _CODESMITHY_CONTENTPLATFORM_CORE_PRESENTATION_HPP_
 #define _CODESMITHY_CONTENTPLATFORM_CORE_PRESENTATION_HPP_
 
+#include <string>
+
+namespace CodeSmithy
+{
+namespace ContentPlatform
+{
+
+class Presentation
+{
+public:
+    Presentation(std::string templatesRootDir, std::string layoutsRootDir);
+
+    const std::string& templatesRootDir() const;
+    const std::string& layoutsRootDir() const;
+
+private:
+    std::string m_templatesRootDir;
+    std::string m_layoutsRootDir;
+};
+
+}
+}
+
 #endif
