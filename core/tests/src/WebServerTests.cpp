@@ -30,7 +30,7 @@ void WebServerTests::ConstructorTest1(Test& test)
     Logger log(sink);
 
     Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(presentation, log);
+    WebServer server(WebServer::CommandLineSpecification().createDefaultConfiguration(), presentation, log);
 
     ISHIKO_TEST_PASS();
 }
@@ -44,7 +44,7 @@ void WebServerTests::RunTest1(Test& test)
     Logger log(sink);
 
     Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(presentation, log);
+    WebServer server(WebServer::CommandLineSpecification().createDefaultConfiguration(), presentation, log);
 
     std::thread serverThread(
         [&server]()
@@ -67,7 +67,7 @@ void WebServerTests::RunTest2(Test& test)
     Logger log(sink);
 
     Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(presentation, log);
+    WebServer server(WebServer::CommandLineSpecification().createDefaultConfiguration(), presentation, log);
 
     std::thread serverThread(
         [&server]()
