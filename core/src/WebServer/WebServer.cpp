@@ -8,6 +8,12 @@
 
 using namespace CodeSmithy::ContentPlatform;
 
+WebServer::CommandLineSpecification::CommandLineSpecification()
+{
+    addNamedOption("log-level", { Ishiko::CommandLineSpecification::OptionType::toggle, "true" });
+    addNamedOption("port", { Ishiko::CommandLineSpecification::OptionType::singleValue, "80" });
+}
+
 WebServer::WebServer(const Presentation& presentation, Ishiko::Logger& logger)
     : m_app(
         std::make_shared<Nemu::SingleConnectionWebServer>(Ishiko::TCPServerSocket::AllInterfaces, Ishiko::Port::http,
