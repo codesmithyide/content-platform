@@ -5,6 +5,7 @@
 */
 
 #include <CodeSmithy/ContentPlatform/Core.hpp>
+#include <Ishiko/Configuration.hpp>
 #include <Ishiko/Logging.hpp>
 #include <iostream>
 #include <memory>
@@ -15,18 +16,23 @@ int main(int argc, char* argv[])
 {
     try
     {
-        // Create a log that sends its output to the console.
-        Ishiko::StreamLoggingSink sink(std::cout);
-        Ishiko::Logger log(sink);
+        WebServer::CommandLineSpecification commandLineSpec;
+        Ishiko::Configuration configuration = commandLineSpec.createDefaultConfiguration();
+        Ishiko::CommandLineParser parser;
+        parser.parse(commandLineSpec, argc, argv, configuration);
 
-        // TODO: proper command line handling
+        // Create a log that sends its output to stdout and stderr.
+        Ishiko::StandardStreamsLoggingSink sink;
+        Ishiko::Logger log(sink);
 
         // TODO: get from config
         const std::string templatesRootDir = "${CODESMITHYIDE}/content-platform-themes/default/templates";
         const std::string layoutsRootDir = "${CODESMITHYIDE}/content-platform-themes/default/layouts";
         Presentation presentation(templatesRootDir, layoutsRootDir);
 
-        WebServer server(presentation, log);
+        WebServer::Configuration webServerConfiguration(configuration);
+        log.setLevel(webServerConfiguration.logLevel());
+        WebServer server(webServerConfiguration, presentation, log);
         server.run();
 
         return 0;
