@@ -1,3 +1,5 @@
+ishikopath = envvar("ISHIKO_CPP");
+import $(ishikopath)/Configuration/include/Ishiko/Configuration.bkl;
 nemupath = envvar("NEMU_CPP");
 import $(nemupath)/nemu/include/Nemu.bkl;
 
@@ -7,7 +9,7 @@ setting CODESMITHYIDE_CONTENTPLATFORM_ROOT
     default = '$(CODESMITHYIDE)/content-platform';
 }
 
-template CodeSmithyContentPlatformCore : Nemu
+template CodeSmithyContentPlatformCore : Nemu, IshikoConfiguration
 {
     includedirs += $(CODESMITHYIDE_CONTENTPLATFORM_ROOT)/include;
 
