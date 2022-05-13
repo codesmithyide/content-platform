@@ -5,18 +5,34 @@
 */
 
 #include "WebServer/WebServer.hpp"
+#include <Ishiko/Text.hpp>
 
 using namespace CodeSmithy::ContentPlatform;
 
 WebServer::CommandLineSpecification::CommandLineSpecification()
 {
-    addNamedOption("log-level", { Ishiko::CommandLineSpecification::OptionType::toggle, "true" });
+    addNamedOption("log-level", { Ishiko::CommandLineSpecification::OptionType::toggle, "info" });
     addNamedOption("port", { Ishiko::CommandLineSpecification::OptionType::singleValue, "80" });
 }
 
-WebServer::WebServer(const Presentation& presentation, Ishiko::Logger& logger)
+WebServer::Configuration::Configuration(const Ishiko::Configuration& configuration)
+    : m_port(configuration.value("port")), m_logLevel(Ishiko::LogLevel::FromString(configuration.value("log-level")))
+{
+}
+
+Ishiko::Port WebServer::Configuration::port() const
+{
+    return m_port;
+}
+
+Ishiko::LogLevel WebServer::Configuration::logLevel() const
+{
+    return m_logLevel;
+}
+
+WebServer::WebServer(const Configuration& configuration, const Presentation& presentation, Ishiko::Logger& logger)
     : m_app(
-        std::make_shared<Nemu::SingleConnectionWebServer>(Ishiko::TCPServerSocket::AllInterfaces, Ishiko::Port::http,
+        std::make_shared<Nemu::SingleConnectionWebServer>(Ishiko::TCPServerSocket::AllInterfaces, configuration.port(),
             logger),
         logger)
 {

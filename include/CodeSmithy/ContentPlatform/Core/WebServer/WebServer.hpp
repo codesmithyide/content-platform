@@ -10,6 +10,7 @@
 #include "../Presentation.hpp"
 #include <Ishiko/Configuration.hpp>
 #include <Ishiko/Logging.hpp>
+#include <Ishiko/Networking.hpp>
 #include <Nemu.hpp>
 #include <memory>
 
@@ -26,8 +27,21 @@ public:
     public:
         CommandLineSpecification();
     };
+
+    class Configuration
+    {
+    public:
+        Configuration(const Ishiko::Configuration& configuration);
+
+        Ishiko::Port port() const;
+        Ishiko::LogLevel logLevel() const;
+
+    private:
+        Ishiko::Port m_port;
+        Ishiko::LogLevel m_logLevel;
+    };
    
-    WebServer(const Presentation& presentation, Ishiko::Logger& logger);
+    WebServer(const Configuration& configuration, const Presentation& presentation, Ishiko::Logger& logger);
 
     void run();
     void stop();
