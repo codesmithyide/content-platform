@@ -18,17 +18,21 @@ program CodeSmithyContentPlatformCoreTests : CodeSmithyContentPlatformCore, Ishi
     if ($(toolset) == gnu)
     {
         cxx-compiler-options = "-std=c++11";
-        libs += CodeSmithyContentPlatformCore NemuMustacheTemplateEngine NemuWebFramework NemuCore IshikoHTTP IshikoNetworking IshikoTestFramework IshikoTestFrameworkCore IshikoConfiguration IshikoDiff IshikoFileSystem IshikoProcess IshikoTime IshikoText IshikoTypes IshikoLogging IshikoErrors mstch fmt boost_filesystem;
+        libs += CodeSmithyContentPlatformCore NemuMustacheTemplateEngine NemuWebFramework NemuCore IshikoHTTP IshikoNetworking IshikoTestFramework IshikoTestFrameworkCore IshikoConfiguration IshikoDiff IshikoJSON IshikoFileSystem IshikoProcess IshikoTime IshikoText IshikoTypes IshikoLogging IshikoErrors mstch fmt boost_filesystem;
     }
 
     headers
     {
+        ../../src/ContentTests.hpp
         ../../src/WebServerTests.hpp
+        ../../src/ContentTests/LocalContentRepositoryTests.hpp
     }
 
     sources
     {
+        ../../src/ContentTests.cpp
         ../../src/main.cpp
         ../../src/WebServerTests.cpp
+        ../../src/ContentTests/LocalContentRepositoryTests.cpp
     }
 }

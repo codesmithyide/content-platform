@@ -4,6 +4,7 @@
     See https://github.com/codesmithyide/content-platform/blob/main/LICENSE.txt
 */
 
+#include "ContentTests.hpp"
 #include "WebServerTests.hpp"
 #include "CodeSmithy/ContentPlatform/Core/linkoptions.hpp"
 #include <Ishiko/TestFramework/Core.hpp>
@@ -19,6 +20,7 @@ int main(int argc, char* argv[])
     theTestHarness.context().setReferenceDataDirectory("../../reference");
 
     TestSequence& theTests = theTestHarness.tests();
+    theTests.append<ContentTests>();
     theTests.append<WebServerTests>();
 
     return theTestHarness.run();
