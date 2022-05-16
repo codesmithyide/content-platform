@@ -11,12 +11,14 @@ using namespace CodeSmithy::ContentPlatform;
 
 WebServer::CommandLineSpecification::CommandLineSpecification()
 {
+    // TODO: --content as mandatory option without default
     addNamedOption("log-level", { Ishiko::CommandLineSpecification::OptionType::toggle, "info" });
     addNamedOption("port", { Ishiko::CommandLineSpecification::OptionType::singleValue, "80" });
 }
 
 WebServer::Configuration::Configuration(const Ishiko::Configuration& configuration)
-    : m_port(configuration.value("port")), m_logLevel(Ishiko::LogLevel::FromString(configuration.value("log-level")))
+    : m_port(configuration.value("port")), m_logLevel(Ishiko::LogLevel::FromString(configuration.value("log-level"))),
+    m_content(configuration.value("content"))
 {
 }
 
@@ -28,6 +30,11 @@ Ishiko::Port WebServer::Configuration::port() const
 Ishiko::LogLevel WebServer::Configuration::logLevel() const
 {
     return m_logLevel;
+}
+
+const boost::filesystem::path& WebServer::Configuration::content() const
+{
+    return m_content;
 }
 
 WebServer::WebServer(const Configuration& configuration, const Content& content, const Presentation& presentation,

@@ -9,6 +9,7 @@
 
 #include "../Content/Content.hpp"
 #include "../Presentation.hpp"
+#include <boost/filesystem.hpp>
 #include <Ishiko/Configuration.hpp>
 #include <Ishiko/Logging.hpp>
 #include <Ishiko/Networking.hpp>
@@ -36,10 +37,12 @@ public:
 
         Ishiko::Port port() const;
         Ishiko::LogLevel logLevel() const;
+        const boost::filesystem::path& content() const;
 
     private:
         Ishiko::Port m_port;
         Ishiko::LogLevel m_logLevel;
+        boost::filesystem::path m_content;
     };
    
     WebServer(const Configuration& configuration, const Content& content, const Presentation& presentation,
