@@ -18,7 +18,10 @@ LocalContentRepositoryTests::LocalContentRepositoryTests(const TestNumber& numbe
 
 void LocalContentRepositoryTests::ConstructorTest1(Test& test)
 {
-    LocalContentRepository repository;
+    boost::filesystem::path contentConfigurationFile = test.context().getTestDataPath("websites/test-site-1/content.json");
 
+    LocalContentRepository repository(contentConfigurationFile);
+
+    ISHIKO_TEST_FAIL_IF_NEQ(repository.getTitle(), "Test Site 1");
     ISHIKO_TEST_PASS();
 }

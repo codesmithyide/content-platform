@@ -8,6 +8,9 @@
 #define _CODESMITHY_CONTENTPLATFORM_CORE_CONTENT_LOCALCONTENTREPOSITORY_HPP_
 
 #include "Content.hpp"
+#include <boost/filesystem.hpp>
+#include <Ishiko/JSON.hpp>
+#include <string>
 
 namespace CodeSmithy
 {
@@ -17,7 +20,23 @@ namespace ContentPlatform
 class LocalContentRepository : public Content
 {
 public:
+    LocalContentRepository(const boost::filesystem::path& contentConfigurationFile);
+
     std::string getTitle() const override;
+
+private:
+    class JSONParserCallbacks : public Ishiko::JSONPushParser::Callbacks
+    {
+    public:
+        JSONParserCallbacks(LocalContentRepository& repository);
+
+        void onString(boost::string_view data) override;
+
+    private:
+        LocalContentRepository& m_repository;
+    };
+
+    std::string m_title;
 };
 
 }
