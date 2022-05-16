@@ -39,14 +39,14 @@ library CodeSmithyContentPlatformCore : Nemu, IshikoConfiguration, IshikoJSON
         ../../../include/CodeSmithy/ContentPlatform/Core/linkoptions.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Presentation.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/Content.hpp
-        ../../../include/CodeSmithy/ContentPlatform/Core/Content/JSONContentRepository.hpp
+        ../../../include/CodeSmithy/ContentPlatform/Core/Content/LocalContentRepository.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp
     }
 
     sources
     {
         ../../src/Presentation.cpp
-        ../../src/Content/JSONContentRepository.cpp
+        ../../src/Content/LocalContentRepository.cpp
         ../../src/WebServer/WebServer.cpp
     }
 }

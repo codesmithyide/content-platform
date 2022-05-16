@@ -23,7 +23,7 @@
     <ClInclude Include="..\..\src\WebServerTests.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ContentTests\JSONContentRepositoryTests.hpp">
+    <ClInclude Include="..\..\src\ContentTests\LocalContentRepositoryTests.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -37,7 +37,7 @@
     <ClCompile Include="..\..\src\WebServerTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ContentTests\JSONContentRepositoryTests.cpp">
+    <ClCompile Include="..\..\src\ContentTests\LocalContentRepositoryTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

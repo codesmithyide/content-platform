@@ -25,7 +25,7 @@ program CodeSmithyContentPlatformCoreTests : CodeSmithyContentPlatformCore, Ishi
     {
         ../../src/ContentTests.hpp
         ../../src/WebServerTests.hpp
-        ../../src/ContentTests/JSONContentRepositoryTests.hpp
+        ../../src/ContentTests/LocalContentRepositoryTests.hpp
     }
 
     sources
@@ -33,6 +33,6 @@ program CodeSmithyContentPlatformCoreTests : CodeSmithyContentPlatformCore, Ishi
         ../../src/ContentTests.cpp
         ../../src/main.cpp
         ../../src/WebServerTests.cpp
-        ../../src/ContentTests/JSONContentRepositoryTests.cpp
+        ../../src/ContentTests/LocalContentRepositoryTests.cpp
     }
 }

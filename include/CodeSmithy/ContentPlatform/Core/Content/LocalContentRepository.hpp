@@ -14,7 +14,7 @@ namespace CodeSmithy
 namespace ContentPlatform
 {
 
-class JSONContentRepository : public Content
+class LocalContentRepository : public Content
 {
 public:
     std::string getTitle() const override;

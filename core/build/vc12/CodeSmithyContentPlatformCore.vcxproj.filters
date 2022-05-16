@@ -29,7 +29,7 @@
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\Content.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\JSONContentRepository.hpp">
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\LocalContentRepository.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\WebServer\WebServer.hpp">
@@ -40,7 +40,7 @@
     <ClCompile Include="..\..\src\Presentation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Content\JSONContentRepository.cpp">
+    <ClCompile Include="..\..\src\Content\LocalContentRepository.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\WebServer\WebServer.cpp">

@@ -151,7 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Presentation.cpp" />
-    <ClCompile Include="..\..\src\Content\JSONContentRepository.cpp" />
+    <ClCompile Include="..\..\src\Content\LocalContentRepository.cpp" />
     <ClCompile Include="..\..\src\WebServer\WebServer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -159,7 +159,7 @@
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\linkoptions.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Presentation.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\Content.hpp" />
-    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\JSONContentRepository.hpp" />
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\LocalContentRepository.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\WebServer\WebServer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

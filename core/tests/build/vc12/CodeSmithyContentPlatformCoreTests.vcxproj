@@ -159,12 +159,12 @@
     <ClCompile Include="..\..\src\ContentTests.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\WebServerTests.cpp" />
-    <ClCompile Include="..\..\src\ContentTests\JSONContentRepositoryTests.cpp" />
+    <ClCompile Include="..\..\src\ContentTests\LocalContentRepositoryTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\ContentTests.hpp" />
     <ClInclude Include="..\..\src\WebServerTests.hpp" />
-    <ClInclude Include="..\..\src\ContentTests\JSONContentRepositoryTests.hpp" />
+    <ClInclude Include="..\..\src\ContentTests\LocalContentRepositoryTests.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
