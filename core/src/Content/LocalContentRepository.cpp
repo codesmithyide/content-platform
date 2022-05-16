@@ -4,11 +4,11 @@
     See https://github.com/codesmithyide/content-platform/blob/main/LICENSE.txt
 */
 
-#include "Content/JSONContentRepository.hpp"
+#include "Content/LocalContentRepository.hpp"
 
 using namespace CodeSmithy::ContentPlatform;
 
-std::string JSONContentRepository::getTitle() const
+std::string LocalContentRepository::getTitle() const
 {
     return "";
 }
