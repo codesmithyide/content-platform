@@ -20,19 +20,23 @@ int main(int argc, char* argv[])
         Ishiko::Configuration configuration = commandLineSpec.createDefaultConfiguration();
         Ishiko::CommandLineParser parser;
         parser.parse(commandLineSpec, argc, argv, configuration);
+        // TODO: validate the configuration at some point
 
         // Create a log that sends its output to stdout and stderr.
         Ishiko::StandardStreamsLoggingSink sink;
         Ishiko::Logger log(sink);
+
+        WebServer::Configuration webServerConfiguration(configuration);
+        log.setLevel(webServerConfiguration.logLevel());
 
         // TODO: get from config
         const std::string templatesRootDir = "${CODESMITHYIDE}/content-platform-themes/default/templates";
         const std::string layoutsRootDir = "${CODESMITHYIDE}/content-platform-themes/default/layouts";
         Presentation presentation(templatesRootDir, layoutsRootDir);
 
-        WebServer::Configuration webServerConfiguration(configuration);
-        log.setLevel(webServerConfiguration.logLevel());
-        WebServer server(webServerConfiguration, presentation, log);
+        LocalContentRepository content(webServerConfiguration.content());
+
+        WebServer server(webServerConfiguration, content, presentation, log);
         server.run();
 
         return 0;
