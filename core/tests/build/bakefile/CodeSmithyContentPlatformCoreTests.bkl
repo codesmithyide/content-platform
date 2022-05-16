@@ -23,12 +23,16 @@ program CodeSmithyContentPlatformCoreTests : CodeSmithyContentPlatformCore, Ishi
 
     headers
     {
+        ../../src/ContentTests.hpp
         ../../src/WebServerTests.hpp
+        ../../src/ContentTests/JSONContentRepositoryTests.hpp
     }
 
     sources
     {
+        ../../src/ContentTests.cpp
         ../../src/main.cpp
         ../../src/WebServerTests.cpp
+        ../../src/ContentTests/JSONContentRepositoryTests.cpp
     }
 }

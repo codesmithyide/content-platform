@@ -16,6 +16,8 @@ namespace ContentPlatform
 
 class JSONContentRepository : public Content
 {
+public:
+    std::string getTitle() const override;
 };
 
 }

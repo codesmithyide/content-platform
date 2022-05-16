@@ -5,3 +5,10 @@
 */
 
 #include "Content/JSONContentRepository.hpp"
+
+using namespace CodeSmithy::ContentPlatform;
+
+std::string JSONContentRepository::getTitle() const
+{
+    return "";
+}
