@@ -7,6 +7,7 @@
 #ifndef _CODESMITHY_CONTENTPLATFORM_CORE_WEBSERVER_WEBSERVER_HPP_
 #define _CODESMITHY_CONTENTPLATFORM_CORE_WEBSERVER_WEBSERVER_HPP_
 
+#include "../Content/Content.hpp"
 #include "../Presentation.hpp"
 #include <Ishiko/Configuration.hpp>
 #include <Ishiko/Logging.hpp>
@@ -41,7 +42,8 @@ public:
         Ishiko::LogLevel m_logLevel;
     };
    
-    WebServer(const Configuration& configuration, const Presentation& presentation, Ishiko::Logger& logger);
+    WebServer(const Configuration& configuration, const Content& content, const Presentation& presentation,
+        Ishiko::Logger& logger);
 
     void run();
     void stop();

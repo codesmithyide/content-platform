@@ -30,7 +30,8 @@ Ishiko::LogLevel WebServer::Configuration::logLevel() const
     return m_logLevel;
 }
 
-WebServer::WebServer(const Configuration& configuration, const Presentation& presentation, Ishiko::Logger& logger)
+WebServer::WebServer(const Configuration& configuration, const Content& content, const Presentation& presentation,
+    Ishiko::Logger& logger)
     : m_app(
         std::make_shared<Nemu::SingleConnectionWebServer>(Ishiko::TCPServerSocket::AllInterfaces, configuration.port(),
             logger),
@@ -44,12 +45,11 @@ WebServer::WebServer(const Configuration& configuration, const Presentation& pre
     m_app.routes().append(
         Nemu::Route("/*",
             std::make_shared<Nemu::FunctionWebRequestHandler>(
-                [](const Nemu::WebRequest& request, Nemu::WebResponseBuilder& response, void* handlerData,
+                [&content](const Nemu::WebRequest& request, Nemu::WebResponseBuilder& response, void* handlerData,
                     Ishiko::Logger& logger)
                 {
                     Nemu::ViewContext context;
-                    // TODO: get project from config
-                    context["codesmithy_page_title"] = "My Project";
+                    context["codesmithy_page_title"] = content.getTitle();
                     std::string templatePath = request.url().path();
                     if (templatePath == "/")
                     {

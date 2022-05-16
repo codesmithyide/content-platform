@@ -5,6 +5,7 @@
 */
 
 #include "WebServerTests.hpp"
+#include "CodeSmithy/ContentPlatform/Core/Content/LocalContentRepository.hpp"
 #include "CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp"
 #include <Ishiko/HTTP.hpp>
 #include <Ishiko/Logging.hpp>
@@ -23,28 +24,34 @@ WebServerTests::WebServerTests(const TestNumber& number, const TestContext& cont
 
 void WebServerTests::ConstructorTest1(Test& test)
 {
+    boost::filesystem::path contentConfigurationFile =
+        test.context().getTestDataPath("websites/test-site-1/content.json");
     boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/test-site-1/templates");
     boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/test-site-1/layouts");
 
     NullLoggingSink sink;
     Logger log(sink);
 
+    LocalContentRepository content(contentConfigurationFile);
     Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(WebServer::CommandLineSpecification().createDefaultConfiguration(), presentation, log);
+    WebServer server(WebServer::CommandLineSpecification().createDefaultConfiguration(), content, presentation, log);
 
     ISHIKO_TEST_PASS();
 }
 
 void WebServerTests::RunTest1(Test& test)
 {
+    boost::filesystem::path contentConfigurationFile =
+        test.context().getTestDataPath("websites/test-site-1/content.json");
     boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/test-site-1/templates");
     boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/test-site-1/layouts");
 
     NullLoggingSink sink;
     Logger log(sink);
 
+    LocalContentRepository content(contentConfigurationFile);
     Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(WebServer::CommandLineSpecification().createDefaultConfiguration(), presentation, log);
+    WebServer server(WebServer::CommandLineSpecification().createDefaultConfiguration(), content, presentation, log);
 
     std::thread serverThread(
         [&server]()
@@ -60,14 +67,17 @@ void WebServerTests::RunTest1(Test& test)
 
 void WebServerTests::RunTest2(Test& test)
 {
+    boost::filesystem::path contentConfigurationFile =
+        test.context().getTestDataPath("websites/test-site-1/content.json");
     boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/test-site-1/templates");
     boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/test-site-1/layouts");
 
     NullLoggingSink sink;
     Logger log(sink);
 
+    LocalContentRepository content(contentConfigurationFile);
     Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(WebServer::CommandLineSpecification().createDefaultConfiguration(), presentation, log);
+    WebServer server(WebServer::CommandLineSpecification().createDefaultConfiguration(), content, presentation, log);
 
     std::thread serverThread(
         [&server]()
