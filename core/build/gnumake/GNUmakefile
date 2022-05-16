@@ -41,6 +41,7 @@ endif
 #      ISHIKO_CPP_ERRORS_ROOT                Path to the Ishiko Errors installation
 #      ISHIKO_CPP_TEXT_ROOT                  Path to the Ishiko/Text installation
 #      ISHIKO_CPP_CONFIGURATION_ROOT         Path to the Ishiko Configuration installation
+#      ISHIKO_CPP_JSON_ROOT                  Path to the Ishiko JSON installation
 #      ISHIKO_CPP_BOOST_ROOT                 Path to the Boost installation
 #      ISHIKO_CPP_FILESYSTEM_ROOT            Path to the Ishiko FileSystem installation
 #      ISHIKO_CPP_FMT_ROOT                   Path to the fmt installation
@@ -89,6 +90,8 @@ ISHIKO_CPP_ERRORS_ROOT ?= $(ISHIKO_CPP)/errors
 ISHIKO_CPP_TEXT_ROOT ?= $(ISHIKO_CPP)/text
 # Path to the Ishiko Configuration installation
 ISHIKO_CPP_CONFIGURATION_ROOT ?= $(ISHIKO_CPP)/configuration
+# Path to the Ishiko JSON installation
+ISHIKO_CPP_JSON_ROOT ?= $(ISHIKO_CPP)/json
 # Path to the Boost installation
 ISHIKO_CPP_BOOST_ROOT ?= $(ISHIKO_CPP_THIRD_PARTY_BOOST)
 # Path to the Ishiko FileSystem installation
@@ -127,13 +130,13 @@ all: ../bakefile/../../../lib/lib$(if $(call _equal,$(config),Debug),CodeSmithyC
 	$(RANLIB) $@
 
 $(_builddir)CodeSmithyContentPlatformCore_Presentation.o: ../../src/Presentation.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_NETWORKING_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_LOGGING_ROOT)/include -I$(NEMU_CPP_CORE_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_HTTP_ROOT)/include -I$(NEMU_CPP_WEBFRAMEWORK_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(MSTCH_ROOT)/include -I$(NEMU_CPP_MUSTACHETEMPLATEENGINE_ROOT)/include -I$(NEMU_CPP_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I../../../include/CodeSmithy/ContentPlatform/Core -std=c++11 ../../src/Presentation.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_NETWORKING_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_LOGGING_ROOT)/include -I$(NEMU_CPP_CORE_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_HTTP_ROOT)/include -I$(NEMU_CPP_WEBFRAMEWORK_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(MSTCH_ROOT)/include -I$(NEMU_CPP_MUSTACHETEMPLATEENGINE_ROOT)/include -I$(NEMU_CPP_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I$(ISHIKO_CPP_JSON_ROOT)/include -I../../../include/CodeSmithy/ContentPlatform/Core -std=c++11 ../../src/Presentation.cpp
 
 $(_builddir)CodeSmithyContentPlatformCore_Content.o: ../../src/Content/Content.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_NETWORKING_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_LOGGING_ROOT)/include -I$(NEMU_CPP_CORE_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_HTTP_ROOT)/include -I$(NEMU_CPP_WEBFRAMEWORK_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(MSTCH_ROOT)/include -I$(NEMU_CPP_MUSTACHETEMPLATEENGINE_ROOT)/include -I$(NEMU_CPP_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I../../../include/CodeSmithy/ContentPlatform/Core -std=c++11 ../../src/Content/Content.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_NETWORKING_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_LOGGING_ROOT)/include -I$(NEMU_CPP_CORE_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_HTTP_ROOT)/include -I$(NEMU_CPP_WEBFRAMEWORK_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(MSTCH_ROOT)/include -I$(NEMU_CPP_MUSTACHETEMPLATEENGINE_ROOT)/include -I$(NEMU_CPP_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I$(ISHIKO_CPP_JSON_ROOT)/include -I../../../include/CodeSmithy/ContentPlatform/Core -std=c++11 ../../src/Content/Content.cpp
 
 $(_builddir)CodeSmithyContentPlatformCore_WebServer.o: ../../src/WebServer/WebServer.cpp
-	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_NETWORKING_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_LOGGING_ROOT)/include -I$(NEMU_CPP_CORE_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_HTTP_ROOT)/include -I$(NEMU_CPP_WEBFRAMEWORK_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(MSTCH_ROOT)/include -I$(NEMU_CPP_MUSTACHETEMPLATEENGINE_ROOT)/include -I$(NEMU_CPP_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I../../../include/CodeSmithy/ContentPlatform/Core -std=c++11 ../../src/WebServer/WebServer.cpp
+	$(CXX) -c -o $@ $(CPPFLAGS) $(CXXFLAGS) -MD -MP -fPIC -DPIC -pthread -I$(ISHIKO_CPP_ERRORS_ROOT)/include -I$(ISHIKO_CPP_BASEPLATFORM_ROOT)/include -I$(ISHIKO_CPP_TEXT_ROOT)/include -I$(ISHIKO_CPP_NETWORKING_ROOT)/include -I$(ISHIKO_CPP_BOOST_ROOT)/include -I$(ISHIKO_CPP_FILESYSTEM_ROOT)/include -I$(ISHIKO_CPP_FMT_ROOT)/include -I$(ISHIKO_CPP_TIME_ROOT)/include -I$(ISHIKO_CPP_LOGGING_ROOT)/include -I$(NEMU_CPP_CORE_ROOT)/include -I$(ISHIKO_CPP_TYPES_ROOT)/include -I$(ISHIKO_CPP_HTTP_ROOT)/include -I$(NEMU_CPP_WEBFRAMEWORK_ROOT)/include -I$(ISHIKO_CPP_PROCESS_ROOT)/include -I$(MSTCH_ROOT)/include -I$(NEMU_CPP_MUSTACHETEMPLATEENGINE_ROOT)/include -I$(NEMU_CPP_ROOT)/include -I$(ISHIKO_CPP_CONFIGURATION_ROOT)/include -I$(ISHIKO_CPP_JSON_ROOT)/include -I../../../include/CodeSmithy/ContentPlatform/Core -std=c++11 ../../src/WebServer/WebServer.cpp
 
 clean:
 	rm -f $(_builddir)*.o
