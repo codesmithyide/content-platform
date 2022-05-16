@@ -35,16 +35,16 @@ library CodeSmithyContentPlatformCore : Nemu, IshikoConfiguration
     headers
     {
         ../../../include/CodeSmithy/ContentPlatform/Core.hpp
-        ../../../include/CodeSmithy/ContentPlatform/Core/Content.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/linkoptions.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Presentation.hpp
+        ../../../include/CodeSmithy/ContentPlatform/Core/Content/Content.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp
     }
 
     sources
     {
-        ../../src/Content.cpp
         ../../src/Presentation.cpp
+        ../../src/Content/Content.cpp
         ../../src/WebServer/WebServer.cpp
     }
 }

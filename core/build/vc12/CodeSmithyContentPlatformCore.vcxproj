@@ -150,15 +150,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Content.cpp" />
     <ClCompile Include="..\..\src\Presentation.cpp" />
+    <ClCompile Include="..\..\src\Content\Content.cpp" />
     <ClCompile Include="..\..\src\WebServer\WebServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core.hpp" />
-    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\linkoptions.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Presentation.hpp" />
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\Content.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\WebServer\WebServer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
