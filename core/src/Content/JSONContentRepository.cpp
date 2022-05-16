@@ -4,4 +4,4 @@
     See https://github.com/codesmithyide/content-platform/blob/main/LICENSE.txt
 */
 
-#include "Content/Content.hpp"
+#include "Content/JSONContentRepository.hpp"
