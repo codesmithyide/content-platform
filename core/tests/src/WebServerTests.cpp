@@ -32,9 +32,12 @@ void WebServerTests::ConstructorTest1(Test& test)
     NullLoggingSink sink;
     Logger log(sink);
 
+    Configuration configuration = WebServer::CommandLineSpecification().createDefaultConfiguration();
+    configuration.set("content", contentConfigurationFile.string());
+
     LocalContentRepository content(contentConfigurationFile);
     Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(WebServer::CommandLineSpecification().createDefaultConfiguration(), content, presentation, log);
+    WebServer server(configuration, content, presentation, log);
 
     ISHIKO_TEST_PASS();
 }
@@ -49,9 +52,12 @@ void WebServerTests::RunTest1(Test& test)
     NullLoggingSink sink;
     Logger log(sink);
 
+    Configuration configuration = WebServer::CommandLineSpecification().createDefaultConfiguration();
+    configuration.set("content", contentConfigurationFile.string());
+
     LocalContentRepository content(contentConfigurationFile);
     Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(WebServer::CommandLineSpecification().createDefaultConfiguration(), content, presentation, log);
+    WebServer server(configuration, content, presentation, log);
 
     std::thread serverThread(
         [&server]()
@@ -75,9 +81,12 @@ void WebServerTests::RunTest2(Test& test)
     NullLoggingSink sink;
     Logger log(sink);
 
+    Configuration configuration = WebServer::CommandLineSpecification().createDefaultConfiguration();
+    configuration.set("content", contentConfigurationFile.string());
+
     LocalContentRepository content(contentConfigurationFile);
     Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(WebServer::CommandLineSpecification().createDefaultConfiguration(), content, presentation, log);
+    WebServer server(configuration, content, presentation, log);
 
     std::thread serverThread(
         [&server]()
