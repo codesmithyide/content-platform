@@ -20,6 +20,7 @@ public:
     virtual ~Content() = default;
 
     virtual std::string getTitle() const = 0;
+    virtual void homepage() const = 0;
 };
 
 }

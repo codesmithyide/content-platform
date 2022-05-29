@@ -9,16 +9,6 @@
 
 using namespace CodeSmithy::ContentPlatform;
 
-LocalContentRepository::JSONParserCallbacks::JSONParserCallbacks(LocalContentRepository& repository)
-    : m_repository(repository)
-{
-}
-
-void LocalContentRepository::JSONParserCallbacks::onString(boost::string_view data)
-{
-    m_repository.m_title = data.to_string();
-}
-
 LocalContentRepository::LocalContentRepository(const boost::filesystem::path& contentConfigurationFile)
 {
     JSONParserCallbacks callbacks(*this);
@@ -31,4 +21,31 @@ LocalContentRepository::LocalContentRepository(const boost::filesystem::path& co
 std::string LocalContentRepository::getTitle() const
 {
     return m_title;
+}
+
+void LocalContentRepository::homepage() const
+{
+    // TODO
+}
+
+LocalContentRepository::JSONParserCallbacks::JSONParserCallbacks(LocalContentRepository& repository)
+    : m_repository(repository)
+{
+}
+
+void LocalContentRepository::JSONParserCallbacks::onMemberName(boost::string_view data)
+{
+    m_context = data.to_string();
+}
+
+void LocalContentRepository::JSONParserCallbacks::onString(boost::string_view data)
+{
+    if (m_context == "title")
+    {
+        m_repository.m_title = data.to_string();
+    }
+    else if (m_context == "homepage")
+    {
+        // TODO
+    }
 }

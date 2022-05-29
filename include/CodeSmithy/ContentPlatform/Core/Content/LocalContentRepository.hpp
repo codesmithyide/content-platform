@@ -23,6 +23,7 @@ public:
     LocalContentRepository(const boost::filesystem::path& contentConfigurationFile);
 
     std::string getTitle() const override;
+    void homepage() const override;
 
 private:
     class JSONParserCallbacks : public Ishiko::JSONPushParser::Callbacks
@@ -30,10 +31,12 @@ private:
     public:
         JSONParserCallbacks(LocalContentRepository& repository);
 
+        void onMemberName(boost::string_view data) override;
         void onString(boost::string_view data) override;
 
     private:
         LocalContentRepository& m_repository;
+        std::string m_context;
     };
 
     std::string m_title;
