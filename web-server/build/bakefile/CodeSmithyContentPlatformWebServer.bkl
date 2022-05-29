@@ -18,7 +18,7 @@ program CodeSmithyContentPlatformWebServer : CodeSmithyContentPlatformCore, Ishi
     if ($(toolset) == gnu)
     {
         cxx-compiler-options = "-std=c++11";
-        libs += CodeSmithyContentPlatformCore NemuMustacheTemplateEngine NemuWebFramework NemuCore IshikoHTTP IshikoNetworking IshikoConfiguration IshikoJSON IshikoFileSystem IshikoProcess IshikoTime IshikoText IshikoTypes IshikoLogging IshikoErrors mstch fmt boost_filesystem;
+        libs += CodeSmithyContentPlatformCore NemuMustacheTemplateEngine NemuWebFramework NemuCore IshikoHTTP IshikoNetworking IshikoConfiguration IshikoJSON IshikoFileSystem IshikoProcess IshikoTime IshikoText IshikoTypes IshikoLogging IshikoMemory IshikoErrors mstch fmt boost_filesystem;
     }
 
     sources
