@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Presentation.cpp" />
+    <ClCompile Include="..\..\src\Content\ContentReference.cpp" />
     <ClCompile Include="..\..\src\Content\LocalContentRepository.cpp" />
     <ClCompile Include="..\..\src\Content\PageContentScheme.cpp" />
     <ClCompile Include="..\..\src\WebServer\WebServer.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\linkoptions.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Presentation.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\Content.hpp" />
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\ContentReference.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\ContentScheme.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\LocalContentRepository.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\PageContentScheme.hpp" />
