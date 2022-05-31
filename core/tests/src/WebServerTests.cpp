@@ -41,9 +41,10 @@ void WebServerTests::ConstructorTest1(Test& test)
 
     const Nemu::Routes& routes = server.routes();
 
-    ISHIKO_TEST_ABORT_IF_NEQ(routes.size(), 2);
-    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(0).pathPattern(), "/*");
-    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(1).pathPattern(), "*");
+    ISHIKO_TEST_ABORT_IF_NEQ(routes.size(), 3);
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(0).pathPattern(), "/index.html");
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(1).pathPattern(), "/*");
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(2).pathPattern(), "*");
     ISHIKO_TEST_PASS();
 }
 
@@ -99,18 +100,32 @@ void WebServerTests::RunTest2(Test& test)
             server.run();
         });
 
-    boost::filesystem::path outputPath(test.context().getTestOutputPath("WebServerTests_RunTest2.bin"));
-    std::ofstream responseFile(outputPath.string(), std::ios::out | std::ios::binary);
+    // We download "/" and check it matches the expected output
+    boost::filesystem::path outputPath1(test.context().getTestOutputPath("WebServerTests_RunTest2_root.bin"));
+    std::ofstream responseFile1(outputPath1.string(), std::ios::out | std::ios::binary);
     Error error;
-    HTTPClient::Get(IPv4Address::Localhost(), Port::http, "/", responseFile, error);
+    HTTPClient::Get(IPv4Address::Localhost(), Port::http, "/", responseFile1, error);
 
     ISHIKO_TEST_FAIL_IF(error);
 
-    responseFile.close();
+    responseFile1.close();
+
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest2_root.bin", "WebServerTests_RunTest2.bin");
+
+    // We download "index.html" which is actually the same file that should have been returned when we downloaded "/"
+    // and check it matches the same expected output.
+    boost::filesystem::path outputPath2(test.context().getTestOutputPath("WebServerTests_RunTest2_index.bin"));
+    std::ofstream responseFile2(outputPath2.string(), std::ios::out | std::ios::binary);
+    HTTPClient::Get(IPv4Address::Localhost(), Port::http, "/index.html", responseFile2, error);
+
+    ISHIKO_TEST_FAIL_IF(error);
+
+    responseFile2.close();
+
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest2_index.bin", "WebServerTests_RunTest2.bin");
 
     server.stop();
     serverThread.join();
 
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest2.bin", "WebServerTests_RunTest2.bin");
     ISHIKO_TEST_PASS();
 }
