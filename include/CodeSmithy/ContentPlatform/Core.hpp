@@ -10,7 +10,10 @@
 #include "Core/linkoptions.hpp"
 #include "Core/Presentation.hpp"
 #include "Core/Content/Content.hpp"
+#include "Core/Content/ContentReference.hpp"
+#include "Core/Content/ContentScheme.hpp"
 #include "Core/Content/LocalContentRepository.hpp"
+#include "Core/Content/PageContentScheme.hpp"
 #include "Core/WebServer/WebServer.hpp"
 
 #endif

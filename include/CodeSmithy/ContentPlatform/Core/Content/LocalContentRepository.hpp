@@ -11,6 +11,7 @@
 #include <boost/filesystem.hpp>
 #include <Ishiko/JSON.hpp>
 #include <string>
+#include <vector>
 
 namespace CodeSmithy
 {
@@ -23,7 +24,7 @@ public:
     LocalContentRepository(const boost::filesystem::path& contentConfigurationFile);
 
     std::string getTitle() const override;
-    void homepage() const override;
+    ContentReference getHomepage() const override;
 
 private:
     class JSONParserCallbacks : public Ishiko::JSONPushParser::Callbacks
@@ -32,14 +33,16 @@ private:
         JSONParserCallbacks(LocalContentRepository& repository);
 
         void onMemberName(boost::string_view data) override;
+        void onMemberEnd() override;
         void onString(boost::string_view data) override;
 
     private:
         LocalContentRepository& m_repository;
-        std::string m_context;
+        std::vector<std::string> m_context;
     };
 
     std::string m_title;
+    ContentReference m_homepage;
 };
 
 }
