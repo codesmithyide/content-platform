@@ -75,3 +75,13 @@ void WebServer::stop()
 {
     m_app.stop();
 }
+
+const Nemu::Routes& WebServer::routes() const noexcept
+{
+    return m_app.routes();
+}
+
+Nemu::Routes& WebServer::routes() noexcept
+{
+    return m_app.routes();
+}
