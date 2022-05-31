@@ -23,5 +23,11 @@ void LocalContentRepositoryTests::ConstructorTest1(Test& test)
     LocalContentRepository repository(contentConfigurationFile);
 
     ISHIKO_TEST_FAIL_IF_NEQ(repository.getTitle(), "Test Site 1");
+    ISHIKO_TEST_FAIL_IF_NEQ(repository.getHomepage(), ContentReference("page", "pages/index.html"));
+
+    const ContentPages& pages = repository.getPages();
+
+    ISHIKO_TEST_ABORT_IF_NEQ(pages.size(), 1);
+    ISHIKO_TEST_FAIL_IF_NEQ(pages.at(0), "pages/index.html");
     ISHIKO_TEST_PASS();
 }

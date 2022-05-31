@@ -23,9 +23,14 @@ std::string LocalContentRepository::getTitle() const
     return m_title;
 }
 
-void LocalContentRepository::homepage() const
+ContentReference LocalContentRepository::getHomepage() const
 {
-    // TODO
+    return m_homepage;
+}
+
+ContentPages LocalContentRepository::getPages() const
+{
+    return m_pages;
 }
 
 LocalContentRepository::JSONParserCallbacks::JSONParserCallbacks(LocalContentRepository& repository)
@@ -35,17 +40,51 @@ LocalContentRepository::JSONParserCallbacks::JSONParserCallbacks(LocalContentRep
 
 void LocalContentRepository::JSONParserCallbacks::onMemberName(boost::string_view data)
 {
-    m_context = data.to_string();
+    m_context.push_back(data.to_string());
+}
+
+void LocalContentRepository::JSONParserCallbacks::onMemberEnd()
+{
+    if (m_context.empty())
+    {
+        // TODO: error
+        return;
+    }
+    m_context.pop_back();
+}
+
+void LocalContentRepository::JSONParserCallbacks::onArrayBegin()
+{
+    m_context.push_back("[]");
+}
+
+void LocalContentRepository::JSONParserCallbacks::onArrayEnd()
+{
+    if (m_context.empty())
+    {
+        // TODO: error
+        return;
+    }
+    m_context.pop_back();
 }
 
 void LocalContentRepository::JSONParserCallbacks::onString(boost::string_view data)
 {
-    if (m_context == "title")
+    if (m_context.empty())
+    {
+        // TODO: error
+        return;
+    }
+    if (m_context.back() == "title")
     {
         m_repository.m_title = data.to_string();
     }
-    else if (m_context == "homepage")
+    else if (m_context == std::vector<std::string>({ "homepage", "page" }))
     {
-        // TODO
+        m_repository.m_homepage = ContentReference("page", data.to_string());
+    }
+    else if (m_context == std::vector<std::string>({ "content", "[]", "page", "path" }))
+    {
+        m_repository.m_pages.pushBack(data.to_string());
     }
 }
