@@ -18,6 +18,16 @@ const std::string& ContentPages::at(size_t pos) const
     return m_pages.at(pos);
 }
 
+ContentPages::iterator ContentPages::begin() noexcept
+{
+    return m_pages.begin();
+}
+
+ContentPages::iterator ContentPages::end() noexcept
+{
+    return m_pages.end();
+}
+
 void ContentPages::pushBack(const std::string& page)
 {
     m_pages.push_back(page);

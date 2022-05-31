@@ -18,8 +18,13 @@ namespace ContentPlatform
 class ContentPages
 {
 public:
+    typedef std::vector<std::string>::iterator iterator;
+
     size_t size() const noexcept;
     const std::string& at(size_t pos) const;
+
+    iterator begin() noexcept;
+    iterator end() noexcept;
 
     void pushBack(const std::string& page);
 
