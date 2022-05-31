@@ -39,6 +39,11 @@ void WebServerTests::ConstructorTest1(Test& test)
     Presentation presentation(templatesDir.string(), layoutsDir.string());
     WebServer server(configuration, content, presentation, log);
 
+    const Nemu::Routes& routes = server.routes();
+
+    ISHIKO_TEST_ABORT_IF_NEQ(routes.size(), 2);
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(0).pathPattern(), "/*");
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(1).pathPattern(), "*");
     ISHIKO_TEST_PASS();
 }
 
@@ -75,7 +80,7 @@ void WebServerTests::RunTest2(Test& test)
 {
     boost::filesystem::path contentConfigurationFile =
         test.context().getTestDataPath("websites/test-site-1/content.json");
-    boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/test-site-1/templates");
+    boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/test-site-1/pages");
     boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/test-site-1/layouts");
 
     NullLoggingSink sink;

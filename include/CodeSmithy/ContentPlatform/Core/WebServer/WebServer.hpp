@@ -51,6 +51,9 @@ public:
     void run();
     void stop();
 
+    const Nemu::Routes& routes() const noexcept;
+    Nemu::Routes& routes() noexcept;
+
 private:
     Nemu::WebApplication m_app;
 };
