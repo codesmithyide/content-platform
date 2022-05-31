@@ -25,6 +25,7 @@ public:
 
     std::string getTitle() const override;
     ContentReference getHomepage() const override;
+    ContentPages getPages() const override;
 
 private:
     class JSONParserCallbacks : public Ishiko::JSONPushParser::Callbacks
@@ -34,6 +35,8 @@ private:
 
         void onMemberName(boost::string_view data) override;
         void onMemberEnd() override;
+        void onArrayBegin() override;
+        void onArrayEnd() override;
         void onString(boost::string_view data) override;
 
     private:
@@ -43,6 +46,7 @@ private:
 
     std::string m_title;
     ContentReference m_homepage;
+    ContentPages m_pages;
 };
 
 }

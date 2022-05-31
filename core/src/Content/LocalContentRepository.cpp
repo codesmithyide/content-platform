@@ -28,6 +28,11 @@ ContentReference LocalContentRepository::getHomepage() const
     return m_homepage;
 }
 
+ContentPages LocalContentRepository::getPages() const
+{
+    return m_pages;
+}
+
 LocalContentRepository::JSONParserCallbacks::JSONParserCallbacks(LocalContentRepository& repository)
     : m_repository(repository)
 {
@@ -48,6 +53,21 @@ void LocalContentRepository::JSONParserCallbacks::onMemberEnd()
     m_context.pop_back();
 }
 
+void LocalContentRepository::JSONParserCallbacks::onArrayBegin()
+{
+    m_context.push_back("[]");
+}
+
+void LocalContentRepository::JSONParserCallbacks::onArrayEnd()
+{
+    if (m_context.empty())
+    {
+        // TODO: error
+        return;
+    }
+    m_context.pop_back();
+}
+
 void LocalContentRepository::JSONParserCallbacks::onString(boost::string_view data)
 {
     if (m_context.empty())
@@ -59,9 +79,12 @@ void LocalContentRepository::JSONParserCallbacks::onString(boost::string_view da
     {
         m_repository.m_title = data.to_string();
     }
-    // TODO: this is not necessarily "page" as it could be any scheme, this is user extensible
-    else if ((m_context.size() >= 2) && (m_context.back() == "page") && (*(m_context.end() - 2) == "homepage"))
+    else if (m_context == std::vector<std::string>({ "homepage", "page" }))
     {
         m_repository.m_homepage = ContentReference("page", data.to_string());
+    }
+    else if (m_context == std::vector<std::string>({ "content", "[]", "page", "path" }))
+    {
+        m_repository.m_pages.pushBack(data.to_string());
     }
 }

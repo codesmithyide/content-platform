@@ -2,6 +2,8 @@
     "title": "Test Site 1",
     "homepage": { "page": "pages/index.html" },
     "content": [
-        "page": { "path": "pages/index.html" }
+        {
+            "page": { "path": "pages/index.html" }
+        }
     ]
 }
