@@ -1,5 +1,5 @@
 HTTP/1.1 200 OK
-Content-Length: 147
+Content-Length: 201
 
 <!DOCTYPE html>
 <html>
@@ -8,6 +8,7 @@ Content-Length: 147
   <title>Test Site 1</title>
 </head>
 <body>
-  <p>Hello World!</p>
+  <h1>Test Site 1 Homepage</h1>
+  <p>This is the file pages/index.html</p>
 </body>
 </html>
