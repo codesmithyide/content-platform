@@ -170,6 +170,7 @@ void WebServerTests::RunTest3(Test& test)
     Logger log(sink);
 
     Configuration configuration = WebServer::CommandLineSpecification().createDefaultConfiguration();
+    configuration.set("port", "8100");
     configuration.set("content", contentConfigurationFile.string());
 
     LocalContentRepository content(contentConfigurationFile);
@@ -178,15 +179,15 @@ void WebServerTests::RunTest3(Test& test)
 
     std::thread serverThread(
         [&server]()
-    {
-        server.run();
-    });
+        {
+            server.run();
+        });
 
     // We download "/" and check it matches the expected output
     boost::filesystem::path outputPath1(test.context().getTestOutputPath("WebServerTests_RunTest3_root.bin"));
     std::ofstream responseFile1(outputPath1.string(), std::ios::out | std::ios::binary);
     Error error;
-    HTTPClient::Get(IPv4Address::Localhost(), Port::http, "/", responseFile1, error);
+    HTTPClient::Get(IPv4Address::Localhost(), 8100, "/", responseFile1, error);
 
     ISHIKO_TEST_FAIL_IF(error);
 
@@ -198,7 +199,7 @@ void WebServerTests::RunTest3(Test& test)
     // and check it matches the same expected output.
     boost::filesystem::path outputPath2(test.context().getTestOutputPath("WebServerTests_RunTest3_index.bin"));
     std::ofstream responseFile2(outputPath2.string(), std::ios::out | std::ios::binary);
-    HTTPClient::Get(IPv4Address::Localhost(), Port::http, "/index.html", responseFile2, error);
+    HTTPClient::Get(IPv4Address::Localhost(), 8100, "/index.html", responseFile2, error);
 
     ISHIKO_TEST_FAIL_IF(error);
 
@@ -208,7 +209,7 @@ void WebServerTests::RunTest3(Test& test)
 
     boost::filesystem::path outputPath3(test.context().getTestOutputPath("WebServerTests_RunTest3_docs_index.bin"));
     std::ofstream responseFile3(outputPath3.string(), std::ios::out | std::ios::binary);
-    HTTPClient::Get(IPv4Address::Localhost(), Port::http, "/docs/index.html", responseFile3, error);
+    HTTPClient::Get(IPv4Address::Localhost(), 8100, "/docs/index.html", responseFile3, error);
 
     ISHIKO_TEST_FAIL_IF(error);
 
