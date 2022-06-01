@@ -41,6 +41,8 @@ library CodeSmithyContentPlatformCore : Nemu, IshikoConfiguration, IshikoJSON
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/Content.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/ContentReference.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/ContentScheme.hpp
+        ../../../include/CodeSmithy/ContentPlatform/Core/Content/ContentSchemes.hpp
+        ../../../include/CodeSmithy/ContentPlatform/Core/Content/DoxygenContentScheme.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/LocalContentRepository.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/PageContentScheme.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp
@@ -50,6 +52,8 @@ library CodeSmithyContentPlatformCore : Nemu, IshikoConfiguration, IshikoJSON
     {
         ../../src/Presentation.cpp
         ../../src/Content/ContentReference.cpp
+        ../../src/Content/ContentSchemes.cpp
+        ../../src/Content/DoxygenContentScheme.cpp
         ../../src/Content/LocalContentRepository.cpp
         ../../src/Content/PageContentScheme.cpp
         ../../src/WebServer/WebServer.cpp

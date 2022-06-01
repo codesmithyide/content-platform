@@ -35,6 +35,12 @@
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\ContentScheme.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\ContentSchemes.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\DoxygenContentScheme.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\LocalContentRepository.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -50,6 +56,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Content\ContentReference.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Content\ContentSchemes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Content\DoxygenContentScheme.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Content\LocalContentRepository.cpp">

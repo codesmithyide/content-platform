@@ -77,7 +77,8 @@ WebServer::WebServer(const Configuration& configuration, const Content& content,
                     })));
     }
 #endif
-    m_app.routes().add(content.getRoutes());
+    std::vector<Nemu::Route> routes = content.getRoutes();
+    m_app.routes().add(routes);
 
     m_app.routes().add(
         Nemu::Route("/*",

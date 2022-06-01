@@ -13,7 +13,7 @@ using namespace Ishiko;
 LocalContentRepositoryTests::LocalContentRepositoryTests(const TestNumber& number, const TestContext& context)
     : TestSequence(number, "LocalContentRepository tests", context)
 {
-    append<HeapAllocationErrorsTest>("Creation test 1", ConstructorTest1);
+    append<HeapAllocationErrorsTest>("Constructor test 1", ConstructorTest1);
 }
 
 void LocalContentRepositoryTests::ConstructorTest1(Test& test)
@@ -25,10 +25,9 @@ void LocalContentRepositoryTests::ConstructorTest1(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(repository.getTitle(), "Test Site 1");
     ISHIKO_TEST_FAIL_IF_NEQ(repository.getHomepage(), ContentReference("page", "pages/index.html"));
 
-    const Nemu::Routes& routes = repository.getRoutes();
+    const std::vector<Nemu::Route>& routes = repository.getRoutes();
 
-    ISHIKO_TEST_ABORT_IF_NEQ(routes.size(), 2);
+    ISHIKO_TEST_ABORT_IF_NEQ(routes.size(), 1);
     ISHIKO_TEST_FAIL_IF_NEQ(routes.at(0).pathPattern(), "/index.html");
-    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(1).pathPattern(), "*");
     ISHIKO_TEST_PASS();
 }
