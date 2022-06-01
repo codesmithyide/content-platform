@@ -21,6 +21,7 @@ public:
     PageContentScheme();
 
     const std::string& name() const noexcept override;
+    std::vector<Nemu::Route> instantiate(const Ishiko::Configuration& configuration) override;
 
 private:
     std::string m_name;
