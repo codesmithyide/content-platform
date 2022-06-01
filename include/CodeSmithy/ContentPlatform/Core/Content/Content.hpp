@@ -31,7 +31,7 @@ public:
     virtual std::string getTitle() const = 0;
     virtual ContentReference getHomepage() const = 0;
     // TODO: see discussion above about number of pages and scalability
-    virtual Nemu::Routes getRoutes() const = 0;
+    virtual std::vector<Nemu::Route> getRoutes() const = 0;
 };
 
 }

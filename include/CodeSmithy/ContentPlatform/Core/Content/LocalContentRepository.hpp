@@ -27,7 +27,7 @@ public:
 
     std::string getTitle() const override;
     ContentReference getHomepage() const override;
-    Nemu::Routes getRoutes() const override;
+    std::vector<Nemu::Route> getRoutes() const override;
 
 private:
     class JSONParserCallbacks : public Ishiko::JSONPushParser::Callbacks
@@ -50,7 +50,7 @@ private:
     ContentSchemes m_schemes;
     std::string m_title;
     ContentReference m_homepage;
-    Nemu::Routes m_routes;
+    std::vector<Nemu::Route> m_routes;
 };
 
 }

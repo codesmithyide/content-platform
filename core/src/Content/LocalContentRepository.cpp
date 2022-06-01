@@ -32,7 +32,7 @@ ContentReference LocalContentRepository::getHomepage() const
     return m_homepage;
 }
 
-Nemu::Routes LocalContentRepository::getRoutes() const
+std::vector<Nemu::Route> LocalContentRepository::getRoutes() const
 {
     return m_routes;
 }
@@ -101,7 +101,7 @@ void LocalContentRepository::JSONParserCallbacks::onString(boost::string_view da
         // TODO: this is a hack for now. Variables that should be passed to the ViewContext need a proper solution
         schemeConfiguration.set("title", m_repository.getTitle());
         std::vector<Nemu::Route> routes = scheme->instantiate(schemeConfiguration);
-        m_repository.m_routes.add(routes);
+        m_repository.m_routes.insert(m_repository.m_routes.end(), routes.begin(), routes.end());
     }
     else if (m_context == std::vector<std::string>({ "content", "[]", "doxygen", "index" }))
     {
@@ -113,7 +113,7 @@ void LocalContentRepository::JSONParserCallbacks::onString(boost::string_view da
         std::string pattern = page.substr(5);
 
         // TODO: better way to put the path together
-        m_repository.m_routes.add(
+        m_repository.m_routes.push_back(
             // TODO: what if abolsute path etc.
             Nemu::Route(pattern,
                 std::make_shared<Nemu::FunctionWebRequestHandler>(
