@@ -8,6 +8,7 @@
 #define _CODESMITHY_CONTENTPLATFORM_CORE_CONTENT_LOCALCONTENTREPOSITORY_HPP_
 
 #include "Content.hpp"
+#include "ContentSchemes.hpp"
 #include <boost/filesystem.hpp>
 #include <Ishiko/JSON.hpp>
 #include <Nemu.hpp>
@@ -45,6 +46,8 @@ private:
         std::vector<std::string> m_context;
     };
 
+    // TODO: this shouldn't live in the Content I think. The supported schemes are independent of the actual content.
+    ContentSchemes m_schemes;
     std::string m_title;
     ContentReference m_homepage;
     Nemu::Routes m_routes;

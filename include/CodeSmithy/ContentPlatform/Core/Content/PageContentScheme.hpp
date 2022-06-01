@@ -7,4 +7,26 @@
 #ifndef _CODESMITHY_CONTENTPLATFORM_CORE_CONTENT_PAGECONTENTSCHEME_HPP_
 #define _CODESMITHY_CONTENTPLATFORM_CORE_CONTENT_PAGECONTENTSCHEME_HPP_
 
+#include "ContentScheme.hpp"
+#include <string>
+
+namespace CodeSmithy
+{
+namespace ContentPlatform
+{
+
+class PageContentScheme : public ContentScheme
+{
+public:
+    PageContentScheme();
+
+    const std::string& name() const noexcept override;
+
+private:
+    std::string m_name;
+};
+
+}
+}
+
 #endif

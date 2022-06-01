@@ -5,3 +5,15 @@
 */
 
 #include "Content/PageContentScheme.hpp"
+
+using namespace CodeSmithy::ContentPlatform;
+
+PageContentScheme::PageContentScheme()
+    : m_name("page")
+{
+}
+
+const std::string& PageContentScheme::name() const noexcept
+{
+    return m_name;
+}

@@ -7,4 +7,18 @@
 #ifndef _CODESMITHY_CONTENTPLATFORM_CORE_CONTENT_DOXYGENCONTENTSCHEME_HPP_
 #define _CODESMITHY_CONTENTPLATFORM_CORE_CONTENT_DOXYGENCONTENTSCHEME_HPP_
 
+#include "ContentScheme.hpp"
+
+namespace CodeSmithy
+{
+namespace ContentPlatform
+{
+
+class DoxygenContentScheme : public ContentScheme
+{
+};
+
+}
+}
+
 #endif

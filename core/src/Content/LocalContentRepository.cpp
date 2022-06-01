@@ -5,12 +5,16 @@
 */
 
 #include "Content/LocalContentRepository.hpp"
+#include "Content/PageContentScheme.hpp"
 #include <Ishiko/FileSystem.hpp>
 
 using namespace CodeSmithy::ContentPlatform;
 
 LocalContentRepository::LocalContentRepository(const boost::filesystem::path& contentConfigurationFile)
 {
+    // TODO: adding schemes should be done somewhere else
+    m_schemes.add(std::make_shared<PageContentScheme>());
+
     JSONParserCallbacks callbacks(*this);
     Ishiko::JSONPushParser jsonParser(callbacks);
 
