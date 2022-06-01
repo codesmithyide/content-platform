@@ -10,6 +10,7 @@
 #include "Content.hpp"
 #include <boost/filesystem.hpp>
 #include <Ishiko/JSON.hpp>
+#include <Nemu.hpp>
 #include <string>
 #include <vector>
 
@@ -25,7 +26,7 @@ public:
 
     std::string getTitle() const override;
     ContentReference getHomepage() const override;
-    ContentPages getPages() const override;
+    Nemu::Routes getRoutes() const override;
 
 private:
     class JSONParserCallbacks : public Ishiko::JSONPushParser::Callbacks
@@ -46,7 +47,7 @@ private:
 
     std::string m_title;
     ContentReference m_homepage;
-    ContentPages m_pages;
+    Nemu::Routes m_routes;
 };
 
 }
