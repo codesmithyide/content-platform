@@ -18,7 +18,8 @@ WebServerTests::WebServerTests(const TestNumber& number, const TestContext& cont
     : TestSequence(number, "WebServer tests", context)
 {
     append<HeapAllocationErrorsTest>("Constructor test 1", ConstructorTest1);
-    append<HeapAllocationErrorsTest>("Constructor test 1", ConstructorTest2);
+    append<HeapAllocationErrorsTest>("Constructor test 2", ConstructorTest2);
+    append<HeapAllocationErrorsTest>("Constructor test 3", ConstructorTest3);
     append<HeapAllocationErrorsTest>("run test 1", RunTest1);
     append<HeapAllocationErrorsTest>("run test 2", RunTest2);
     append<HeapAllocationErrorsTest>("run test 3", RunTest3);
@@ -72,6 +73,33 @@ void WebServerTests::ConstructorTest2(Test& test)
     ISHIKO_TEST_ABORT_IF_NEQ(routes.size(), 4);
     ISHIKO_TEST_FAIL_IF_NEQ(routes.at(0).pathPattern(), "/index.html");
     ISHIKO_TEST_FAIL_IF_NEQ(routes.at(1).pathPattern(), "/docs/index.html");
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(2).pathPattern(), "/*");
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(3).pathPattern(), "*");
+    ISHIKO_TEST_PASS();
+}
+
+void WebServerTests::ConstructorTest3(Test& test)
+{
+    boost::filesystem::path contentConfigurationFile =
+        test.context().getTestDataPath("websites/doxygen-test-site-1/content.json");
+    boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/doxygen-test-site-1/pages");
+    boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/doxygen-test-site-1/layouts");
+
+    NullLoggingSink sink;
+    Logger log(sink);
+
+    Configuration configuration = WebServer::CommandLineSpecification().createDefaultConfiguration();
+    configuration.set("content", contentConfigurationFile.string());
+
+    LocalContentRepository content(contentConfigurationFile);
+    Presentation presentation(templatesDir.string(), layoutsDir.string());
+    WebServer server(configuration, content, presentation, log);
+
+    const Nemu::Routes& routes = server.routes();
+
+    ISHIKO_TEST_ABORT_IF_NEQ(routes.size(), 4);
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(0).pathPattern(), "/index.html");
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(1).pathPattern(), "/docs/api/index.html");
     ISHIKO_TEST_FAIL_IF_NEQ(routes.at(2).pathPattern(), "/*");
     ISHIKO_TEST_FAIL_IF_NEQ(routes.at(3).pathPattern(), "*");
     ISHIKO_TEST_PASS();
