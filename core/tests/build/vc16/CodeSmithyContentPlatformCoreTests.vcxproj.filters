@@ -26,7 +26,13 @@
     <ClInclude Include="..\..\src\ContentTests\ContentSchemesTests.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\ContentTests\DoxygenContentSchemeTests.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\ContentTests\LocalContentRepositoryTests.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ContentTests\PageContentSchemeTests.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -43,7 +49,13 @@
     <ClCompile Include="..\..\src\ContentTests\ContentSchemesTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ContentTests\DoxygenContentSchemeTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\ContentTests\LocalContentRepositoryTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ContentTests\PageContentSchemeTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

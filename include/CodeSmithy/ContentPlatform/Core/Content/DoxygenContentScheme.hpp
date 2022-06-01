@@ -16,6 +16,14 @@ namespace ContentPlatform
 
 class DoxygenContentScheme : public ContentScheme
 {
+public:
+    DoxygenContentScheme();
+
+    const std::string& name() const noexcept override;
+    std::vector<Nemu::Route> instantiate(const Ishiko::Configuration& configuration) override;
+
+private:
+    std::string m_name;
 };
 
 }
