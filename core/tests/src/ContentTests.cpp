@@ -5,6 +5,7 @@
 */
 
 #include "ContentTests.hpp"
+#include "ContentTests/ContentSchemesTests.hpp"
 #include "ContentTests/LocalContentRepositoryTests.hpp"
 
 using namespace Ishiko;
@@ -12,5 +13,6 @@ using namespace Ishiko;
 ContentTests::ContentTests(const TestNumber& number, const TestContext& context)
     : TestSequence(number, "Content tests", context)
 {
+    append<ContentSchemesTests>();
     append<LocalContentRepositoryTests>();
 }

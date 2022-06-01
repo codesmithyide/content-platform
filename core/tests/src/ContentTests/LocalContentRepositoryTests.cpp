@@ -13,7 +13,7 @@ using namespace Ishiko;
 LocalContentRepositoryTests::LocalContentRepositoryTests(const TestNumber& number, const TestContext& context)
     : TestSequence(number, "LocalContentRepository tests", context)
 {
-    append<HeapAllocationErrorsTest>("Creation test 1", ConstructorTest1);
+    append<HeapAllocationErrorsTest>("Constructor test 1", ConstructorTest1);
 }
 
 void LocalContentRepositoryTests::ConstructorTest1(Test& test)
