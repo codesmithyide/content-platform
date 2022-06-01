@@ -39,7 +39,6 @@ library CodeSmithyContentPlatformCore : Nemu, IshikoConfiguration, IshikoJSON
         ../../../include/CodeSmithy/ContentPlatform/Core/linkoptions.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Presentation.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/Content.hpp
-        ../../../include/CodeSmithy/ContentPlatform/Core/Content/ContentPages.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/ContentReference.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/ContentScheme.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/LocalContentRepository.hpp
@@ -50,7 +49,6 @@ library CodeSmithyContentPlatformCore : Nemu, IshikoConfiguration, IshikoJSON
     sources
     {
         ../../src/Presentation.cpp
-        ../../src/Content/ContentPages.cpp
         ../../src/Content/ContentReference.cpp
         ../../src/Content/LocalContentRepository.cpp
         ../../src/Content/PageContentScheme.cpp

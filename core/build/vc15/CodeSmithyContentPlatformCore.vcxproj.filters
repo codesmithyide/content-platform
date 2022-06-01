@@ -29,9 +29,6 @@
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\Content.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\ContentPages.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\ContentReference.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -50,9 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Presentation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Content\ContentPages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Content\ContentReference.cpp">
