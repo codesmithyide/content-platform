@@ -47,10 +47,8 @@ public:
         boost::filesystem::path m_content;
     };
    
-    WebServer(const Configuration& configuration, const Content& content, const Presentation& presentation,
-        Ishiko::Logger& logger);
-    // TODO: implement
-    WebServer(const Presentation& presentation, const Content& content, Ishiko::Logger& logger);
+    WebServer(const Configuration& configuration, Ishiko::Logger& logger);
+    WebServer(Ishiko::Port port, const Presentation& presentation, const Content& content, Ishiko::Logger& logger);
 
     void run();
     void stop();

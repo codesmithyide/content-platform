@@ -5,6 +5,8 @@
 */
 
 #include "WebServer/WebServer.hpp"
+#include "Content/LocalContentRepository.hpp"
+#include "Presentation/LocalPresentationRepository.hpp"
 #include <Ishiko/Text.hpp>
 
 using namespace CodeSmithy::ContentPlatform;
@@ -43,11 +45,21 @@ const boost::filesystem::path& WebServer::Configuration::content() const
     return m_content;
 }
 
-WebServer::WebServer(const Configuration& configuration, const Content& content, const Presentation& presentation,
-    Ishiko::Logger& logger)
+WebServer::WebServer(const Configuration& configuration, Ishiko::Logger& logger)
     : m_app(
         std::make_shared<Nemu::SingleConnectionWebServer>(Ishiko::TCPServerSocket::AllInterfaces, configuration.port(),
             logger),
+        logger)
+{
+    LocalPresentationRepository presentation(configuration.presentation());
+    LocalContentRepository content(configuration.content());
+    initialize(presentation, content);
+}
+
+WebServer::WebServer(Ishiko::Port port, const Presentation& presentation, const Content& content,
+    Ishiko::Logger& logger)
+    : m_app(
+        std::make_shared<Nemu::SingleConnectionWebServer>(Ishiko::TCPServerSocket::AllInterfaces, port, logger),
         logger)
 {
     initialize(presentation, content);
@@ -102,9 +114,18 @@ void WebServer::initialize(const Presentation& presentation, const Content& cont
         },
     ],
     */
-    m_app.views().set("pages",
-        std::make_shared<Nemu::MustacheTemplateEngineProfile>(
-            Nemu::MustacheTemplateEngineProfile::Options(presentation.templatesRootDir(), &presentation.layoutsRootDir())));
+
+    // TODO: can this be a local variable? It may depend on engine so better not start assuming that
+    Nemu::MustacheTemplateEngine mustacheTemplateEngine;
+
+    // We register the template engine profiles under the names specified by the presentation configuration. These
+    // names need to match the schemes in the content configuration. The name of the scheme will be passed in when 
+    // calling WebResponseBuilder::view(<scheme name>, ...) so it needs to match the name of a registered template
+    // engine profile.
+    for (const PresentationProfile& profile : presentation.getProfiles())
+    {
+        m_app.views().set(profile.name(), mustacheTemplateEngine.createProfile(profile.templateEngineConfiguration()));
+    }
 
 #if 0 // This has now been replaced by logic inside the schemes and content. Do these comments still apply?
     // TODO: what is the cost of creating all these lambda functions? Surely it would be better to have 1 handler and
