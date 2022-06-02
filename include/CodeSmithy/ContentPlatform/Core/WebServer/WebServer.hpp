@@ -8,7 +8,7 @@
 #define _CODESMITHY_CONTENTPLATFORM_CORE_WEBSERVER_WEBSERVER_HPP_
 
 #include "../Content/Content.hpp"
-#include "../Presentation.hpp"
+#include "../Presentation/Presentation.hpp"
 #include <boost/filesystem.hpp>
 #include <Ishiko/Configuration.hpp>
 #include <Ishiko/Logging.hpp>
@@ -37,16 +37,18 @@ public:
 
         Ishiko::Port port() const;
         Ishiko::LogLevel logLevel() const;
+        const boost::filesystem::path& presentation() const;
         const boost::filesystem::path& content() const;
 
     private:
         Ishiko::Port m_port;
         Ishiko::LogLevel m_logLevel;
+        boost::filesystem::path m_presentation;
         boost::filesystem::path m_content;
     };
    
-    WebServer(const Configuration& configuration, const Content& content, const Presentation& presentation,
-        Ishiko::Logger& logger);
+    WebServer(const Configuration& configuration, Ishiko::Logger& logger);
+    WebServer(Ishiko::Port port, const Presentation& presentation, const Content& content, Ishiko::Logger& logger);
 
     void run();
     void stop();
@@ -55,6 +57,8 @@ public:
     Nemu::Routes& routes() noexcept;
 
 private:
+    void initialize(const Presentation& presentation, const Content& content);
+
     Nemu::WebApplication m_app;
 };
 

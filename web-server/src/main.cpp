@@ -29,14 +29,7 @@ int main(int argc, char* argv[])
         WebServer::Configuration webServerConfiguration(configuration);
         log.setLevel(webServerConfiguration.logLevel());
 
-        // TODO: get from config
-        const std::string templatesRootDir = "${CODESMITHYIDE}/content-platform-themes/default/templates";
-        const std::string layoutsRootDir = "${CODESMITHYIDE}/content-platform-themes/default/layouts";
-        Presentation presentation(templatesRootDir, layoutsRootDir);
-
-        LocalContentRepository content(webServerConfiguration.content());
-
-        WebServer server(webServerConfiguration, content, presentation, log);
+        WebServer server(webServerConfiguration, log);
         server.run();
 
         return 0;

@@ -81,6 +81,7 @@ void LocalContentRepository::JSONParserCallbacks::onString(boost::string_view da
         // TODO: error
         return;
     }
+
     if (m_context.back() == "title")
     {
         m_repository.m_title = data.to_string();
