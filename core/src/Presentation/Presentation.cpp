@@ -4,7 +4,7 @@
     See https://github.com/codesmithyide/content-platform/blob/main/LICENSE.txt
 */
 
-#include "Presentation.hpp"
+#include "Presentation/Presentation.hpp"
 
 using namespace CodeSmithy::ContentPlatform;
 
