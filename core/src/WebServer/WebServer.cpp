@@ -45,9 +45,35 @@ WebServer::WebServer(const Configuration& configuration, const Content& content,
         logger)
 {
     // Set the mustache engine as the default template engine
-    m_app.views().add(
-        std::make_shared<Nemu::MustacheTemplateEngine>(
-            Nemu::MustacheTemplateEngine::Options(presentation.templatesRootDir(), presentation.layoutsRootDir())));
+    // TODO: we set up 2 profiles that are equivalent to this default configuration but ideally this should be
+    // configurable (as part of the presentation layer? As in not the content one)
+    /*
+    * "schemes" : [
+        {
+            "doxygen": {
+                "template-engine": {
+                    "name": "mustache",
+                    "options": {
+                        "templates-root-dir": "templates/docs/api"
+                    }
+                }
+            }
+        },
+        {
+            "pages": {
+                "template-engine": {
+                    "name": "mustache",
+                    "options": {
+                        "templates-root-dir": "pages"
+                    }
+                }
+            }
+        },
+    ],
+    */
+    m_app.views().set("pages",
+        std::make_shared<Nemu::MustacheTemplateEngineProfile>(
+            Nemu::MustacheTemplateEngineProfile::Options(presentation.templatesRootDir(), &presentation.layoutsRootDir())));
 
 #if 0 // This has now been replaced by logic inside the schemes and content. Do these comments still apply?
     // TODO: what is the cost of creating all these lambda functions? Surely it would be better to have 1 handler and
@@ -94,7 +120,7 @@ WebServer::WebServer(const Configuration& configuration, const Content& content,
                         // TODO: this should use "homepage" setting from Content
                         templatePath = "index.html";
                     }
-                    response.view(templatePath, context, "page.html");
+                    response.view("pages", templatePath, context, "page.html");
                 })));
 }
 
