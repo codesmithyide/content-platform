@@ -15,6 +15,7 @@
 #include "Core/Content/DoxygenContentScheme.hpp"
 #include "Core/Content/LocalContentRepository.hpp"
 #include "Core/Content/PageContentScheme.hpp"
+#include "Core/Presentation/LocalPresentationRepository.hpp
 #include "Core/Presentation/Presentation.hpp"
 #include "Core/WebServer/WebServer.hpp"
 

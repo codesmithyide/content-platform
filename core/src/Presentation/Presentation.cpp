@@ -8,11 +8,6 @@
 
 using namespace CodeSmithy::ContentPlatform;
 
-Presentation::Presentation(std::string templatesRootDir, std::string layoutsRootDir)
-    : m_templatesRootDir(std::move(templatesRootDir)), m_layoutsRootDir(std::move(layoutsRootDir))
-{
-}
-
 const std::string& Presentation::templatesRootDir() const
 {
     return m_templatesRootDir;

@@ -5,3 +5,9 @@
 */
 
 #include "Presentation/LocalPresentationRepository.hpp"
+
+using namespace CodeSmithy::ContentPlatform;
+
+LocalPresentationRepository::LocalPresentationRepository(const boost::filesystem::path& presentationConfigurationFile)
+{
+}
