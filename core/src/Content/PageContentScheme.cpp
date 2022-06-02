@@ -23,7 +23,7 @@ std::vector<Nemu::Route> PageContentScheme::instantiate(const Ishiko::Configurat
     std::vector<Nemu::Route> routes;
 
     // TODO: remove prefix in a more configurable way
-        // TODO: 6 because "pages"
+    // TODO: 5 because "pages"
     std::string page = configuration.value("path"); // TODO: handle invalid configuration where there is no path
     std::string pattern = page.substr(5);
 
@@ -41,7 +41,7 @@ std::vector<Nemu::Route> PageContentScheme::instantiate(const Ishiko::Configurat
             {
                 Nemu::ViewContext context;
                 context["codesmithy_page_title"] = title;
-                response.view(page, context, "page.html");
+                response.view("pages", page, context, "page.html");
             }));
 
     return routes;

@@ -19,6 +19,7 @@ class Presentation
 public:
     Presentation(std::string templatesRootDir, std::string layoutsRootDir);
 
+    // TODO: this is too simple and needs to be replaced by entire engine profiles configuration
     const std::string& templatesRootDir() const;
     const std::string& layoutsRootDir() const;
 
