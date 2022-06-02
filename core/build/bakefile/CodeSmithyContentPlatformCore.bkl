@@ -56,7 +56,6 @@ library CodeSmithyContentPlatformCore : Nemu, IshikoJSON
         ../../src/Content/DoxygenContentScheme.cpp
         ../../src/Content/LocalContentRepository.cpp
         ../../src/Content/PageContentScheme.cpp
-        ../../src/Presentation/Presentation.cpp
         ../../src/Presentation/PresentationProfile.cpp
         ../../src/Presentation/LocalPresentationRepository.cpp
         ../../src/WebServer/WebServer.cpp

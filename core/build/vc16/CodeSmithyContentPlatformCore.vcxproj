@@ -155,7 +155,6 @@
     <ClCompile Include="..\..\src\Content\DoxygenContentScheme.cpp" />
     <ClCompile Include="..\..\src\Content\LocalContentRepository.cpp" />
     <ClCompile Include="..\..\src\Content\PageContentScheme.cpp" />
-    <ClCompile Include="..\..\src\Presentation\Presentation.cpp" />
     <ClCompile Include="..\..\src\Presentation\PresentationProfile.cpp" />
     <ClCompile Include="..\..\src\Presentation\LocalPresentationRepository.cpp" />
     <ClCompile Include="..\..\src\WebServer\WebServer.cpp" />

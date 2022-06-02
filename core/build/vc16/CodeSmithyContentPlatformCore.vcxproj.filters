@@ -73,9 +73,6 @@
     <ClCompile Include="..\..\src\Content\PageContentScheme.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Presentation\Presentation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Presentation\PresentationProfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
