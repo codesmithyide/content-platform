@@ -12,13 +12,14 @@ using namespace CodeSmithy::ContentPlatform;
 WebServer::CommandLineSpecification::CommandLineSpecification()
 {
     // TODO: --content as mandatory option without default
+    // TODO: --presentation as mandatory option without default
     addNamedOption("log-level", { Ishiko::CommandLineSpecification::OptionType::toggle, "info" });
     addNamedOption("port", { Ishiko::CommandLineSpecification::OptionType::singleValue, "80" });
 }
 
 WebServer::Configuration::Configuration(const Ishiko::Configuration& configuration)
     : m_port(configuration.value("port")), m_logLevel(Ishiko::LogLevel::FromString(configuration.value("log-level"))),
-    m_content(configuration.value("content"))
+    m_presentation(configuration.value("presentation")), m_content(configuration.value("content"))
 {
 }
 
@@ -32,6 +33,11 @@ Ishiko::LogLevel WebServer::Configuration::logLevel() const
     return m_logLevel;
 }
 
+const boost::filesystem::path& WebServer::Configuration::presentation() const
+{
+    return m_presentation;
+}
+
 const boost::filesystem::path& WebServer::Configuration::content() const
 {
     return m_content;
@@ -43,6 +49,31 @@ WebServer::WebServer(const Configuration& configuration, const Content& content,
         std::make_shared<Nemu::SingleConnectionWebServer>(Ishiko::TCPServerSocket::AllInterfaces, configuration.port(),
             logger),
         logger)
+{
+    initialize(presentation, content);
+}
+
+void WebServer::run()
+{
+    m_app.run();
+}
+
+void WebServer::stop()
+{
+    m_app.stop();
+}
+
+const Nemu::Routes& WebServer::routes() const noexcept
+{
+    return m_app.routes();
+}
+
+Nemu::Routes& WebServer::routes() noexcept
+{
+    return m_app.routes();
+}
+
+void WebServer::initialize(const Presentation& presentation, const Content& content)
 {
     // Set the mustache engine as the default template engine
     // TODO: we set up 2 profiles that are equivalent to this default configuration but ideally this should be
@@ -122,24 +153,4 @@ WebServer::WebServer(const Configuration& configuration, const Content& content,
                     }
                     response.view("pages", templatePath, context, "page.html");
                 })));
-}
-
-void WebServer::run()
-{
-    m_app.run();
-}
-
-void WebServer::stop()
-{
-    m_app.stop();
-}
-
-const Nemu::Routes& WebServer::routes() const noexcept
-{
-    return m_app.routes();
-}
-
-Nemu::Routes& WebServer::routes() noexcept
-{
-    return m_app.routes();
 }
