@@ -7,7 +7,8 @@
 #ifndef _CODESMITHY_CONTENTPLATFORM_CORE_PRESENTATION_PRESENTATION_HPP_
 #define _CODESMITHY_CONTENTPLATFORM_CORE_PRESENTATION_PRESENTATION_HPP_
 
-#include <string>
+#include "PresentationProfile.hpp"
+#include <vector>
 
 namespace CodeSmithy
 {
@@ -17,13 +18,7 @@ namespace ContentPlatform
 class Presentation
 {
 public:
-    // TODO: this is too simple and needs to be replaced by entire engine profiles configuration
-    const std::string& templatesRootDir() const;
-    const std::string& layoutsRootDir() const;
-
-private:
-    std::string m_templatesRootDir;
-    std::string m_layoutsRootDir;
+    virtual std::vector<PresentationProfile> getProfiles() const = 0;
 };
 
 }
