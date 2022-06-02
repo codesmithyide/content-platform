@@ -1,5 +1,4 @@
 ishikopath = envvar("ISHIKO_CPP");
-import $(ishikopath)/Configuration/include/Ishiko/Configuration.bkl;
 import $(ishikopath)/JSON/include/Ishiko/JSON.bkl;
 nemupath = envvar("NEMU_CPP");
 import $(nemupath)/nemu/include/Nemu.bkl;
@@ -12,7 +11,7 @@ vs2017.solutionfile = ../vc15/CodeSmithyContentPlatformCore.sln;
 vs2015.solutionfile = ../vc14/CodeSmithyContentPlatformCore.sln;
 vs2013.solutionfile = ../vc12/CodeSmithyContentPlatformCore.sln;
 
-library CodeSmithyContentPlatformCore : Nemu, IshikoConfiguration, IshikoJSON
+library CodeSmithyContentPlatformCore : Nemu, IshikoJSON
 {
     includedirs += ../../../include/CodeSmithy/ContentPlatform/Core;
 
@@ -37,7 +36,6 @@ library CodeSmithyContentPlatformCore : Nemu, IshikoConfiguration, IshikoJSON
     {
         ../../../include/CodeSmithy/ContentPlatform/Core.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/linkoptions.hpp
-        ../../../include/CodeSmithy/ContentPlatform/Core/Presentation.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/Content.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/ContentReference.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/ContentScheme.hpp
@@ -45,17 +43,18 @@ library CodeSmithyContentPlatformCore : Nemu, IshikoConfiguration, IshikoJSON
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/DoxygenContentScheme.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/LocalContentRepository.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Content/PageContentScheme.hpp
+        ../../../include/CodeSmithy/ContentPlatform/Core/Presentation/Presentation.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp
     }
 
     sources
     {
-        ../../src/Presentation.cpp
         ../../src/Content/ContentReference.cpp
         ../../src/Content/ContentSchemes.cpp
         ../../src/Content/DoxygenContentScheme.cpp
         ../../src/Content/LocalContentRepository.cpp
         ../../src/Content/PageContentScheme.cpp
+        ../../src/Presentation/Presentation.cpp
         ../../src/WebServer/WebServer.cpp
     }
 }
