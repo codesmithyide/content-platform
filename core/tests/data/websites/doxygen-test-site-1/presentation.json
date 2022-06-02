@@ -5,7 +5,8 @@
                 "template-engine": {
                     "name": "mustache",
                     "options": {
-                        "templates-root-directory": "pages"
+                        "templates-root-directory": "pages",
+                        "layouts-root-directory": "layouts"
                     }
                 }
             }
@@ -15,7 +16,8 @@
                 "template-engine": {
                     "name": "mustache",
                     "options": {
-                        "templates-root-directory": "templates"
+                        "templates-root-directory": "templates",
+                        "layouts-root-directory": "layouts"
                     }
                 }
             }

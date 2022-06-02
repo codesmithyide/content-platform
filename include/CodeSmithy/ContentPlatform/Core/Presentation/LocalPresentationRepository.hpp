@@ -30,7 +30,8 @@ private:
     class JSONParserCallbacks : public Ishiko::JSONPushParser::Callbacks
     {
     public:
-        JSONParserCallbacks(LocalPresentationRepository& repository);
+        JSONParserCallbacks(LocalPresentationRepository& repository,
+            boost::filesystem::path configurationFileDirectory);
 
         void onMemberName(boost::string_view data) override;
         void onMemberEnd() override;
@@ -39,7 +40,14 @@ private:
         void onString(boost::string_view data) override;
 
     private:
+        // Adds an item to the teplate engine configuration of the last profile of m_profiles vector. The value is a
+        // path that will be appended to m_configurationFileDirectory to make it an absolute path.
+        void setConfigurationPath(const std::string& name, const std::string& path);
+
         LocalPresentationRepository& m_repository;
+        // We need the directory of the configuration file because path inside it are relative to the configuration
+        // file.
+        boost::filesystem::path m_configurationFileDirectory;
         std::vector<std::string> m_context;
     };
 

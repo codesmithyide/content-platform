@@ -161,17 +161,18 @@ void WebServer::initialize(const Presentation& presentation, const Content& cont
     m_app.routes().add(
         Nemu::Route("/*",
             std::make_shared<Nemu::FunctionWebRequestHandler>(
-                [&content](const Nemu::WebRequest& request, Nemu::WebResponseBuilder& response, void* handlerData,
+                // TODO: better way of passing context/content
+                [title = content.getTitle()](const Nemu::WebRequest& request, Nemu::WebResponseBuilder& response, void* handlerData,
                     Ishiko::Logger& logger)
                 {
                     Nemu::ViewContext context;
-                    context["codesmithy_page_title"] = content.getTitle();
+                    context["codesmithy_page_title"] = title;
                     std::string templatePath = request.url().path();
                     if (templatePath == "/")
                     {
                         // TODO: this should use "homepage" setting from Content
                         templatePath = "index.html";
                     }
-                    response.view("pages", templatePath, context, "page.html");
+                    response.view("page", templatePath, context, "page.html");
                 })));
 }

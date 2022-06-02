@@ -11,7 +11,10 @@ using namespace CodeSmithy::ContentPlatform;
 
 LocalPresentationRepository::LocalPresentationRepository(const boost::filesystem::path& presentationConfigurationFile)
 {
-    JSONParserCallbacks callbacks(*this);
+    boost::filesystem::path configurationFileDirectory =
+        boost::filesystem::absolute(presentationConfigurationFile.parent_path());
+
+    JSONParserCallbacks callbacks(*this, configurationFileDirectory);
     Ishiko::JSONPushParser jsonParser(callbacks);
 
     std::string data = Ishiko::FileSystem::ReadFile(presentationConfigurationFile);
@@ -23,8 +26,9 @@ std::vector<PresentationProfile> LocalPresentationRepository::getProfiles() cons
     return m_profiles;
 }
 
-LocalPresentationRepository::JSONParserCallbacks::JSONParserCallbacks(LocalPresentationRepository& repository)
-    : m_repository(repository)
+LocalPresentationRepository::JSONParserCallbacks::JSONParserCallbacks(LocalPresentationRepository& repository,
+    boost::filesystem::path configurationFileDirectory)
+    : m_repository(repository), m_configurationFileDirectory(std::move(configurationFileDirectory))
 {
 }
 
@@ -74,13 +78,28 @@ void LocalPresentationRepository::JSONParserCallbacks::onString(boost::string_vi
     if (m_context == std::vector<std::string>({ "profiles", "[]", "page", "template-engine", "options",
         "templates-root-directory" }))
     {
-        // TODO: this needs to be transalated into an absolute path
-        m_repository.m_profiles.back().templateEngineConfiguration().set("templates-root-directory", data.to_string());
+        setConfigurationPath("templates-root-directory", data.to_string());
     }
     else if (m_context == std::vector<std::string>({ "profiles", "[]", "doxygen", "template-engine", "options",
         "templates-root-directory" }))
     {
-        // TODO: this needs to be transalated into an absolute path
-        m_repository.m_profiles.back().templateEngineConfiguration().set("templates-root-directory", data.to_string());
+        setConfigurationPath("templates-root-directory", data.to_string());
     }
+    else if (m_context == std::vector<std::string>({ "profiles", "[]", "page", "template-engine", "options",
+        "layouts-root-directory" }))
+    {
+        setConfigurationPath("layouts-root-directory", data.to_string());
+    }
+    else if (m_context == std::vector<std::string>({ "profiles", "[]", "doxygen", "template-engine", "options",
+        "layouts-root-directory" }))
+    {
+        setConfigurationPath("layouts-root-directory", data.to_string());
+    }
+}
+
+void LocalPresentationRepository::JSONParserCallbacks::setConfigurationPath(const std::string& name,
+    const std::string& path)
+{
+    boost::filesystem::path absolutePath = m_configurationFileDirectory / path;
+    m_repository.m_profiles.back().templateEngineConfiguration().set(name, absolutePath.string());
 }
