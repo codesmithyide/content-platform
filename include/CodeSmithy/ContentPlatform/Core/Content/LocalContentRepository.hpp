@@ -8,8 +8,10 @@
 #define _CODESMITHY_CONTENTPLATFORM_CORE_CONTENT_LOCALCONTENTREPOSITORY_HPP_
 
 #include "Content.hpp"
+#include "ContentSchemes.hpp"
 #include <boost/filesystem.hpp>
 #include <Ishiko/JSON.hpp>
+#include <Nemu.hpp>
 #include <string>
 #include <vector>
 
@@ -25,7 +27,7 @@ public:
 
     std::string getTitle() const override;
     ContentReference getHomepage() const override;
-    ContentPages getPages() const override;
+    std::vector<Nemu::Route> getRoutes() const override;
 
 private:
     class JSONParserCallbacks : public Ishiko::JSONPushParser::Callbacks
@@ -44,9 +46,11 @@ private:
         std::vector<std::string> m_context;
     };
 
+    // TODO: this shouldn't live in the Content I think. The supported schemes are independent of the actual content.
+    ContentSchemes m_schemes;
     std::string m_title;
     ContentReference m_homepage;
-    ContentPages m_pages;
+    std::vector<Nemu::Route> m_routes;
 };
 
 }

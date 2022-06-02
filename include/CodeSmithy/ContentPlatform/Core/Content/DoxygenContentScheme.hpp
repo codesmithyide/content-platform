@@ -4,21 +4,20 @@
     See https://github.com/codesmithyide/content-platform/blob/main/LICENSE.txt
 */
 
-#ifndef _CODESMITHY_CONTENTPLATFORM_CORE_CONTENT_PAGECONTENTSCHEME_HPP_
-#define _CODESMITHY_CONTENTPLATFORM_CORE_CONTENT_PAGECONTENTSCHEME_HPP_
+#ifndef _CODESMITHY_CONTENTPLATFORM_CORE_CONTENT_DOXYGENCONTENTSCHEME_HPP_
+#define _CODESMITHY_CONTENTPLATFORM_CORE_CONTENT_DOXYGENCONTENTSCHEME_HPP_
 
 #include "ContentScheme.hpp"
-#include <string>
 
 namespace CodeSmithy
 {
 namespace ContentPlatform
 {
 
-class PageContentScheme : public ContentScheme
+class DoxygenContentScheme : public ContentScheme
 {
 public:
-    PageContentScheme();
+    DoxygenContentScheme();
 
     const std::string& name() const noexcept override;
     std::vector<Nemu::Route> instantiate(const Ishiko::Configuration& configuration) override;
