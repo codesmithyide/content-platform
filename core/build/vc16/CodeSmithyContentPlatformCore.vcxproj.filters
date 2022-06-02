@@ -23,9 +23,6 @@
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\linkoptions.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Presentation.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\Content.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -47,14 +44,20 @@
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Content\PageContentScheme.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Presentation\Presentation.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Presentation\PresentationProfile.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Presentation\LocalPresentationRepository.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\WebServer\WebServer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Presentation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Content\ContentReference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -68,6 +71,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Content\PageContentScheme.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Presentation\PresentationProfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Presentation\LocalPresentationRepository.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\WebServer\WebServer.cpp">

@@ -6,6 +6,7 @@
 
 #include "WebServerTests.hpp"
 #include "CodeSmithy/ContentPlatform/Core/Content/LocalContentRepository.hpp"
+#include "CodeSmithy/ContentPlatform/Core/Presentation/LocalPresentationRepository.hpp"
 #include "CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp"
 #include <Ishiko/HTTP.hpp>
 #include <Ishiko/Logging.hpp>
@@ -29,18 +30,17 @@ void WebServerTests::ConstructorTest1(Test& test)
 {
     boost::filesystem::path contentConfigurationFile =
         test.context().getTestDataPath("websites/test-site-1/content.json");
-    boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/test-site-1/pages");
-    boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/test-site-1/layouts");
+    boost::filesystem::path presentationConfigurationFile =
+        test.context().getTestDataPath("websites/test-site-1/presentation.json");
 
     NullLoggingSink sink;
     Logger log(sink);
 
     Configuration configuration = WebServer::CommandLineSpecification().createDefaultConfiguration();
     configuration.set("content", contentConfigurationFile.string());
+    configuration.set("presentation", presentationConfigurationFile.string());
 
-    LocalContentRepository content(contentConfigurationFile);
-    Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(configuration, content, presentation, log);
+    WebServer server(configuration, log);
 
     const Nemu::Routes& routes = server.routes();
 
@@ -55,18 +55,17 @@ void WebServerTests::ConstructorTest2(Test& test)
 {
     boost::filesystem::path contentConfigurationFile =
         test.context().getTestDataPath("websites/test-site-2/content.json");
-    boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/test-site-2/pages");
-    boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/test-site-2/layouts");
+    boost::filesystem::path presentationConfigurationFile =
+        test.context().getTestDataPath("websites/test-site-2/presentation.json");
 
     NullLoggingSink sink;
     Logger log(sink);
 
     Configuration configuration = WebServer::CommandLineSpecification().createDefaultConfiguration();
     configuration.set("content", contentConfigurationFile.string());
+    configuration.set("presentation", presentationConfigurationFile.string());
 
-    LocalContentRepository content(contentConfigurationFile);
-    Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(configuration, content, presentation, log);
+    WebServer server(configuration, log);
 
     const Nemu::Routes& routes = server.routes();
 
@@ -82,18 +81,17 @@ void WebServerTests::ConstructorTest3(Test& test)
 {
     boost::filesystem::path contentConfigurationFile =
         test.context().getTestDataPath("websites/doxygen-test-site-1/content.json");
-    boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/doxygen-test-site-1/pages");
-    boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/doxygen-test-site-1/layouts");
+    boost::filesystem::path presentationConfigurationFile =
+        test.context().getTestDataPath("websites/doxygen-test-site-1/presentation.json");
 
     NullLoggingSink sink;
     Logger log(sink);
 
     Configuration configuration = WebServer::CommandLineSpecification().createDefaultConfiguration();
     configuration.set("content", contentConfigurationFile.string());
+    configuration.set("presentation", presentationConfigurationFile.string());
 
-    LocalContentRepository content(contentConfigurationFile);
-    Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(configuration, content, presentation, log);
+    WebServer server(configuration, log);
 
     const Nemu::Routes& routes = server.routes();
 
@@ -109,18 +107,17 @@ void WebServerTests::RunTest1(Test& test)
 {
     boost::filesystem::path contentConfigurationFile =
         test.context().getTestDataPath("websites/test-site-1/content.json");
-    boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/test-site-1/templates");
-    boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/test-site-1/layouts");
+    boost::filesystem::path presentationConfigurationFile =
+        test.context().getTestDataPath("websites/test-site-1/presentation.json");
 
     NullLoggingSink sink;
     Logger log(sink);
 
     Configuration configuration = WebServer::CommandLineSpecification().createDefaultConfiguration();
     configuration.set("content", contentConfigurationFile.string());
+    configuration.set("presentation", presentationConfigurationFile.string());
 
-    LocalContentRepository content(contentConfigurationFile);
-    Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(configuration, content, presentation, log);
+    WebServer server(configuration, log);
 
     std::thread serverThread(
         [&server]()
@@ -138,18 +135,17 @@ void WebServerTests::RunTest2(Test& test)
 {
     boost::filesystem::path contentConfigurationFile =
         test.context().getTestDataPath("websites/test-site-1/content.json");
-    boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/test-site-1/pages");
-    boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/test-site-1/layouts");
+    boost::filesystem::path presentationConfigurationFile =
+        test.context().getTestDataPath("websites/test-site-1/presentation.json");
 
     NullLoggingSink sink;
     Logger log(sink);
 
     Configuration configuration = WebServer::CommandLineSpecification().createDefaultConfiguration();
     configuration.set("content", contentConfigurationFile.string());
+    configuration.set("presentation", presentationConfigurationFile.string());
 
-    LocalContentRepository content(contentConfigurationFile);
-    Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(configuration, content, presentation, log);
+    WebServer server(configuration, log);
 
     std::thread serverThread(
         [&server]()
@@ -191,8 +187,8 @@ void WebServerTests::RunTest3(Test& test)
 {
     boost::filesystem::path contentConfigurationFile =
         test.context().getTestDataPath("websites/test-site-2/content.json");
-    boost::filesystem::path templatesDir = test.context().getTestDataPath("websites/test-site-2/pages");
-    boost::filesystem::path layoutsDir = test.context().getTestDataPath("websites/test-site-2/layouts");
+    boost::filesystem::path presentationConfigurationFile =
+        test.context().getTestDataPath("websites/test-site-2/presentation.json");
 
     NullLoggingSink sink;
     Logger log(sink);
@@ -200,10 +196,9 @@ void WebServerTests::RunTest3(Test& test)
     Configuration configuration = WebServer::CommandLineSpecification().createDefaultConfiguration();
     configuration.set("port", "8100");
     configuration.set("content", contentConfigurationFile.string());
+    configuration.set("presentation", presentationConfigurationFile.string());
 
-    LocalContentRepository content(contentConfigurationFile);
-    Presentation presentation(templatesDir.string(), layoutsDir.string());
-    WebServer server(configuration, content, presentation, log);
+    WebServer server(configuration, log);
 
     std::thread serverThread(
         [&server]()

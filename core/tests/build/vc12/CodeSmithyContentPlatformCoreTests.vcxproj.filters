@@ -20,6 +20,9 @@
     <ClInclude Include="..\..\src\ContentTests.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\PresentationTests.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\WebServerTests.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -35,12 +38,18 @@
     <ClInclude Include="..\..\src\ContentTests\PageContentSchemeTests.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\PresentationTests\LocalPresentationRepositoryTests.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\ContentTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PresentationTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\WebServerTests.cpp">
@@ -56,6 +65,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\ContentTests\PageContentSchemeTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PresentationTests\LocalPresentationRepositoryTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

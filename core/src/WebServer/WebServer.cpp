@@ -5,6 +5,8 @@
 */
 
 #include "WebServer/WebServer.hpp"
+#include "Content/LocalContentRepository.hpp"
+#include "Presentation/LocalPresentationRepository.hpp"
 #include <Ishiko/Text.hpp>
 
 using namespace CodeSmithy::ContentPlatform;
@@ -12,13 +14,14 @@ using namespace CodeSmithy::ContentPlatform;
 WebServer::CommandLineSpecification::CommandLineSpecification()
 {
     // TODO: --content as mandatory option without default
+    // TODO: --presentation as mandatory option without default
     addNamedOption("log-level", { Ishiko::CommandLineSpecification::OptionType::toggle, "info" });
     addNamedOption("port", { Ishiko::CommandLineSpecification::OptionType::singleValue, "80" });
 }
 
 WebServer::Configuration::Configuration(const Ishiko::Configuration& configuration)
     : m_port(configuration.value("port")), m_logLevel(Ishiko::LogLevel::FromString(configuration.value("log-level"))),
-    m_content(configuration.value("content"))
+    m_presentation(configuration.value("presentation")), m_content(configuration.value("content"))
 {
 }
 
@@ -32,17 +35,57 @@ Ishiko::LogLevel WebServer::Configuration::logLevel() const
     return m_logLevel;
 }
 
+const boost::filesystem::path& WebServer::Configuration::presentation() const
+{
+    return m_presentation;
+}
+
 const boost::filesystem::path& WebServer::Configuration::content() const
 {
     return m_content;
 }
 
-WebServer::WebServer(const Configuration& configuration, const Content& content, const Presentation& presentation,
-    Ishiko::Logger& logger)
+WebServer::WebServer(const Configuration& configuration, Ishiko::Logger& logger)
     : m_app(
         std::make_shared<Nemu::SingleConnectionWebServer>(Ishiko::TCPServerSocket::AllInterfaces, configuration.port(),
             logger),
         logger)
+{
+    LocalPresentationRepository presentation(configuration.presentation());
+    LocalContentRepository content(configuration.content());
+    initialize(presentation, content);
+}
+
+WebServer::WebServer(Ishiko::Port port, const Presentation& presentation, const Content& content,
+    Ishiko::Logger& logger)
+    : m_app(
+        std::make_shared<Nemu::SingleConnectionWebServer>(Ishiko::TCPServerSocket::AllInterfaces, port, logger),
+        logger)
+{
+    initialize(presentation, content);
+}
+
+void WebServer::run()
+{
+    m_app.run();
+}
+
+void WebServer::stop()
+{
+    m_app.stop();
+}
+
+const Nemu::Routes& WebServer::routes() const noexcept
+{
+    return m_app.routes();
+}
+
+Nemu::Routes& WebServer::routes() noexcept
+{
+    return m_app.routes();
+}
+
+void WebServer::initialize(const Presentation& presentation, const Content& content)
 {
     // Set the mustache engine as the default template engine
     // TODO: we set up 2 profiles that are equivalent to this default configuration but ideally this should be
@@ -71,9 +114,18 @@ WebServer::WebServer(const Configuration& configuration, const Content& content,
         },
     ],
     */
-    m_app.views().set("pages",
-        std::make_shared<Nemu::MustacheTemplateEngineProfile>(
-            Nemu::MustacheTemplateEngineProfile::Options(presentation.templatesRootDir(), &presentation.layoutsRootDir())));
+
+    // TODO: can this be a local variable? It may depend on engine so better not start assuming that
+    Nemu::MustacheTemplateEngine mustacheTemplateEngine;
+
+    // We register the template engine profiles under the names specified by the presentation configuration. These
+    // names need to match the schemes in the content configuration. The name of the scheme will be passed in when 
+    // calling WebResponseBuilder::view(<scheme name>, ...) so it needs to match the name of a registered template
+    // engine profile.
+    for (const PresentationProfile& profile : presentation.getProfiles())
+    {
+        m_app.views().set(profile.name(), mustacheTemplateEngine.createProfile(profile.templateEngineConfiguration()));
+    }
 
 #if 0 // This has now been replaced by logic inside the schemes and content. Do these comments still apply?
     // TODO: what is the cost of creating all these lambda functions? Surely it would be better to have 1 handler and
@@ -109,37 +161,18 @@ WebServer::WebServer(const Configuration& configuration, const Content& content,
     m_app.routes().add(
         Nemu::Route("/*",
             std::make_shared<Nemu::FunctionWebRequestHandler>(
-                [&content](const Nemu::WebRequest& request, Nemu::WebResponseBuilder& response, void* handlerData,
+                // TODO: better way of passing context/content
+                [title = content.getTitle()](const Nemu::WebRequest& request, Nemu::WebResponseBuilder& response, void* handlerData,
                     Ishiko::Logger& logger)
                 {
                     Nemu::ViewContext context;
-                    context["codesmithy_page_title"] = content.getTitle();
+                    context["codesmithy_page_title"] = title;
                     std::string templatePath = request.url().path();
                     if (templatePath == "/")
                     {
                         // TODO: this should use "homepage" setting from Content
                         templatePath = "index.html";
                     }
-                    response.view("pages", templatePath, context, "page.html");
+                    response.view("page", templatePath, context, "page.html");
                 })));
-}
-
-void WebServer::run()
-{
-    m_app.run();
-}
-
-void WebServer::stop()
-{
-    m_app.stop();
-}
-
-const Nemu::Routes& WebServer::routes() const noexcept
-{
-    return m_app.routes();
-}
-
-Nemu::Routes& WebServer::routes() noexcept
-{
-    return m_app.routes();
 }
