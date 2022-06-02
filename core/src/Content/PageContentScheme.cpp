@@ -62,7 +62,7 @@ std::vector<Nemu::Route> PageContentScheme::instantiate(const Ishiko::Configurat
             {
                 Nemu::ViewContext context;
                 context["codesmithy_page_title"] = title;
-                response.view("pages", view, context, "page.html");
+                response.view("page", view, context, "page.html");
             }));
 
     return routes;

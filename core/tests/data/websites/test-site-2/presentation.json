@@ -1,0 +1,14 @@
+{
+    "profiles" : [
+        {
+            "page": {
+                "template-engine": {
+                    "name": "mustache",
+                    "options": {
+                        "templates-root-directory": "pages"
+                    }
+                }
+            }
+        }
+    ]
+}
