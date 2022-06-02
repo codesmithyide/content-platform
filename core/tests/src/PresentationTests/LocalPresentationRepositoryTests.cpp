@@ -32,8 +32,12 @@ void LocalPresentationRepositoryTests::ConstructorTest1(Test& test)
     ISHIKO_TEST_ABORT_IF_NEQ(profiles.size(), 1);
     ISHIKO_TEST_FAIL_IF_NEQ(profiles[0].name(), "page");
     ISHIKO_TEST_ABORT_IF_NEQ(profiles[0].templateEngineConfiguration().size(), 2);
-    ISHIKO_TEST_FAIL_IF_NEQ(profiles[0].templateEngineConfiguration().value("templates-root-directory"), "pages");
-    ISHIKO_TEST_FAIL_IF_NEQ(profiles[0].templateEngineConfiguration().value("layouts-root-directory"), "layouts");
+
+    std::string templatesRootDirectory = profiles[0].templateEngineConfiguration().value("templates-root-directory");
+    std::string layoutsRootDirectory = profiles[0].templateEngineConfiguration().value("layouts-root-directory");
+
+    ISHIKO_TEST_FAIL_IF_NEQ(templatesRootDirectory.substr(templatesRootDirectory.size() - 5), "pages");
+    ISHIKO_TEST_FAIL_IF_NEQ(layoutsRootDirectory.substr(layoutsRootDirectory.size() - 7), "layouts");
     ISHIKO_TEST_PASS();
 }
 
@@ -49,11 +53,20 @@ void LocalPresentationRepositoryTests::ConstructorTest2(Test& test)
     ISHIKO_TEST_ABORT_IF_NEQ(profiles.size(), 2);
     ISHIKO_TEST_FAIL_IF_NEQ(profiles[0].name(), "page");
     ISHIKO_TEST_ABORT_IF_NEQ(profiles[0].templateEngineConfiguration().size(), 2);
-    ISHIKO_TEST_FAIL_IF_NEQ(profiles[0].templateEngineConfiguration().value("templates-root-directory"), "pages");
-    ISHIKO_TEST_FAIL_IF_NEQ(profiles[1].templateEngineConfiguration().value("layouts-root-directory"), "layouts");
+
+    std::string templatesRootDirectory = profiles[0].templateEngineConfiguration().value("templates-root-directory");
+    std::string layoutsRootDirectory = profiles[0].templateEngineConfiguration().value("layouts-root-directory");
+
+    ISHIKO_TEST_FAIL_IF_NEQ(templatesRootDirectory.substr(templatesRootDirectory.size() - 5), "pages");
+    ISHIKO_TEST_FAIL_IF_NEQ(layoutsRootDirectory.substr(layoutsRootDirectory.size() - 7), "layouts");
+
     ISHIKO_TEST_FAIL_IF_NEQ(profiles[1].name(), "doxygen");
     ISHIKO_TEST_ABORT_IF_NEQ(profiles[1].templateEngineConfiguration().size(), 2);
-    ISHIKO_TEST_FAIL_IF_NEQ(profiles[1].templateEngineConfiguration().value("templates-root-directory"), "templates");
-    ISHIKO_TEST_FAIL_IF_NEQ(profiles[1].templateEngineConfiguration().value("layouts-root-directory"), "layouts");
+
+    templatesRootDirectory = profiles[1].templateEngineConfiguration().value("templates-root-directory");
+    layoutsRootDirectory = profiles[1].templateEngineConfiguration().value("layouts-root-directory");
+
+    ISHIKO_TEST_FAIL_IF_NEQ(templatesRootDirectory.substr(templatesRootDirectory.size() - 9), "templates");
+    ISHIKO_TEST_FAIL_IF_NEQ(layoutsRootDirectory.substr(layoutsRootDirectory.size() - 7), "layouts");
     ISHIKO_TEST_PASS();
 }
