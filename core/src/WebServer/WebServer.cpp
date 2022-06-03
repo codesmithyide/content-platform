@@ -87,34 +87,6 @@ Nemu::Routes& WebServer::routes() noexcept
 
 void WebServer::initialize(const Presentation& presentation, const Content& content)
 {
-    // Set the mustache engine as the default template engine
-    // TODO: we set up 2 profiles that are equivalent to this default configuration but ideally this should be
-    // configurable (as part of the presentation layer? As in not the content one)
-    /*
-    * "schemes" : [
-        {
-            "doxygen": {
-                "template-engine": {
-                    "name": "mustache",
-                    "options": {
-                        "templates-root-dir": "templates/docs/api"
-                    }
-                }
-            }
-        },
-        {
-            "pages": {
-                "template-engine": {
-                    "name": "mustache",
-                    "options": {
-                        "templates-root-dir": "pages"
-                    }
-                }
-            }
-        },
-    ],
-    */
-
     // TODO: can this be a local variable? It may depend on engine so better not start assuming that
     Nemu::MustacheTemplateEngine mustacheTemplateEngine;
 
