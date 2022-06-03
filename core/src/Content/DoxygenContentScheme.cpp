@@ -39,8 +39,8 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
             [page = "templates/docs/api/index.html", title = configuration.value("title")](const Nemu::WebRequest& request,
                 Nemu::WebResponseBuilder& response, void* handlerData, Ishiko::Logger& logger)
             {
-                Nemu::ViewContext context;
-                context["codesmithy_page_title"] = title;
+                Nemu::MapViewContext context;
+                context.map()["codesmithy_page_title"] = title;
                 response.view("doxygen", page, context, "page.html");
             }));
 

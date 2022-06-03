@@ -137,8 +137,8 @@ void WebServer::initialize(const Presentation& presentation, const Content& cont
                 [title = content.getTitle()](const Nemu::WebRequest& request, Nemu::WebResponseBuilder& response, void* handlerData,
                     Ishiko::Logger& logger)
                 {
-                    Nemu::ViewContext context;
-                    context["codesmithy_page_title"] = title;
+                    Nemu::MapViewContext context;
+                    context.map()["codesmithy_page_title"] = title;
                     std::string templatePath = request.url().path();
                     if (templatePath == "/")
                     {

@@ -58,8 +58,8 @@ std::vector<Nemu::Route> PageContentScheme::instantiate(const Ishiko::Configurat
             [view, title = configuration.value("title")](const Nemu::WebRequest& request,
                 Nemu::WebResponseBuilder& response, void* handlerData, Ishiko::Logger& logger)
             {
-                Nemu::ViewContext context;
-                context["codesmithy_page_title"] = title;
+                Nemu::MapViewContext context;
+                context.map()["codesmithy_page_title"] = title;
                 response.view("page", view, context, "page.html");
             }));
 
