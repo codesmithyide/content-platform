@@ -24,6 +24,7 @@ WebServerTests::WebServerTests(const TestNumber& number, const TestContext& cont
     append<HeapAllocationErrorsTest>("run test 1", RunTest1);
     append<HeapAllocationErrorsTest>("run test 2", RunTest2);
     append<HeapAllocationErrorsTest>("run test 3", RunTest3);
+    append<HeapAllocationErrorsTest>("run test 4", RunTest4);
 }
 
 void WebServerTests::ConstructorTest1(Test& test)
@@ -239,6 +240,69 @@ void WebServerTests::RunTest3(Test& test)
     responseFile3.close();
 
     ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest3_docs_index.bin", "WebServerTests_RunTest3_docs_index.bin");
+
+    server.stop();
+    serverThread.join();
+
+    ISHIKO_TEST_PASS();
+}
+
+void WebServerTests::RunTest4(Test& test)
+{
+    boost::filesystem::path contentConfigurationFile =
+        test.context().getTestDataPath("websites/doxygen-test-site-1/content.json");
+    boost::filesystem::path presentationConfigurationFile =
+        test.context().getTestDataPath("websites/doxygen-test-site-1/presentation.json");
+
+    NullLoggingSink sink;
+    Logger log(sink);
+
+    Configuration configuration = WebServer::CommandLineSpecification().createDefaultConfiguration();
+    configuration.set("port", "8101");
+    configuration.set("content", contentConfigurationFile.string());
+    configuration.set("presentation", presentationConfigurationFile.string());
+
+    WebServer server(configuration, log);
+
+    std::thread serverThread(
+        [&server]()
+        {
+            server.run();
+        });
+
+    // We download "/" and check it matches the expected output
+    boost::filesystem::path outputPath1(test.context().getTestOutputPath("WebServerTests_RunTest4_root.bin"));
+    std::ofstream responseFile1(outputPath1.string(), std::ios::out | std::ios::binary);
+    Error error;
+    HTTPClient::Get(IPv4Address::Localhost(), 8101, "/", responseFile1, error);
+
+    ISHIKO_TEST_FAIL_IF(error);
+
+    responseFile1.close();
+
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest4_root.bin", "WebServerTests_RunTest4_index.bin");
+
+    // We download "index.html" which is actually the same file that should have been returned when we downloaded "/"
+    // and check it matches the same expected output.
+    boost::filesystem::path outputPath2(test.context().getTestOutputPath("WebServerTests_RunTest4_index.bin"));
+    std::ofstream responseFile2(outputPath2.string(), std::ios::out | std::ios::binary);
+    HTTPClient::Get(IPv4Address::Localhost(), 8101, "/index.html", responseFile2, error);
+
+    ISHIKO_TEST_FAIL_IF(error);
+
+    responseFile2.close();
+
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest4_index.bin", "WebServerTests_RunTest4_index.bin");
+
+    boost::filesystem::path outputPath3(test.context().getTestOutputPath("WebServerTests_RunTest4_docs_api_index.bin"));
+    std::ofstream responseFile3(outputPath3.string(), std::ios::out | std::ios::binary);
+    HTTPClient::Get(IPv4Address::Localhost(), 8101, "/docs/api/index.html", responseFile3, error);
+
+    ISHIKO_TEST_FAIL_IF(error);
+
+    responseFile3.close();
+
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest4_docs_api_index.bin", "WebServerTests_RunTest4_docs_api_index.bin");
 
     server.stop();
     serverThread.join();
