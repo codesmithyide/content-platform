@@ -1,5 +1,7 @@
+codesmithyidepath = envvar("CODESMITHYIDE");
+import $(codesmithyidepath)/doxygen/include/CodeSmithy/Doxygen/Core.bkl;
 ishikopath = envvar("ISHIKO_CPP");
-import $(ishikopath)/JSON/include/Ishiko/JSON.bkl;
+import $(ishikopath)/json/include/Ishiko/JSON.bkl;
 nemupath = envvar("NEMU_CPP");
 import $(nemupath)/nemu/include/Nemu.bkl;
 
@@ -11,7 +13,7 @@ vs2017.solutionfile = ../vc15/CodeSmithyContentPlatformCore.sln;
 vs2015.solutionfile = ../vc14/CodeSmithyContentPlatformCore.sln;
 vs2013.solutionfile = ../vc12/CodeSmithyContentPlatformCore.sln;
 
-library CodeSmithyContentPlatformCore : Nemu, IshikoJSON
+library CodeSmithyContentPlatformCore : CodeSmithyDoxygenCore, Nemu, IshikoJSON
 {
     includedirs += ../../../include/CodeSmithy/ContentPlatform/Core;
 
