@@ -12,7 +12,7 @@ jobs:
           command: mkdir -p /projects/codesmithyide && echo 'export CODESMITHYIDE="/projects/codesmithyide"' >> $BASH_ENV
       - run:
           name: "Install build dependency: CodeSmithyDoxygenCore"
-          command: cd /projects/codesmithyide && git clone git@github.com:codesmithyide/content-platform.git && cd doxygen/core/build/gnumake && make
+          command: cd /projects/codesmithyide && git clone git@github.com:codesmithyide/doxygen.git && cd doxygen/core/build/gnumake && make
       - checkout:
           path: /projects/codesmithyide/content-platform
       - run:
