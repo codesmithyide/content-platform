@@ -6,7 +6,7 @@ jobs:
     steps:
       - run:
           name: Add GitHub SSH fingerprints
-          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
+          command: mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run: 
           name: "Set CODESMITHYIDE environment variables and create workspace directory"
           command: mkdir -p /projects/codesmithyide && echo 'export CODESMITHYIDE="/projects/codesmithyide"' >> $BASH_ENV
