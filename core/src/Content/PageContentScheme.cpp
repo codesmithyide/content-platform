@@ -6,11 +6,12 @@
 
 #include "Content/PageContentScheme.hpp"
 #include <Ishiko/Text.hpp>
+#include <memory>
 
 using namespace CodeSmithy::ContentPlatform;
 
 PageContentScheme::PageContentScheme()
-    : m_name("page")
+    : m_name("page"), m_callbacks("page", "page.html", "", "")
 {
 }
 
@@ -48,20 +49,11 @@ std::vector<Nemu::Route> PageContentScheme::instantiate(const Ishiko::Configurat
     }
     // TODO: Check view validity
 
-    // TODO: when I have proper support for schemes I definitely need to try to reuse the handlers
-    // TODO: better way to put the path together
-    routes.emplace_back(routePattern,
-        // TODO: can this use the ViewWebRequestHandler, if not then ViewWebRequestHandler is probably not fit for
-        // purpose
-        std::make_shared<Nemu::FunctionWebRequestHandler>(
-            // TODO: risk here that title appears after content in json file. FIX
-            [view, title = configuration.value("title")](const Nemu::WebRequest& request,
-                Nemu::WebResponseBuilder& response, void* handlerData, Ishiko::Logger& logger)
-            {
-                Nemu::MapViewContext context;
-                context.map()["codesmithy_page_title"] = title;
-                response.view("page", view, context, "page.html");
-            }));
+    // TODO: when I have proper support for schemes I definitely need to try to reuse the handlers    
+    // TODO: I think I'm close to make this handler shared by every page since it contains nothing unique now
+    std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(m_callbacks);
+    handler->context().map()["codesmithy_page_title"] = configuration.value("title");
+    routes.emplace_back(routePattern, handler);
 
     return routes;
 }
