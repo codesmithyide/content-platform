@@ -1,7 +1,5 @@
 codesmithyidepath = envvar("CODESMITHYIDE");
 import $(codesmithyidepath)/content-platform/include/CodeSmithy/ContentPlatform/Core.bkl;
-ishikopath = envvar("ISHIKO_CPP");
-import $(ishikopath)/Configuration/include/Ishiko/Configuration.bkl;
 
 toolsets = gnu vs2019 vs2017 vs2015 vs2013;
 
@@ -11,7 +9,7 @@ vs2017.solutionfile = ../vc15/CodeSmithyContentPlatformWebServer.sln;
 vs2015.solutionfile = ../vc14/CodeSmithyContentPlatformWebServer.sln;
 vs2013.solutionfile = ../vc12/CodeSmithyContentPlatformWebServer.sln;
 
-program CodeSmithyContentPlatformWebServer : CodeSmithyContentPlatformCore, IshikoConfiguration
+program CodeSmithyContentPlatformWebServer : CodeSmithyContentPlatformCore
 {
     archs = x86 x86_64;
 
