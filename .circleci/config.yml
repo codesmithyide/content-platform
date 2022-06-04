@@ -5,8 +5,8 @@ jobs:
       - image: nemuframework/gcc-nemu-cpp:0.14.0
     steps:
       - run: 
-          name: "Set CODESMITHYIDE environment variables"
-          command: echo 'export CODESMITHYIDE="/projects/codesmithyide"' >> $BASH_ENV
+          name: "Set CODESMITHYIDE environment variables and create workspace directory"
+          command: mkdir -p /projects/codesmithyide && echo 'export CODESMITHYIDE="/projects/codesmithyide"' >> $BASH_ENV
       - run:
           name: "Install build dependency: CodeSmithyDoxygenCore"
           command: cd /projects/codesmithyide && git clone https://github.com/codesmithy/doxygen.git && cd doxygen/core/build/gnumake && make
