@@ -35,6 +35,8 @@ void DoxygenContentSchemeTests::ConstructorTest1(Test& test)
 
 void DoxygenContentSchemeTests::InstantiateTest1(Test& test)
 {
+    boost::filesystem::path inputhPath =
+        test.context().getTestDataPath("websites/doxygen-test-site-1/doxygen/index.xml");
     boost::filesystem::path outputPath =
         test.context().getTestOutputPath("DoxygenContentSchemeTests_InstantiateTest1.html");
 
@@ -44,7 +46,7 @@ void DoxygenContentSchemeTests::InstantiateTest1(Test& test)
     DoxygenContentScheme scheme;
 
     Configuration schemeConfiguration;
-    schemeConfiguration.set("index", "doxygen/index.xml");
+    schemeConfiguration.set("index", inputhPath.string());
     schemeConfiguration.set("title", "DoxygenContentSchemeTests_InstantiateTest1");
     std::vector<Nemu::Route> routes = scheme.instantiate(schemeConfiguration);
 

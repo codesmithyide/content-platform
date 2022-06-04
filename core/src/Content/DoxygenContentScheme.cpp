@@ -26,7 +26,10 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
 
     // TODO: we don't do anything with this right now, it needs to be used to build the view context with the
     // appropriate variables
-    std::string index = configuration.value("index"); // TODO: handle invalid configuration where there is no index
+    std::string doxygenIndexPath = configuration.value("index"); // TODO: handle invalid configuration where there is no index
+
+    // TODO: handle file doesn't exist
+    DoxygenXMLIndex doxygenIndex = DoxygenXMLIndex::FromFile(doxygenIndexPath);
 
     // TODO: do the mapping in a more configurable way
     // TODO: we know it's an API we want to publish so we will display the index at /docs/api/index.html
