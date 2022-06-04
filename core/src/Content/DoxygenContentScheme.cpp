@@ -5,6 +5,7 @@
 */
 
 #include "Content/DoxygenContentScheme.hpp"
+#include <CodeSmithy/Doxygen/Core.hpp>
 #include <Ishiko/Text.hpp>
 
 using namespace CodeSmithy::ContentPlatform;
