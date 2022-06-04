@@ -5,11 +5,12 @@
 */
 
 #include "Content/DoxygenContentScheme.hpp"
+#include <Ishiko/Text.hpp>
 
 using namespace CodeSmithy::ContentPlatform;
 
 DoxygenContentScheme::DoxygenContentScheme()
-    : m_name("doxygen")
+    : m_name("doxygen"), m_callbacks("doxygen", "page.html", "", "")
 {
 }
 
@@ -28,21 +29,19 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
 
     // TODO: do the mapping in a more configurable way
     // TODO: we know it's an API we want to publish so we will display the index at /docs/api/index.html
-    std::string pattern = "/docs/api/index.html";
+    std::string routePattern = "/docs/api/index.html";
 
-    // TODO: better way to put the path together
-    routes.emplace_back(pattern,
-        std::make_shared<Nemu::FunctionWebRequestHandler>(
-            // TODO: view takes the path in relation to the templates root dir which we set as "pages" so this won't
-            // work. I need to map this one to "templates"
-            // TODO: risk here that title appears after content in json file. FIX
-            [page = "templates/docs/api/index.html", title = configuration.value("title")](const Nemu::WebRequest& request,
-                Nemu::WebResponseBuilder& response, void* handlerData, Ishiko::Logger& logger)
-            {
-                Nemu::MapViewContext context;
-                context.map()["codesmithy_page_title"] = title;
-                response.view("doxygen", page, context, "page.html");
-            }));
+    std::string view = routePattern;
+    bool prefixRemoved = Ishiko::ASCII::RemovePrefix("/", view);
+    if (!prefixRemoved)
+    {
+        // TODO: this should be an error as it means the path was not valid
+    }
+    // TODO: Check view validity
+
+    std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(m_callbacks);
+    handler->context().map()["codesmithy_page_title"] = configuration.value("title");
+    routes.emplace_back(routePattern, handler);
 
     return routes;
 }
