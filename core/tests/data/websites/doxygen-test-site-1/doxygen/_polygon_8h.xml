@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="_polygon_8h" kind="file" language="C++">
+    <compoundname>Polygon.h</compoundname>
+    <innerclass refid="class_polygon" prot="public">Polygon</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_polygon" kindref="compound">Polygon</ref></highlight></codeline>
+<codeline lineno="3"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="4"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Polygon.h"/>
+  </compounddef>
+</doxygen>

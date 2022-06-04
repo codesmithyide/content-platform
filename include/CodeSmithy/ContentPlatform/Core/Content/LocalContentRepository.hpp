@@ -33,7 +33,7 @@ private:
     class JSONParserCallbacks : public Ishiko::JSONPushParser::Callbacks
     {
     public:
-        JSONParserCallbacks(LocalContentRepository& repository);
+        JSONParserCallbacks(LocalContentRepository& repository, boost::filesystem::path configurationFileDirectory);
 
         void onMemberName(boost::string_view data) override;
         void onMemberEnd() override;
@@ -43,6 +43,7 @@ private:
 
     private:
         LocalContentRepository& m_repository;
+        boost::filesystem::path m_configurationFileDirectory;
         std::vector<std::string> m_context;
     };
 
