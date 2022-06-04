@@ -4,9 +4,15 @@ jobs:
     docker:
       - image: nemuframework/gcc-nemu-cpp:0.14.0
     steps:
+      - run:
+          name: Add GitHub SSH fingerprints
+          command: mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run: 
-          name: "Set CODESMITHYIDE environment variables"
-          command: echo 'export CODESMITHYIDE="/projects/codesmithyide"' >> $BASH_ENV
+          name: "Set CODESMITHYIDE environment variables and create workspace directory"
+          command: mkdir -p /projects/codesmithyide && echo 'export CODESMITHYIDE="/projects/codesmithyide"' >> $BASH_ENV
+      - run:
+          name: "Install build dependency: CodeSmithyDoxygenCore"
+          command: cd /projects/codesmithyide && git clone git@github.com:codesmithyide/doxygen.git && cd doxygen/core/build/gnumake && make
       - checkout:
           path: /projects/codesmithyide/content-platform
       - run:

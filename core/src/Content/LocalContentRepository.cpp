@@ -17,7 +17,10 @@ LocalContentRepository::LocalContentRepository(const boost::filesystem::path& co
     m_schemes.add(std::make_shared<DoxygenContentScheme>());
     m_schemes.add(std::make_shared<PageContentScheme>());
 
-    JSONParserCallbacks callbacks(*this);
+    boost::filesystem::path configurationFileDirectory =
+        boost::filesystem::absolute(contentConfigurationFile.parent_path());
+
+    JSONParserCallbacks callbacks(*this, configurationFileDirectory);
     Ishiko::JSONPushParser jsonParser(callbacks);
 
     std::string data = Ishiko::FileSystem::ReadFile(contentConfigurationFile);
@@ -39,8 +42,9 @@ std::vector<Nemu::Route> LocalContentRepository::getRoutes() const
     return m_routes;
 }
 
-LocalContentRepository::JSONParserCallbacks::JSONParserCallbacks(LocalContentRepository& repository)
-    : m_repository(repository)
+LocalContentRepository::JSONParserCallbacks::JSONParserCallbacks(LocalContentRepository& repository,
+    boost::filesystem::path configurationFileDirectory)
+    : m_repository(repository), m_configurationFileDirectory(std::move(configurationFileDirectory))
 {
 }
 
@@ -123,7 +127,8 @@ void LocalContentRepository::JSONParserCallbacks::onString(boost::string_view da
         }
 
         Ishiko::Configuration schemeConfiguration;
-        schemeConfiguration.set("index", data.to_string());
+        boost::filesystem::path doxygenIndexFilePath = m_configurationFileDirectory / data.to_string();
+        schemeConfiguration.set("index", doxygenIndexFilePath.string());
         // TODO: this is a hack for now. Variables that should be passed to the ViewContext need a proper solution. Noy
         // so convinced it's a hack. This is after all specified in content.json and path is is also just a part
         // of the scheme. There isn't really a way we can guess whether the view will actually use any of this. One

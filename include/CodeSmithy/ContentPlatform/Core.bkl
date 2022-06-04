@@ -1,3 +1,5 @@
+codesmithyidepath = envvar("CODESMITHYIDE");
+import $(codesmithyidepath)/doxygen/include/CodeSmithy/Doxygen/Core.bkl;
 ishikopath = envvar("ISHIKO_CPP");
 import $(ishikopath)/JSON/include/Ishiko/JSON.bkl;
 nemupath = envvar("NEMU_CPP");
@@ -9,7 +11,7 @@ setting CODESMITHYIDE_CONTENTPLATFORM_ROOT
     default = '$(CODESMITHYIDE)/content-platform';
 }
 
-template CodeSmithyContentPlatformCore : Nemu, IshikoJSON
+template CodeSmithyContentPlatformCore : CodeSmithyDoxygenCore, Nemu, IshikoJSON
 {
     includedirs += $(CODESMITHYIDE_CONTENTPLATFORM_ROOT)/include;
 

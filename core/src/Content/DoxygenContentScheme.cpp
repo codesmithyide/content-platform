@@ -5,7 +5,9 @@
 */
 
 #include "Content/DoxygenContentScheme.hpp"
+#include <CodeSmithy/Doxygen/Core.hpp>
 #include <Ishiko/Text.hpp>
+#include <vector>
 
 using namespace CodeSmithy::ContentPlatform;
 
@@ -25,7 +27,17 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
 
     // TODO: we don't do anything with this right now, it needs to be used to build the view context with the
     // appropriate variables
-    std::string index = configuration.value("index"); // TODO: handle invalid configuration where there is no index
+    std::string doxygenIndexPath = configuration.value("index"); // TODO: handle invalid configuration where there is no index
+
+    // TODO: handle file doesn't exist
+    DoxygenXMLIndex doxygenIndex = DoxygenXMLIndex::FromFile(doxygenIndexPath);
+    // TODO: for now just check we can display the first class of the list
+    std::string className;
+    const std::vector<DoxygenXMLIndex::ClassInfo>& classes = doxygenIndex.classes();
+    for (const DoxygenXMLIndex::ClassInfo& classInfo : classes)
+    {
+        className = classInfo.name;
+    }
 
     // TODO: do the mapping in a more configurable way
     // TODO: we know it's an API we want to publish so we will display the index at /docs/api/index.html
@@ -41,6 +53,8 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
 
     std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(m_callbacks);
     handler->context().map()["codesmithy_page_title"] = configuration.value("title");
+    // TODO: should be an array
+    handler->context().map()["codesmithy_api_classes"] = className;
     routes.emplace_back(routePattern, handler);
 
     return routes;
