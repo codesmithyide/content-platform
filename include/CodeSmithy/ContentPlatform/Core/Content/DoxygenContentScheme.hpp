@@ -8,6 +8,8 @@
 #define _CODESMITHY_CONTENTPLATFORM_CORE_CONTENT_DOXYGENCONTENTSCHEME_HPP_
 
 #include "ContentScheme.hpp"
+#include <Nemu.hpp>
+#include <string>
 
 namespace CodeSmithy
 {
@@ -24,6 +26,7 @@ public:
 
 private:
     std::string m_name;
+    Nemu::ViewWebRequestHandler::DeclarativeCallbacks m_callbacks;
 };
 
 }

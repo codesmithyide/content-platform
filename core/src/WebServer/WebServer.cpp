@@ -51,18 +51,19 @@ WebServer::WebServer(const Configuration& configuration, Ishiko::Logger& logger)
             logger),
         logger)
 {
-    LocalPresentationRepository presentation(configuration.presentation());
-    LocalContentRepository content(configuration.content());
-    initialize(presentation, content);
+    m_content = std::make_shared<LocalContentRepository>(configuration.content()); 
+    m_presentation = std::make_shared<LocalPresentationRepository>(configuration.presentation());
+    initialize();
 }
 
-WebServer::WebServer(Ishiko::Port port, const Presentation& presentation, const Content& content,
+WebServer::WebServer(Ishiko::Port port, std::shared_ptr<Content> content, std::shared_ptr<Presentation> presentation,
     Ishiko::Logger& logger)
-    : m_app(
-        std::make_shared<Nemu::SingleConnectionWebServer>(Ishiko::TCPServerSocket::AllInterfaces, port, logger),
-        logger)
+    : m_app(std::make_shared<Nemu::SingleConnectionWebServer>(Ishiko::TCPServerSocket::AllInterfaces, port, logger),
+        logger),
+    m_content(content),
+    m_presentation(presentation)
 {
-    initialize(presentation, content);
+    initialize();
 }
 
 void WebServer::run()
@@ -85,36 +86,8 @@ Nemu::Routes& WebServer::routes() noexcept
     return m_app.routes();
 }
 
-void WebServer::initialize(const Presentation& presentation, const Content& content)
+void WebServer::initialize()
 {
-    // Set the mustache engine as the default template engine
-    // TODO: we set up 2 profiles that are equivalent to this default configuration but ideally this should be
-    // configurable (as part of the presentation layer? As in not the content one)
-    /*
-    * "schemes" : [
-        {
-            "doxygen": {
-                "template-engine": {
-                    "name": "mustache",
-                    "options": {
-                        "templates-root-dir": "templates/docs/api"
-                    }
-                }
-            }
-        },
-        {
-            "pages": {
-                "template-engine": {
-                    "name": "mustache",
-                    "options": {
-                        "templates-root-dir": "pages"
-                    }
-                }
-            }
-        },
-    ],
-    */
-
     // TODO: can this be a local variable? It may depend on engine so better not start assuming that
     Nemu::MustacheTemplateEngine mustacheTemplateEngine;
 
@@ -122,7 +95,7 @@ void WebServer::initialize(const Presentation& presentation, const Content& cont
     // names need to match the schemes in the content configuration. The name of the scheme will be passed in when 
     // calling WebResponseBuilder::view(<scheme name>, ...) so it needs to match the name of a registered template
     // engine profile.
-    for (const PresentationProfile& profile : presentation.getProfiles())
+    for (const PresentationProfile& profile : m_presentation->getProfiles())
     {
         m_app.views().set(profile.name(), mustacheTemplateEngine.createProfile(profile.templateEngineConfiguration()));
     }
@@ -155,18 +128,18 @@ void WebServer::initialize(const Presentation& presentation, const Content& cont
                     })));
     }
 #endif
-    std::vector<Nemu::Route> routes = content.getRoutes();
+    std::vector<Nemu::Route> routes = m_content->getRoutes();
     m_app.routes().add(routes);
 
     m_app.routes().add(
         Nemu::Route("/*",
             std::make_shared<Nemu::FunctionWebRequestHandler>(
                 // TODO: better way of passing context/content
-                [title = content.getTitle()](const Nemu::WebRequest& request, Nemu::WebResponseBuilder& response, void* handlerData,
+                [title = m_content->getTitle()](const Nemu::WebRequest& request, Nemu::WebResponseBuilder& response, void* handlerData,
                     Ishiko::Logger& logger)
                 {
-                    Nemu::ViewContext context;
-                    context["codesmithy_page_title"] = title;
+                    Nemu::MapViewContext context;
+                    context.map()["codesmithy_page_title"] = title;
                     std::string templatePath = request.url().path();
                     if (templatePath == "/")
                     {

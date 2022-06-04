@@ -48,7 +48,8 @@ public:
     };
    
     WebServer(const Configuration& configuration, Ishiko::Logger& logger);
-    WebServer(Ishiko::Port port, const Presentation& presentation, const Content& content, Ishiko::Logger& logger);
+    WebServer(Ishiko::Port port, std::shared_ptr<Content> content, std::shared_ptr<Presentation> presentation,
+        Ishiko::Logger& logger);
 
     void run();
     void stop();
@@ -57,9 +58,11 @@ public:
     Nemu::Routes& routes() noexcept;
 
 private:
-    void initialize(const Presentation& presentation, const Content& content);
+    void initialize();
 
     Nemu::WebApplication m_app;
+    std::shared_ptr<Content> m_content;
+    std::shared_ptr<Presentation> m_presentation;
 };
 
 }
