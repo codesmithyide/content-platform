@@ -7,6 +7,9 @@ jobs:
       - run: 
           name: "Set CODESMITHYIDE environment variables"
           command: echo 'export CODESMITHYIDE="/projects/codesmithyide"' >> $BASH_ENV
+      - run:
+          name: "Install build dependency: CodeSmithyDoxygenCore"
+          command: cd /projects/codesmithyide && git clone https://github.com/codesmithy/doxygen.git && cd doxygen/core/build/gnumake && make
       - checkout:
           path: /projects/codesmithyide/content-platform
       - run:
