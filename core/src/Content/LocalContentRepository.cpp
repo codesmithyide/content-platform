@@ -101,7 +101,14 @@ void LocalContentRepository::JSONParserCallbacks::onString(boost::string_view da
 
         Ishiko::Configuration schemeConfiguration;
         schemeConfiguration.set("path", data.to_string());
-        // TODO: this is a hack for now. Variables that should be passed to the ViewContext need a proper solution
+        // TODO: this is a hack for now. Variables that should be passed to the ViewContext need a proper solution. Noy
+        // so convinced it's a hack. This is after all specified in content.json and path is is also just a part
+        // of the scheme. There isn't really a way we can guess whether the view will actually use any of this. One
+        // thing to consider though is that we should avoid copy/pasting common things. So maybe what is needed is some
+        // sort of hierarchical configuration.
+        // Also the fact a View handler is used is also scheme specific so a common ViewContext breaks encapsulation.
+        // TODO: in essence we want to make things like title more generic so users can specify what they want in the
+        // content.json and well know it's page metadata.
         schemeConfiguration.set("title", m_repository.getTitle());
         std::vector<Nemu::Route> routes = scheme->instantiate(schemeConfiguration);
         m_repository.m_routes.insert(m_repository.m_routes.end(), routes.begin(), routes.end());
@@ -117,7 +124,14 @@ void LocalContentRepository::JSONParserCallbacks::onString(boost::string_view da
 
         Ishiko::Configuration schemeConfiguration;
         schemeConfiguration.set("index", data.to_string());
-        // TODO: this is a hack for now. Variables that should be passed to the ViewContext need a proper solution
+        // TODO: this is a hack for now. Variables that should be passed to the ViewContext need a proper solution. Noy
+        // so convinced it's a hack. This is after all specified in content.json and path is is also just a part
+        // of the scheme. There isn't really a way we can guess whether the view will actually use any of this. One
+        // thing to consider though is that we should avoid copy/pasting common things. So maybe what is needed is some
+        // sort of hierarchical configuration.
+        // Also the fact a View handler is used is also scheme specific so a common ViewContext breaks encapsulation.
+        // TODO: in essence we want to make things like title more generic so users can specify what they want in the
+        // content.json and well know it's page metadata.
         schemeConfiguration.set("title", m_repository.getTitle());
         std::vector<Nemu::Route> routes = scheme->instantiate(schemeConfiguration);
         m_repository.m_routes.insert(m_repository.m_routes.end(), routes.begin(), routes.end());
