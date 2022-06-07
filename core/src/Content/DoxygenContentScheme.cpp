@@ -15,6 +15,19 @@ using namespace CodeSmithy::ContentPlatform;
 namespace
 {
 
+void InitiateContext(const Ishiko::Configuration& configuration, Nemu::MapViewContext& context)
+{
+    std::map<std::string, Nemu::ViewContext::Value>& map = context.map();
+
+    auto codesmithyNode = map.insert({ "codesmithy", Nemu::ViewContext::Value::Map() });
+
+    auto pageNode = codesmithyNode.first->second.asValueMap().insert({ "page", Nemu::ViewContext::Value::Map() });
+    pageNode.first->second.asValueMap().insert({ "title", configuration.value("title").asString() });
+
+    auto docNode = codesmithyNode.first->second.asValueMap().insert({ "doc", Nemu::ViewContext::Value::Map() });
+    docNode.first->second.asValueMap().insert({ "api", Nemu::ViewContext::Value::Map() });
+}
+
 void AddIndexRoute(const Ishiko::Configuration& configuration, const CodeSmithy::DoxygenXMLIndex& doxygenIndex,
     Nemu::ViewWebRequestHandler::Callbacks& callbacks, std::vector<Nemu::Route>& routes)
 {
@@ -31,11 +44,7 @@ void AddIndexRoute(const Ishiko::Configuration& configuration, const CodeSmithy:
     // TODO: Check view validity
 
     std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(callbacks);
-    handler->context().map()["codesmithy"] = Nemu::ViewContext::Value::Map();
-    handler->context().map()["codesmithy"].asValueMap()["page"] = Nemu::ViewContext::Value::Map();
-    handler->context().map()["codesmithy"].asValueMap()["page"].asValueMap()["title"] = configuration.value("title").asString();
-    handler->context().map()["codesmithy"].asValueMap()["doc"] = Nemu::ViewContext::Value::Map();
-    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"] = Nemu::ViewContext::Value::Map();
+    InitiateContext(configuration, handler->context());
     handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"] = Nemu::ViewContext::Value::Array();
 
     const std::vector<CodeSmithy::DoxygenXMLIndex::ClassInfo>& doxygenClasses = doxygenIndex.classes();
@@ -60,11 +69,7 @@ void AddClassRoute(const Ishiko::Configuration& configuration,
     // TODO: Check view validity
 
     std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(callbacks);
-    handler->context().map()["codesmithy"] = Nemu::ViewContext::Value::Map();
-    handler->context().map()["codesmithy"].asValueMap()["page"] = Nemu::ViewContext::Value::Map();
-    handler->context().map()["codesmithy"].asValueMap()["page"].asValueMap()["title"] = configuration.value("title").asString();
-    handler->context().map()["codesmithy"].asValueMap()["doc"] = Nemu::ViewContext::Value::Map();
-    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"] = Nemu::ViewContext::Value::Map();
+    InitiateContext(configuration, handler->context());
     handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["class"] = Nemu::ViewContext::Value::Map();
     Nemu::ViewContext::Value::Map& documentedClass = handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["class"].asValueMap();
 
