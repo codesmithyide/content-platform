@@ -85,6 +85,18 @@ void AddClassRoute(const Ishiko::Configuration& configuration,
 
     // ... and populate it.
     documentedClass["name"] = classDocumentation.name();
+    auto functionsNode = documentedClass.insert({ "functions", Nemu::ViewContext::Value::Map() });
+    Nemu::ViewContext::Value::Map& functions = functionsNode.first->second.asValueMap();
+    for (const CodeSmithy::DoxygenXMLFunctionDocumentation& functionsDocumentation : classDocumentation.functions())
+    {
+        functions["name"] = functionsDocumentation.name();
+    }
+    auto variablesNode = documentedClass.insert({ "variables", Nemu::ViewContext::Value::Map() });
+    Nemu::ViewContext::Value::Map& variables = variablesNode.first->second.asValueMap();
+    for (const CodeSmithy::DoxygenXMLVariableDocumentation& variableDocumentation : classDocumentation.variables())
+    {
+        variables["name"] = variableDocumentation.name();
+    }
 
     routes.emplace_back(routePattern, handler);
 }
