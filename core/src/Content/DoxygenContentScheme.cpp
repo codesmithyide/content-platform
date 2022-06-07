@@ -5,6 +5,7 @@
 */
 
 #include "Content/DoxygenContentScheme.hpp"
+#include <boost/filesystem.hpp>
 #include <CodeSmithy/Doxygen/Core.hpp>
 #include <Ishiko/Text.hpp>
 #include <vector>
@@ -25,40 +26,70 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
 {
     std::vector<Nemu::Route> routes;
 
-    // TODO: we don't do anything with this right now, it needs to be used to build the view context with the
-    // appropriate variables
     // TODO: handle invalid configuration where there is no index
-    std::string doxygenIndexPath = configuration.value("index").asString();
+    boost::filesystem::path doxygenIndexPath = configuration.value("index").asString();
 
     // TODO: handle file doesn't exist
     DoxygenXMLIndex doxygenIndex = DoxygenXMLIndex::FromFile(doxygenIndexPath);
-    
-    // TODO: do the mapping in a more configurable way
-    // TODO: we know it's an API we want to publish so we will display the index at /docs/api/index.html
-    std::string routePattern = "/docs/api/index.html";
 
-    std::string view = routePattern;
-    bool prefixRemoved = Ishiko::ASCII::RemovePrefix("/", view);
-    if (!prefixRemoved)
+    const std::vector<DoxygenXMLIndex::ClassInfo>& doxygenClasses = doxygenIndex.classes();
+
+    // TODO: functional decomposition
     {
-        // TODO: this should be an error as it means the path was not valid
+        // TODO: do the mapping in a more configurable way
+        // TODO: we know it's an API we want to publish so we will display the index at /docs/api/index.html
+        std::string routePattern = "/docs/api/index.html";
+
+        std::string view = routePattern;
+        bool prefixRemoved = Ishiko::ASCII::RemovePrefix("/", view);
+        if (!prefixRemoved)
+        {
+            // TODO: this should be an error as it means the path was not valid
+        }
+        // TODO: Check view validity
+
+        std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(m_callbacks);
+        handler->context().map()["codesmithy"] = Nemu::ViewContext::Value::Map();
+        handler->context().map()["codesmithy"].asValueMap()["page"] = Nemu::ViewContext::Value::Map();
+        handler->context().map()["codesmithy"].asValueMap()["page"].asValueMap()["title"] = configuration.value("title").asString();
+        handler->context().map()["codesmithy"].asValueMap()["doc"] = Nemu::ViewContext::Value::Map();
+        handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"] = Nemu::ViewContext::Value::Map();
+        handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"] = Nemu::ViewContext::Value::Array();
+        Nemu::ViewContext::Value::Array& documentedClasses = handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"].asValueArray();
+        for (const DoxygenXMLIndex::ClassInfo& classInfo : doxygenClasses)
+        {
+           documentedClasses.push_back(classInfo.name);
+        }
+        routes.emplace_back(routePattern, handler);
     }
-    // TODO: Check view validity
 
-    std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(m_callbacks);
-    handler->context().map()["codesmithy"] = Nemu::ViewContext::Value::Map();
-    handler->context().map()["codesmithy"].asValueMap()["page"] = Nemu::ViewContext::Value::Map();
-    handler->context().map()["codesmithy"].asValueMap()["page"].asValueMap()["title"] = configuration.value("title").asString();
-    handler->context().map()["codesmithy"].asValueMap()["doc"] = Nemu::ViewContext::Value::Map();
-    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"] = Nemu::ViewContext::Value::Map();
-    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"] = Nemu::ViewContext::Value::Array();
-    const std::vector<DoxygenXMLIndex::ClassInfo>& classes = doxygenIndex.classes();
-    Nemu::ViewContext::Value::Array& documentedClasses = handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"].asValueArray();
-    for (const DoxygenXMLIndex::ClassInfo& classInfo : classes)
+    // TODO: functional decomposition
+    for (const DoxygenXMLIndex::ClassInfo& classInfo : doxygenClasses)
     {
-        documentedClasses.push_back(classInfo.name);
-    } 
-    routes.emplace_back(routePattern, handler);
+        // TODO: do the mapping in a more configurable way
+        // TODO: we know it's an API we want to publish so we will display the index at /docs/api/index.html
+        // TODO: do not reuse Doxygen scheme, come up with our own and ensure it works universally
+        std::string routePattern = "/docs/api/class/" + classInfo.refId + ".html";
+
+        std::string view = "docs/api/class.html";
+        // TODO: Check view validity
+
+        std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(m_callbacks);
+        handler->context().map()["codesmithy"] = Nemu::ViewContext::Value::Map();
+        handler->context().map()["codesmithy"].asValueMap()["page"] = Nemu::ViewContext::Value::Map();
+        handler->context().map()["codesmithy"].asValueMap()["page"].asValueMap()["title"] = configuration.value("title").asString();
+        handler->context().map()["codesmithy"].asValueMap()["doc"] = Nemu::ViewContext::Value::Map();
+        handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"] = Nemu::ViewContext::Value::Map();
+        handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["class"] = Nemu::ViewContext::Value::Map();
+        Nemu::ViewContext::Value::Map& documentedClass = handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["class"].asValueMap();
+        
+        boost::filesystem::path classDocumentationFilePath = doxygenIndexPath.parent_path() / (classInfo.refId + ".xml");
+        DoxygenXMLClassDocumentation classDocumentation = DoxygenXMLClassDocumentation::FromFile(classDocumentationFilePath);
+
+        documentedClass["name"] = classInfo.name;
+      
+        routes.emplace_back(routePattern, handler);
+    }
 
     return routes;
 }

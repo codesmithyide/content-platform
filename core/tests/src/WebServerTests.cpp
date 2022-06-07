@@ -97,11 +97,12 @@ void WebServerTests::ConstructorTest3(Test& test)
 
     const Nemu::Routes& routes = server.routes();
 
-    ISHIKO_TEST_ABORT_IF_NEQ(routes.size(), 4);
+    ISHIKO_TEST_ABORT_IF_NEQ(routes.size(), 5);
     ISHIKO_TEST_FAIL_IF_NEQ(routes.at(0).pathPattern(), "/index.html");
     ISHIKO_TEST_FAIL_IF_NEQ(routes.at(1).pathPattern(), "/docs/api/index.html");
-    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(2).pathPattern(), "/*");
-    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(3).pathPattern(), "*");
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(2).pathPattern(), "/docs/api/class/class_polygon.html");
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(3).pathPattern(), "/*");
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(4).pathPattern(), "*");
     ISHIKO_TEST_PASS();
 }
 
