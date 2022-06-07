@@ -12,6 +12,43 @@
 
 using namespace CodeSmithy::ContentPlatform;
 
+namespace
+{
+
+void AddIndexRoute(const Ishiko::Configuration& configuration, const CodeSmithy::DoxygenXMLIndex& doxygenIndex,
+    Nemu::ViewWebRequestHandler::Callbacks& callbacks, std::vector<Nemu::Route>& routes)
+{
+    // TODO: do the mapping in a more configurable way
+        // TODO: we know it's an API we want to publish so we will display the index at /docs/api/index.html
+    std::string routePattern = "/docs/api/index.html";
+
+    std::string view = routePattern;
+    bool prefixRemoved = Ishiko::ASCII::RemovePrefix("/", view);
+    if (!prefixRemoved)
+    {
+        // TODO: this should be an error as it means the path was not valid
+    }
+    // TODO: Check view validity
+
+    std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(callbacks);
+    handler->context().map()["codesmithy"] = Nemu::ViewContext::Value::Map();
+    handler->context().map()["codesmithy"].asValueMap()["page"] = Nemu::ViewContext::Value::Map();
+    handler->context().map()["codesmithy"].asValueMap()["page"].asValueMap()["title"] = configuration.value("title").asString();
+    handler->context().map()["codesmithy"].asValueMap()["doc"] = Nemu::ViewContext::Value::Map();
+    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"] = Nemu::ViewContext::Value::Map();
+    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"] = Nemu::ViewContext::Value::Array();
+
+    const std::vector<CodeSmithy::DoxygenXMLIndex::ClassInfo>& doxygenClasses = doxygenIndex.classes();
+    Nemu::ViewContext::Value::Array& documentedClasses = handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"].asValueArray();
+    for (const CodeSmithy::DoxygenXMLIndex::ClassInfo& classInfo : doxygenClasses)
+    {
+        documentedClasses.push_back(classInfo.name);
+    }
+    routes.emplace_back(routePattern, handler);
+}
+
+}
+
 DoxygenContentScheme::DoxygenContentScheme()
     : m_name("doxygen"), m_callbacks("doxygen", "page.html", "", "")
 {
@@ -32,38 +69,10 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
     // TODO: handle file doesn't exist
     DoxygenXMLIndex doxygenIndex = DoxygenXMLIndex::FromFile(doxygenIndexPath);
 
+    AddIndexRoute(configuration, doxygenIndex, m_callbacks, routes);
+
+    // TODO: functional decomposition
     const std::vector<DoxygenXMLIndex::ClassInfo>& doxygenClasses = doxygenIndex.classes();
-
-    // TODO: functional decomposition
-    {
-        // TODO: do the mapping in a more configurable way
-        // TODO: we know it's an API we want to publish so we will display the index at /docs/api/index.html
-        std::string routePattern = "/docs/api/index.html";
-
-        std::string view = routePattern;
-        bool prefixRemoved = Ishiko::ASCII::RemovePrefix("/", view);
-        if (!prefixRemoved)
-        {
-            // TODO: this should be an error as it means the path was not valid
-        }
-        // TODO: Check view validity
-
-        std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(m_callbacks);
-        handler->context().map()["codesmithy"] = Nemu::ViewContext::Value::Map();
-        handler->context().map()["codesmithy"].asValueMap()["page"] = Nemu::ViewContext::Value::Map();
-        handler->context().map()["codesmithy"].asValueMap()["page"].asValueMap()["title"] = configuration.value("title").asString();
-        handler->context().map()["codesmithy"].asValueMap()["doc"] = Nemu::ViewContext::Value::Map();
-        handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"] = Nemu::ViewContext::Value::Map();
-        handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"] = Nemu::ViewContext::Value::Array();
-        Nemu::ViewContext::Value::Array& documentedClasses = handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"].asValueArray();
-        for (const DoxygenXMLIndex::ClassInfo& classInfo : doxygenClasses)
-        {
-           documentedClasses.push_back(classInfo.name);
-        }
-        routes.emplace_back(routePattern, handler);
-    }
-
-    // TODO: functional decomposition
     for (const DoxygenXMLIndex::ClassInfo& classInfo : doxygenClasses)
     {
         // TODO: do the mapping in a more configurable way
