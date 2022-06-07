@@ -53,7 +53,9 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
     // TODO: Check view validity
 
     std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(m_callbacks);
-    handler->context().map()["codesmithy_page_title"] = configuration.value("title").asString();
+    handler->context().map()["codesmithy"] = Nemu::ViewContext::Value::Map();
+    handler->context().map()["codesmithy"].asValueMap()["page"] = Nemu::ViewContext::Value::Map();
+    handler->context().map()["codesmithy"].asValueMap()["page"].asValueMap()["title"] = configuration.value("title").asString();
     // TODO: should be an array
     handler->context().map()["codesmithy_api_classes"] = className;
     routes.emplace_back(routePattern, handler);
