@@ -45,14 +45,20 @@ void AddIndexRoute(const Ishiko::Configuration& configuration, const CodeSmithy:
 
     std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(callbacks);
     InitiateContext(configuration, handler->context());
-    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"] = Nemu::ViewContext::Value::Array();
 
+    // Add "classes" array under the "api" node...
+    std::map<std::string, Nemu::ViewContext::Value>& apiMap =
+        handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap();
+    auto classesNode = apiMap.insert({ "classes", Nemu::ViewContext::Value::Array() });
+    Nemu::ViewContext::Value::Array& documentedClasses = classesNode.first->second.asValueArray();
+
+    // ... and populate it.
     const std::vector<CodeSmithy::DoxygenXMLIndex::ClassInfo>& doxygenClasses = doxygenIndex.classes();
-    Nemu::ViewContext::Value::Array& documentedClasses = handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"].asValueArray();
     for (const CodeSmithy::DoxygenXMLIndex::ClassInfo& classInfo : doxygenClasses)
     {
         documentedClasses.push_back(classInfo.name);
     }
+
     routes.emplace_back(routePattern, handler);
 }
 
@@ -70,9 +76,14 @@ void AddClassRoute(const Ishiko::Configuration& configuration,
 
     std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(callbacks);
     InitiateContext(configuration, handler->context());
-    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["class"] = Nemu::ViewContext::Value::Map();
-    Nemu::ViewContext::Value::Map& documentedClass = handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["class"].asValueMap();
 
+    // Add "class" map under the "api" node...
+    std::map<std::string, Nemu::ViewContext::Value>& apiMap =
+        handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap();
+    auto classNode = apiMap.insert({ "class", Nemu::ViewContext::Value::Map() });
+    Nemu::ViewContext::Value::Map& documentedClass = classNode.first->second.asValueMap();
+
+    // ... and populate it.
     documentedClass["name"] = classDocumentation.name();
 
     routes.emplace_back(routePattern, handler);
