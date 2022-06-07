@@ -1,5 +1,5 @@
 HTTP/1.1 200 OK
-Content-Length: 215
+Content-Length: 227
 
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,8 @@ Content-Length: 215
 </head>
 <body>
   <p>This is the file templates/docs/api/index.html.</p>
-  <p>Polygon</p>
-  
-   </body>
+  <ul>
+  <li>Polygon</li>
+  </ul>
+</body>
 </html>
