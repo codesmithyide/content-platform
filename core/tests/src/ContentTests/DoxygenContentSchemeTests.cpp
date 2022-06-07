@@ -17,6 +17,29 @@
 using namespace CodeSmithy::ContentPlatform;
 using namespace Ishiko;
 
+namespace
+{
+
+void RunHandlerAndSaveToFile(Nemu::Views& views, const Nemu::Route& route, const std::string& url,
+    const boost::filesystem::path& outputPath)
+{
+    NullLoggingSink sink;
+    Logger log(sink);
+
+    Nemu::WebRequest request(url);
+    Nemu::WebResponseBuilder response;
+    response.m_views = &views;
+    route.runHandler(request, response, log);
+
+    // TODO: use exceptions
+    Ishiko::Error error;
+    BinaryFile file = BinaryFile::Create(outputPath, error);
+    file.write(response.body().c_str(), response.body().size());
+    file.close();
+}
+
+}
+
 DoxygenContentSchemeTests::DoxygenContentSchemeTests(const TestNumber& number, const TestContext& context)
     : TestSequence(number, "DoxygenContentScheme tests", context)
 {
@@ -33,15 +56,10 @@ void DoxygenContentSchemeTests::ConstructorTest1(Test& test)
     ISHIKO_TEST_PASS();
 }
 
-
 void DoxygenContentSchemeTests::InstantiateTest1(Test& test)
 {
     boost::filesystem::path inputhPath =
         test.context().getTestDataPath("websites/doxygen-test-site-1/doxygen/index.xml");
-    boost::filesystem::path outputPath =
-        test.context().getTestOutputPath("DoxygenContentSchemeTests_InstantiateTest1.html");
-    boost::filesystem::path outputPath2 =
-        test.context().getTestOutputPath("DoxygenContentSchemeTests_InstantiateTest1_a.html");
 
     Nemu::Views views;
     views.set("doxygen", std::make_shared<Nemu::DebugTemplateEngineProfile>());
@@ -57,33 +75,19 @@ void DoxygenContentSchemeTests::InstantiateTest1(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(routes[0].pathPattern(), "/docs/api/index.html");
     ISHIKO_TEST_FAIL_IF_NEQ(routes[1].pathPattern(), "/docs/api/class/class_polygon.html");
 
-    NullLoggingSink sink;
-    Logger log(sink);
-    Nemu::WebRequest request1(Ishiko::URL("/docs/api/index.html"));
-    Nemu::WebResponseBuilder response1;
-    response1.m_views = &views;
-    routes[0].runHandler(request1, response1, log);
+    boost::filesystem::path outputPath =
+        test.context().getTestOutputPath("DoxygenContentSchemeTests_InstantiateTest1_index.html");
+    RunHandlerAndSaveToFile(views, routes[0], "/docs/api/index.html", outputPath);
+    
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest1_index.html",
+        "DoxygenContentSchemeTests_InstantiateTest1_index.html");
 
-    // TODO: use exceptions
-    Ishiko::Error error;
-    BinaryFile file = BinaryFile::Create(outputPath, error);
-    file.write(response1.body().c_str(), response1.body().size());
-    file.close();
+    boost::filesystem::path outputPath2 =
+        test.context().getTestOutputPath("DoxygenContentSchemeTests_InstantiateTest1_class_polygon.html");
+    RunHandlerAndSaveToFile(views, routes[1], "/docs/api/class/class_polygon.html", outputPath2);
 
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest1.html",
-        "DoxygenContentSchemeTests_InstantiateTest1.html");
-
-    Nemu::WebRequest request2(Ishiko::URL("/docs/api/class/class_polygon.html"));
-    Nemu::WebResponseBuilder response2;
-    response2.m_views = &views;
-    routes[1].runHandler(request2, response2, log);
-
-    BinaryFile file2 = BinaryFile::Create(outputPath2, error);
-    file2.write(response2.body().c_str(), response2.body().size());
-    file2.close();
-
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest1_a.html",
-        "DoxygenContentSchemeTests_InstantiateTest1_a.html");
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest1_class_polygon.html",
+        "DoxygenContentSchemeTests_InstantiateTest1_class_polygon.html");
     ISHIKO_TEST_PASS();
 }
 
