@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="class_polygon" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>Polygon</compoundname>
+    <derivedcompoundref refid="class_rectangle" prot="public" virt="non-virtual">Rectangle</derivedcompoundref>
+    <includes refid="_polygon_8h" local="no">Polygon.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_polygon_1abefc5d9595ecabeee8b08f309a32fa9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Polygon::draw</definition>
+        <argsstring>()=0</argsstring>
+        <name>draw</name>
+        <reimplementedby refid="class_rectangle_1a8339715d8e96e6968e8c25977199271d">draw</reimplementedby>
+        <briefdescription>
+<para>Draw the polygon. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Polygon.h" line="6" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class represents a polygon. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Rectangle</label>
+        <link refid="class_rectangle"/>
+        <childnode refid="0" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="0">
+        <label>Polygon</label>
+        <link refid="class_polygon"/>
+      </node>
+    </inheritancegraph>
+    <location file="Polygon.h" line="3" column="1" bodyfile="Polygon.h" bodystart="2" bodyend="7"/>
+    <listofallmembers>
+      <member refid="class_polygon_1abefc5d9595ecabeee8b08f309a32fa9b" prot="public" virt="pure-virtual"><scope>Polygon</scope><name>draw</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

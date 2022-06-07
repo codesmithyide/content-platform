@@ -1,0 +1,26 @@
+{
+    "profiles" : [
+        {
+            "page": {
+                "template-engine": {
+                    "name": "mustache",
+                    "options": {
+                        "templates-root-directory": "pages",
+                        "layouts-root-directory": "layouts"
+                    }
+                }
+            }
+        },
+        {
+            "doxygen": {
+                "template-engine": {
+                    "name": "mustache",
+                    "options": {
+                        "templates-root-directory": "templates",
+                        "layouts-root-directory": "layouts"
+                    }
+                }
+            }
+        }
+    ]
+}
