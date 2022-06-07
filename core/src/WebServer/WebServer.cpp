@@ -20,8 +20,10 @@ WebServer::CommandLineSpecification::CommandLineSpecification()
 }
 
 WebServer::Configuration::Configuration(const Ishiko::Configuration& configuration)
-    : m_port(configuration.value("port")), m_logLevel(Ishiko::LogLevel::FromString(configuration.value("log-level"))),
-    m_presentation(configuration.value("presentation")), m_content(configuration.value("content"))
+    : m_port(configuration.value("port").asString()),
+    m_logLevel(Ishiko::LogLevel::FromString(configuration.value("log-level").asString())),
+    m_presentation(configuration.value("presentation").asString()),
+    m_content(configuration.value("content").asString())
 {
 }
 
