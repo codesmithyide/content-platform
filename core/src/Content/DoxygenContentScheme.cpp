@@ -56,8 +56,10 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
     handler->context().map()["codesmithy"] = Nemu::ViewContext::Value::Map();
     handler->context().map()["codesmithy"].asValueMap()["page"] = Nemu::ViewContext::Value::Map();
     handler->context().map()["codesmithy"].asValueMap()["page"].asValueMap()["title"] = configuration.value("title").asString();
-    // TODO: should be an array
-    handler->context().map()["codesmithy_api_classes"] = className;
+    handler->context().map()["codesmithy"].asValueMap()["doc"] = Nemu::ViewContext::Value::Map();
+    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"] = Nemu::ViewContext::Value::Map();
+    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"] = Nemu::ViewContext::Value::Array();
+    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"].asValueArray().push_back(className);
     routes.emplace_back(routePattern, handler);
 
     return routes;
