@@ -33,8 +33,10 @@ void LocalPresentationRepositoryTests::ConstructorTest1(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(profiles[0].name(), "page");
     ISHIKO_TEST_ABORT_IF_NEQ(profiles[0].templateEngineConfiguration().size(), 2);
 
-    std::string templatesRootDirectory = profiles[0].templateEngineConfiguration().value("templates-root-directory");
-    std::string layoutsRootDirectory = profiles[0].templateEngineConfiguration().value("layouts-root-directory");
+    std::string templatesRootDirectory =
+        profiles[0].templateEngineConfiguration().value("templates-root-directory").asString();
+    std::string layoutsRootDirectory =
+        profiles[0].templateEngineConfiguration().value("layouts-root-directory").asString();
 
     ISHIKO_TEST_FAIL_IF_NEQ(templatesRootDirectory.substr(templatesRootDirectory.size() - 5), "pages");
     ISHIKO_TEST_FAIL_IF_NEQ(layoutsRootDirectory.substr(layoutsRootDirectory.size() - 7), "layouts");
@@ -54,8 +56,10 @@ void LocalPresentationRepositoryTests::ConstructorTest2(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(profiles[0].name(), "page");
     ISHIKO_TEST_ABORT_IF_NEQ(profiles[0].templateEngineConfiguration().size(), 2);
 
-    std::string templatesRootDirectory = profiles[0].templateEngineConfiguration().value("templates-root-directory");
-    std::string layoutsRootDirectory = profiles[0].templateEngineConfiguration().value("layouts-root-directory");
+    std::string templatesRootDirectory =
+        profiles[0].templateEngineConfiguration().value("templates-root-directory").asString();
+    std::string layoutsRootDirectory =
+        profiles[0].templateEngineConfiguration().value("layouts-root-directory").asString();
 
     ISHIKO_TEST_FAIL_IF_NEQ(templatesRootDirectory.substr(templatesRootDirectory.size() - 5), "pages");
     ISHIKO_TEST_FAIL_IF_NEQ(layoutsRootDirectory.substr(layoutsRootDirectory.size() - 7), "layouts");
@@ -63,8 +67,8 @@ void LocalPresentationRepositoryTests::ConstructorTest2(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(profiles[1].name(), "doxygen");
     ISHIKO_TEST_ABORT_IF_NEQ(profiles[1].templateEngineConfiguration().size(), 2);
 
-    templatesRootDirectory = profiles[1].templateEngineConfiguration().value("templates-root-directory");
-    layoutsRootDirectory = profiles[1].templateEngineConfiguration().value("layouts-root-directory");
+    templatesRootDirectory = profiles[1].templateEngineConfiguration().value("templates-root-directory").asString();
+    layoutsRootDirectory = profiles[1].templateEngineConfiguration().value("layouts-root-directory").asString();
 
     ISHIKO_TEST_FAIL_IF_NEQ(templatesRootDirectory.substr(templatesRootDirectory.size() - 9), "templates");
     ISHIKO_TEST_FAIL_IF_NEQ(layoutsRootDirectory.substr(layoutsRootDirectory.size() - 7), "layouts");
