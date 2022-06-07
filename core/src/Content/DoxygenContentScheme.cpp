@@ -32,14 +32,7 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
 
     // TODO: handle file doesn't exist
     DoxygenXMLIndex doxygenIndex = DoxygenXMLIndex::FromFile(doxygenIndexPath);
-    // TODO: for now just check we can display the first class of the list
-    std::string className;
-    const std::vector<DoxygenXMLIndex::ClassInfo>& classes = doxygenIndex.classes();
-    for (const DoxygenXMLIndex::ClassInfo& classInfo : classes)
-    {
-        className = classInfo.name;
-    }
-
+    
     // TODO: do the mapping in a more configurable way
     // TODO: we know it's an API we want to publish so we will display the index at /docs/api/index.html
     std::string routePattern = "/docs/api/index.html";
@@ -59,7 +52,12 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
     handler->context().map()["codesmithy"].asValueMap()["doc"] = Nemu::ViewContext::Value::Map();
     handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"] = Nemu::ViewContext::Value::Map();
     handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"] = Nemu::ViewContext::Value::Array();
-    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"].asValueArray().push_back(className);
+    const std::vector<DoxygenXMLIndex::ClassInfo>& classes = doxygenIndex.classes();
+    Nemu::ViewContext::Value::Array& documentedClasses = handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"].asValueArray();
+    for (const DoxygenXMLIndex::ClassInfo& classInfo : classes)
+    {
+        documentedClasses.push_back(classInfo.name);
+    } 
     routes.emplace_back(routePattern, handler);
 
     return routes;
