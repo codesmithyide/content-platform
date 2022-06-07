@@ -32,14 +32,7 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
 
     // TODO: handle file doesn't exist
     DoxygenXMLIndex doxygenIndex = DoxygenXMLIndex::FromFile(doxygenIndexPath);
-    // TODO: for now just check we can display the first class of the list
-    std::string className;
-    const std::vector<DoxygenXMLIndex::ClassInfo>& classes = doxygenIndex.classes();
-    for (const DoxygenXMLIndex::ClassInfo& classInfo : classes)
-    {
-        className = classInfo.name;
-    }
-
+    
     // TODO: do the mapping in a more configurable way
     // TODO: we know it's an API we want to publish so we will display the index at /docs/api/index.html
     std::string routePattern = "/docs/api/index.html";
@@ -53,9 +46,18 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
     // TODO: Check view validity
 
     std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(m_callbacks);
-    handler->context().map()["codesmithy_page_title"] = configuration.value("title").asString();
-    // TODO: should be an array
-    handler->context().map()["codesmithy_api_classes"] = className;
+    handler->context().map()["codesmithy"] = Nemu::ViewContext::Value::Map();
+    handler->context().map()["codesmithy"].asValueMap()["page"] = Nemu::ViewContext::Value::Map();
+    handler->context().map()["codesmithy"].asValueMap()["page"].asValueMap()["title"] = configuration.value("title").asString();
+    handler->context().map()["codesmithy"].asValueMap()["doc"] = Nemu::ViewContext::Value::Map();
+    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"] = Nemu::ViewContext::Value::Map();
+    handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"] = Nemu::ViewContext::Value::Array();
+    const std::vector<DoxygenXMLIndex::ClassInfo>& classes = doxygenIndex.classes();
+    Nemu::ViewContext::Value::Array& documentedClasses = handler->context().map()["codesmithy"].asValueMap()["doc"].asValueMap()["api"].asValueMap()["classes"].asValueArray();
+    for (const DoxygenXMLIndex::ClassInfo& classInfo : classes)
+    {
+        documentedClasses.push_back(classInfo.name);
+    } 
     routes.emplace_back(routePattern, handler);
 
     return routes;

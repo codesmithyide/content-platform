@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.11">
+  <compound refid="class_polygon" kind="class"><name>Polygon</name>
+    <member refid="class_polygon_1abefc5d9595ecabeee8b08f309a32fa9b" kind="function"><name>draw</name></member>
+  </compound>
+  <compound refid="class_rectangle" kind="class"><name>Rectangle</name>
+    <member refid="class_rectangle_1a8339715d8e96e6968e8c25977199271d" kind="function"><name>draw</name></member>
+    <member refid="class_rectangle_1af62553af29f32815e5055f67b96f5603" kind="function"><name>width</name></member>
+    <member refid="class_rectangle_1a51fcde43e3b8803b7fcf3bba60167894" kind="function"><name>height</name></member>
+    <member refid="class_rectangle_1a4b2a528eff1c42b1a46148b2f5562c7b" kind="function"><name>setWidth</name></member>
+    <member refid="class_rectangle_1a4a2ea011c82676512887d409e71c383a" kind="function"><name>setHeight</name></member>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="_polygon_8h" kind="file"><name>Polygon.h</name>
+  </compound>
+  <compound refid="_rectangle_8h" kind="file"><name>Rectangle.h</name>
+  </compound>
+</doxygenindex>
