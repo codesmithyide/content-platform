@@ -141,7 +141,9 @@ void WebServer::initialize()
                     Ishiko::Logger& logger)
                 {
                     Nemu::MapViewContext context;
-                    context.map()["codesmithy_page_title"] = title;
+                    context.map()["codesmithy"] = Nemu::ViewContext::Value::Map();
+                    context.map()["codesmithy"].asValueMap()["page"] = Nemu::ViewContext::Value::Map();
+                    context.map()["codesmithy"].asValueMap()["page"].asValueMap()["title"] = title;
                     std::string templatePath = request.url().path();
                     if (templatePath == "/")
                     {

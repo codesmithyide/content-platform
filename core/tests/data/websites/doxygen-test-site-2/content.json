@@ -1,0 +1,12 @@
+{
+    "title": "Doxygen Test Site 2",
+    "homepage": { "page": "pages/index.html" },
+    "content": [
+        {
+            "page": { "path": "pages/index.html" }
+        },
+        {
+            "doxygen": { "index": "doxygen/index.xml" }
+        }
+    ]
+}

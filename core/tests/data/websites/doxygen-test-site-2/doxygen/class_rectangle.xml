@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="class_rectangle" kind="class" language="C++" prot="public">
+    <compoundname>Rectangle</compoundname>
+    <basecompoundref refid="class_polygon" prot="public" virt="non-virtual">Polygon</basecompoundref>
+    <includes refid="_rectangle_8h" local="no">Rectangle.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_rectangle_1a8339715d8e96e6968e8c25977199271d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Rectangle::draw</definition>
+        <argsstring>() override</argsstring>
+        <name>draw</name>
+        <reimplements refid="class_polygon_1abefc5d9595ecabeee8b08f309a32fa9b">draw</reimplements>
+        <briefdescription>
+<para>Draw the polygon. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Rectangle.h" line="7" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_rectangle_1af62553af29f32815e5055f67b96f5603" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Rectangle::width</definition>
+        <argsstring>() const </argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Gets the width of the rectangle. <simplesect kind="return"><para>The width of the rectangle. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Rectangle.h" line="11" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_rectangle_1a51fcde43e3b8803b7fcf3bba60167894" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Rectangle::height</definition>
+        <argsstring>() const </argsstring>
+        <name>height</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Gets the height of the rectangle. <simplesect kind="return"><para>The height of the rectangle. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Rectangle.h" line="14" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_rectangle_1a4b2a528eff1c42b1a46148b2f5562c7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Rectangle::setWidth</definition>
+        <argsstring>(int w)</argsstring>
+        <name>setWidth</name>
+        <param>
+          <type>int</type>
+          <declname>w</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the width of the rectangle. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The new width. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Rectangle.h" line="18" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_rectangle_1a4a2ea011c82676512887d409e71c383a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Rectangle::setHeight</definition>
+        <argsstring>(int h)</argsstring>
+        <name>setHeight</name>
+        <param>
+          <type>int</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the height of the rectangle. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>h</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The new height. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Rectangle.h" line="21" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class represents a rectangle. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>Rectangle</label>
+        <link refid="class_rectangle"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Polygon</label>
+        <link refid="class_polygon"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="5">
+        <label>Rectangle</label>
+        <link refid="class_rectangle"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Polygon</label>
+        <link refid="class_polygon"/>
+      </node>
+    </collaborationgraph>
+    <location file="Rectangle.h" line="5" column="1" bodyfile="Rectangle.h" bodystart="4" bodyend="22"/>
+    <listofallmembers>
+      <member refid="class_rectangle_1a8339715d8e96e6968e8c25977199271d" prot="public" virt="virtual"><scope>Rectangle</scope><name>draw</name></member>
+      <member refid="class_rectangle_1a51fcde43e3b8803b7fcf3bba60167894" prot="public" virt="non-virtual"><scope>Rectangle</scope><name>height</name></member>
+      <member refid="class_rectangle_1a4a2ea011c82676512887d409e71c383a" prot="public" virt="non-virtual"><scope>Rectangle</scope><name>setHeight</name></member>
+      <member refid="class_rectangle_1a4b2a528eff1c42b1a46148b2f5562c7b" prot="public" virt="non-virtual"><scope>Rectangle</scope><name>setWidth</name></member>
+      <member refid="class_rectangle_1af62553af29f32815e5055f67b96f5603" prot="public" virt="non-virtual"><scope>Rectangle</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

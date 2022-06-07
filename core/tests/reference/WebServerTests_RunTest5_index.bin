@@ -1,0 +1,14 @@
+HTTP/1.1 200 OK
+Content-Length: 217
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Doxygen Test Site 2</title>
+</head>
+<body>
+  <h1>Doxygen Test Site 2 Homepage</h1>
+  <p>This is the file pages/index.html</p>
+</body>
+</html>
