@@ -28,7 +28,7 @@ std::vector<Nemu::Route> PageContentScheme::instantiate(const Ishiko::Configurat
     const std::string templatesRoot = "pages";
 
     // TODO: handle invalid configuration where there is no path
-    std::string page = configuration.value("path");
+    std::string page = configuration.value("path").asString();
 
     // The actual location of the pages on disk is mapped to a URL by removing the templates root directory from the
     // path.
@@ -52,7 +52,7 @@ std::vector<Nemu::Route> PageContentScheme::instantiate(const Ishiko::Configurat
     // TODO: when I have proper support for schemes I definitely need to try to reuse the handlers    
     // TODO: I think I'm close to make this handler shared by every page since it contains nothing unique now
     std::shared_ptr<Nemu::ViewWebRequestHandler> handler = std::make_shared<Nemu::ViewWebRequestHandler>(m_callbacks);
-    handler->context().map()["codesmithy_page_title"] = configuration.value("title");
+    handler->context().map()["codesmithy_page_title"] = configuration.value("title").asString();
     routes.emplace_back(routePattern, handler);
 
     return routes;
