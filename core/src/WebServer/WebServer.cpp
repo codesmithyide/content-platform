@@ -53,7 +53,7 @@ WebServer::WebServer(const Configuration& configuration, Ishiko::Logger& logger)
             logger),
         logger)
 {
-    m_content = std::make_shared<LocalContentRepository>(configuration.content()); 
+    m_content = std::make_shared<LocalContentRepository>(configuration.content());
     m_presentation = std::make_shared<LocalPresentationRepository>(configuration.presentation());
     initialize();
 }
