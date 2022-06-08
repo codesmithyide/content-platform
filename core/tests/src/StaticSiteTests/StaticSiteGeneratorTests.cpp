@@ -5,7 +5,9 @@
 */
 
 #include "StaticSiteGeneratorTests.hpp"
+#include "CodeSmithy/ContentPlatform/Core/StaticSite/StaticSiteGenerator.hpp"
 
+using namespace CodeSmithy::ContentPlatform;
 using namespace Ishiko;
 
 StaticSiteGeneratorTests::StaticSiteGeneratorTests(const TestNumber& number, const TestContext& context)
@@ -16,4 +18,7 @@ StaticSiteGeneratorTests::StaticSiteGeneratorTests(const TestNumber& number, con
 
 void StaticSiteGeneratorTests::ConstructorTest1(Test& test)
 {
+    StaticSiteGenerator generator;
+
+    ISHIKO_TEST_PASS();
 }
