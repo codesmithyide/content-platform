@@ -17,6 +17,12 @@ namespace CodeSmithy
 namespace ContentPlatform
 {
 
+/**
+    \brief The ContentScheme class is an abtract class that represents schemes to convert content into web pages.
+
+    Content implementations use implementations of this interface to convert content of a specific kind into a series
+    of routes that can be returned as part of the routes returned by Content::getRoutes.
+*/
 class ContentScheme
 {
 public:

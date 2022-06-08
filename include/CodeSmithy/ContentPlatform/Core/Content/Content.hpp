@@ -23,6 +23,10 @@ namespace ContentPlatform
 // though. Is there really a use case for routing that is so large that is stored on disk?
 // TODO: should I invert the logic and pass in the Routes instance and add routes to it? That seems to work better with
 // the schemes.
+
+/**
+    \brief The Content class is an abtract class that represents the content that needs to be served by the platform.
+*/
 class Content
 {
 public:
@@ -31,6 +35,11 @@ public:
     virtual std::string getTitle() const = 0;
     virtual ContentReference getHomepage() const = 0;
     // TODO: see discussion above about number of pages and scalability
+    /**
+        \brief The getRoutes function returns the routes that will serve this content.
+
+        These routes can then be added to a Nemu::WebApplication instance.
+     */
     virtual std::vector<Nemu::Route> getRoutes() const = 0;
 };
 

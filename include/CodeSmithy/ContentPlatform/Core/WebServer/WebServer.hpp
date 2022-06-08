@@ -21,6 +21,9 @@ namespace CodeSmithy
 namespace ContentPlatform
 {
 
+/**
+    \brief The WebServer class implements a web server that serves content from the CodeSmithy Content Platform.
+*/
 class WebServer
 {
 public:
