@@ -18,6 +18,7 @@ StaticSiteGeneratorTests::StaticSiteGeneratorTests(const TestNumber& number, con
     append<HeapAllocationErrorsTest>("Constructor test 1", ConstructorTest1);
     append<HeapAllocationErrorsTest>("run test 1", RunTest1);
     append<HeapAllocationErrorsTest>("run test 2", RunTest2);
+    append<HeapAllocationErrorsTest>("run test 3", RunTest3);
 }
 
 void StaticSiteGeneratorTests::ConstructorTest1(Test& test)
@@ -93,5 +94,35 @@ void StaticSiteGeneratorTests::RunTest2(Test& test)
         "StaticSiteGeneratorTests_RunTest2/index.html");
     ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest2/docs/index.html",
         "StaticSiteGeneratorTests_RunTest2/docs/index.html");
+    ISHIKO_TEST_PASS();
+}
+
+void StaticSiteGeneratorTests::RunTest3(Test& test)
+{
+    boost::filesystem::path contentConfigurationFile =
+        test.context().getTestDataPath("websites/doxygen-test-site-1/content.json");
+    boost::filesystem::path presentationConfigurationFile =
+        test.context().getTestDataPath("websites/doxygen-test-site-1/presentation.json");
+    boost::filesystem::path outputDirectory = test.context().getTestOutputPath("StaticSiteGeneratorTests_RunTest3");
+
+    NullLoggingSink sink;
+    Logger log(sink);
+
+    Configuration configuration = StaticSiteGenerator::CommandLineSpecification().createDefaultConfiguration();
+    configuration.set("content", contentConfigurationFile.string());
+    configuration.set("presentation", presentationConfigurationFile.string());
+    configuration.set("output", outputDirectory.string());
+
+    StaticSiteGenerator generator(configuration, log);
+
+    generator.run();
+
+    // TODO: directory comparison macro
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest3/index.html",
+        "StaticSiteGeneratorTests_RunTest3/index.html");
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest3/docs/api/index.html",
+        "StaticSiteGeneratorTests_RunTest3/docs/api/index.html");
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest3/docs/api/class/class_polygon.html",
+        "StaticSiteGeneratorTests_RunTest3/docs/api/class/class_polygon.html");
     ISHIKO_TEST_PASS();
 }
