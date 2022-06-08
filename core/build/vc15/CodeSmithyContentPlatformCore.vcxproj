@@ -157,6 +157,7 @@
     <ClCompile Include="..\..\src\Content\PageContentScheme.cpp" />
     <ClCompile Include="..\..\src\Presentation\PresentationProfile.cpp" />
     <ClCompile Include="..\..\src\Presentation\LocalPresentationRepository.cpp" />
+    <ClCompile Include="..\..\src\StaticSite\StaticSiteGenerator.cpp" />
     <ClCompile Include="..\..\src\WebServer\WebServer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,7 @@
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Presentation\Presentation.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Presentation\PresentationProfile.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\Presentation\LocalPresentationRepository.hpp" />
+    <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\StaticSite\StaticSiteGenerator.hpp" />
     <ClInclude Include="..\..\..\include\CodeSmithy\ContentPlatform\Core\WebServer\WebServer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -159,22 +159,26 @@
     <ClCompile Include="..\..\src\ContentTests.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\PresentationTests.cpp" />
+    <ClCompile Include="..\..\src\StaticSiteTests.cpp" />
     <ClCompile Include="..\..\src\WebServerTests.cpp" />
     <ClCompile Include="..\..\src\ContentTests\ContentSchemesTests.cpp" />
     <ClCompile Include="..\..\src\ContentTests\DoxygenContentSchemeTests.cpp" />
     <ClCompile Include="..\..\src\ContentTests\LocalContentRepositoryTests.cpp" />
     <ClCompile Include="..\..\src\ContentTests\PageContentSchemeTests.cpp" />
     <ClCompile Include="..\..\src\PresentationTests\LocalPresentationRepositoryTests.cpp" />
+    <ClCompile Include="..\..\src\StaticSiteTests\StaticSiteGeneratorTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\ContentTests.hpp" />
     <ClInclude Include="..\..\src\PresentationTests.hpp" />
+    <ClInclude Include="..\..\src\StaticSiteTests.hpp" />
     <ClInclude Include="..\..\src\WebServerTests.hpp" />
     <ClInclude Include="..\..\src\ContentTests\ContentSchemesTests.hpp" />
     <ClInclude Include="..\..\src\ContentTests\DoxygenContentSchemeTests.hpp" />
     <ClInclude Include="..\..\src\ContentTests\LocalContentRepositoryTests.hpp" />
     <ClInclude Include="..\..\src\ContentTests\PageContentSchemeTests.hpp" />
     <ClInclude Include="..\..\src\PresentationTests\LocalPresentationRepositoryTests.hpp" />
+    <ClInclude Include="..\..\src\StaticSiteTests\StaticSiteGeneratorTests.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

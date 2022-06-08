@@ -17,6 +17,7 @@
 #include "Core/Content/PageContentScheme.hpp"
 #include "Core/Presentation/LocalPresentationRepository.hpp"
 #include "Core/Presentation/Presentation.hpp"
+#include "Core/StaticSite/StaticSiteGenerator.hpp"
 #include "Core/WebServer/WebServer.hpp"
 
 #endif
