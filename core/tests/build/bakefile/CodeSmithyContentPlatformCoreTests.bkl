@@ -25,12 +25,14 @@ program CodeSmithyContentPlatformCoreTests : CodeSmithyContentPlatformCore, Ishi
     {
         ../../src/ContentTests.hpp
         ../../src/PresentationTests.hpp
+        ../../src/StaticSiteTests.hpp
         ../../src/WebServerTests.hpp
         ../../src/ContentTests/ContentSchemesTests.hpp
         ../../src/ContentTests/DoxygenContentSchemeTests.hpp
         ../../src/ContentTests/LocalContentRepositoryTests.hpp
         ../../src/ContentTests/PageContentSchemeTests.hpp
         ../../src/PresentationTests/LocalPresentationRepositoryTests.hpp
+        ../../src/StaticSiteTests/StaticSiteGeneratorTests.hpp
     }
 
     sources
@@ -38,12 +40,13 @@ program CodeSmithyContentPlatformCoreTests : CodeSmithyContentPlatformCore, Ishi
         ../../src/ContentTests.cpp
         ../../src/main.cpp
         ../../src/PresentationTests.cpp
+        ../../src/StaticSiteTests.cpp
         ../../src/WebServerTests.cpp
         ../../src/ContentTests/ContentSchemesTests.cpp
         ../../src/ContentTests/DoxygenContentSchemeTests.cpp
         ../../src/ContentTests/LocalContentRepositoryTests.cpp
         ../../src/ContentTests/PageContentSchemeTests.cpp
         ../../src/PresentationTests/LocalPresentationRepositoryTests.cpp
-
+        ../../src/StaticSiteTests/StaticSiteGeneratorTests.cpp
     }
 }
