@@ -20,6 +20,11 @@ namespace CodeSmithy
 namespace ContentPlatform
 {
 
+/**
+    \brief The LocalContentRepository class reads content that has been stored locally on disk.
+    
+    It relies on a JSON configuration file that describes the content that is stored on disk.
+*/
 class LocalContentRepository : public Content
 {
 public:
