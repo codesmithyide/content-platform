@@ -97,11 +97,12 @@ void WebServerTests::ConstructorTest3(Test& test)
 
     const Nemu::Routes& routes = server.routes();
 
-    ISHIKO_TEST_ABORT_IF_NEQ(routes.size(), 4);
+    ISHIKO_TEST_ABORT_IF_NEQ(routes.size(), 5);
     ISHIKO_TEST_FAIL_IF_NEQ(routes.at(0).pathPattern(), "/index.html");
     ISHIKO_TEST_FAIL_IF_NEQ(routes.at(1).pathPattern(), "/docs/api/index.html");
-    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(2).pathPattern(), "/*");
-    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(3).pathPattern(), "*");
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(2).pathPattern(), "/docs/api/class/class_polygon.html");
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(3).pathPattern(), "/*");
+    ISHIKO_TEST_FAIL_IF_NEQ(routes.at(4).pathPattern(), "*");
     ISHIKO_TEST_PASS();
 }
 
@@ -305,6 +306,16 @@ void WebServerTests::RunTest4(Test& test)
 
     ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest4_docs_api_index.bin", "WebServerTests_RunTest4_docs_api_index.bin");
 
+    boost::filesystem::path outputPath4(test.context().getTestOutputPath("WebServerTests_RunTest4_docs_api_class_polygon.bin"));
+    std::ofstream responseFile4(outputPath4.string(), std::ios::out | std::ios::binary);
+    HTTPClient::Get(IPv4Address::Localhost(), 8101, "/docs/api/class/class_polygon.html", responseFile4, error);
+
+    ISHIKO_TEST_FAIL_IF(error);
+
+    responseFile4.close();
+
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest4_docs_api_class_polygon.bin", "WebServerTests_RunTest4_docs_api_class_polygon.bin");
+
     server.stop();
     serverThread.join();
 
@@ -367,6 +378,26 @@ void WebServerTests::RunTest5(Test& test)
     responseFile3.close();
 
     ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest5_docs_api_index.bin", "WebServerTests_RunTest5_docs_api_index.bin");
+
+    boost::filesystem::path outputPath4(test.context().getTestOutputPath("WebServerTests_RunTest5_docs_api_class_polygon.bin"));
+    std::ofstream responseFile4(outputPath4.string(), std::ios::out | std::ios::binary);
+    HTTPClient::Get(IPv4Address::Localhost(), 8102, "/docs/api/class/class_polygon.html", responseFile4, error);
+
+    ISHIKO_TEST_FAIL_IF(error);
+
+    responseFile4.close();
+
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest5_docs_api_class_polygon.bin", "WebServerTests_RunTest5_docs_api_class_polygon.bin");
+
+    boost::filesystem::path outputPath5(test.context().getTestOutputPath("WebServerTests_RunTest5_docs_api_class_rectangle.bin"));
+    std::ofstream responseFile5(outputPath5.string(), std::ios::out | std::ios::binary);
+    HTTPClient::Get(IPv4Address::Localhost(), 8102, "/docs/api/class/class_rectangle.html", responseFile5, error);
+
+    ISHIKO_TEST_FAIL_IF(error);
+
+    responseFile5.close();
+
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest5_docs_api_class_rectangle.bin", "WebServerTests_RunTest5_docs_api_class_rectangle.bin");
 
     server.stop();
     serverThread.join();

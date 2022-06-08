@@ -11,7 +11,8 @@
 using namespace CodeSmithy::ContentPlatform;
 
 PageContentScheme::PageContentScheme()
-    : m_name("page"), m_callbacks("page", "page.html", "", "")
+    : m_name("page"),
+    m_callbacks("page", "page.html", Nemu::ViewWebRequestHandler::DeclarativeCallbacks::PrefixMapping("", ""))
 {
 }
 
