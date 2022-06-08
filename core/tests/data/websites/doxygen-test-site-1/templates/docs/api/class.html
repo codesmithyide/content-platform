@@ -1,6 +1,11 @@
 <p>This is the file templates/docs/api/class.html.</p>
-<ul>
+
 {{#codesmithy.doc.api.class}}
+<h1>{{name}}</h1>
+<h2>Functions</h2>
+<ul>
+{{#functions}}
 <li>{{name}}</li>
-{{/codesmithy.doc.api.class}}
+{{/functions}}
 </ul>
+{{/codesmithy.doc.api.class}}
