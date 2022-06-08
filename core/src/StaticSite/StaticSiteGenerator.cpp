@@ -80,6 +80,9 @@ void StaticSiteGenerator::run()
         // TODO: error handling
         // TODO: check validity of the route as a path
         boost::filesystem::path outputPath = m_outputDirectory / route.pathPattern();
+
+        boost::filesystem::create_directories(outputPath.parent_path());
+
         Ishiko::Error error;
         Ishiko::BinaryFile outputFile = Ishiko::BinaryFile::Create(outputPath, error);
         outputFile.write(response.body().c_str(), response.body().size());
