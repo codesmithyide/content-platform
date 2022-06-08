@@ -48,6 +48,7 @@ library CodeSmithyContentPlatformCore : CodeSmithyDoxygenCore, Nemu, IshikoJSON
         ../../../include/CodeSmithy/ContentPlatform/Core/Presentation/Presentation.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Presentation/PresentationProfile.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/Presentation/LocalPresentationRepository.hpp
+        ../../../include/CodeSmithy/ContentPlatform/Core/StaticSite/StaticSiteGenerator.hpp
         ../../../include/CodeSmithy/ContentPlatform/Core/WebServer/WebServer.hpp
     }
 
@@ -60,6 +61,7 @@ library CodeSmithyContentPlatformCore : CodeSmithyDoxygenCore, Nemu, IshikoJSON
         ../../src/Content/PageContentScheme.cpp
         ../../src/Presentation/PresentationProfile.cpp
         ../../src/Presentation/LocalPresentationRepository.cpp
+        ../../src/StaticSite/StaticSiteGenerator.cpp
         ../../src/WebServer/WebServer.cpp
     }
 }
