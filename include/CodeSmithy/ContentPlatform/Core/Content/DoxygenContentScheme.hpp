@@ -26,7 +26,8 @@ public:
 
 private:
     std::string m_name;
-    Nemu::ViewWebRequestHandler::DeclarativeCallbacks m_callbacks;
+    Nemu::ViewWebRequestHandler::DeclarativeCallbacks m_indexCallbacks;
+    Nemu::ViewWebRequestHandler::DeclarativeCallbacks m_classCallbacks;
 };
 
 }

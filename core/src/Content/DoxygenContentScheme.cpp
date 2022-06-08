@@ -104,7 +104,8 @@ void AddClassRoute(const Ishiko::Configuration& configuration,
 }
 
 DoxygenContentScheme::DoxygenContentScheme()
-    : m_name("doxygen"), m_callbacks("doxygen", "page.html", "", "")
+    : m_name("doxygen"), m_indexCallbacks("doxygen", "page.html", "/docs/api/index.html"),
+    m_classCallbacks("doxygen", "page.html", "/docs/api/class.html")
 {
 }
 
@@ -123,7 +124,7 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
     // TODO: handle file doesn't exist
     DoxygenXMLIndex doxygenIndex = DoxygenXMLIndex::FromFile(doxygenIndexPath);
 
-    AddIndexRoute(configuration, doxygenIndex, m_callbacks, routes);
+    AddIndexRoute(configuration, doxygenIndex, m_indexCallbacks, routes);
 
     for (const DoxygenXMLIndex::ClassInfo& classInfo : doxygenIndex.classes())
     {
@@ -132,7 +133,7 @@ std::vector<Nemu::Route> DoxygenContentScheme::instantiate(const Ishiko::Configu
         CodeSmithy::DoxygenXMLClassDocumentation classDocumentation =
             CodeSmithy::DoxygenXMLClassDocumentation::FromFile(classDocumentationFilePath);
 
-        AddClassRoute(configuration, classDocumentation, m_callbacks, routes);
+        AddClassRoute(configuration, classDocumentation, m_classCallbacks, routes);
     }
 
     return routes;

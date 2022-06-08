@@ -306,6 +306,16 @@ void WebServerTests::RunTest4(Test& test)
 
     ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest4_docs_api_index.bin", "WebServerTests_RunTest4_docs_api_index.bin");
 
+    boost::filesystem::path outputPath4(test.context().getTestOutputPath("WebServerTests_RunTest4_docs_api_class_polygon.bin"));
+    std::ofstream responseFile4(outputPath4.string(), std::ios::out | std::ios::binary);
+    HTTPClient::Get(IPv4Address::Localhost(), 8101, "/docs/api/class/class_polygon.html", responseFile4, error);
+
+    ISHIKO_TEST_FAIL_IF(error);
+
+    responseFile4.close();
+
+    ISHIKO_TEST_FAIL_IF_FILES_NEQ("WebServerTests_RunTest4_docs_api_class_polygon.bin", "WebServerTests_RunTest4_docs_api_class_polygon.bin");
+
     server.stop();
     serverThread.join();
 
