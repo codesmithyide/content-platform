@@ -1,2 +1,2 @@
 *.bin binary
-*.html binary
+*.html text eol=crlf
