@@ -18,7 +18,7 @@ LocalContentRepositoryTests::LocalContentRepositoryTests(const TestNumber& numbe
 
 void LocalContentRepositoryTests::ConstructorTest1(Test& test)
 {
-    boost::filesystem::path contentConfigurationFile = test.context().getTestDataPath("websites/test-site-1/content.json");
+    boost::filesystem::path contentConfigurationFile = test.context().getDataPath("websites/test-site-1/content.json");
 
     LocalContentRepository repository(contentConfigurationFile);
 

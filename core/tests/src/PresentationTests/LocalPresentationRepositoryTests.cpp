@@ -23,7 +23,7 @@ LocalPresentationRepositoryTests::LocalPresentationRepositoryTests(const TestNum
 void LocalPresentationRepositoryTests::ConstructorTest1(Test& test)
 {
     boost::filesystem::path presentationConfigurationFile =
-        test.context().getTestDataPath("websites/test-site-1/presentation.json");
+        test.context().getDataPath("websites/test-site-1/presentation.json");
 
     LocalPresentationRepository repository(presentationConfigurationFile);
 
@@ -46,7 +46,7 @@ void LocalPresentationRepositoryTests::ConstructorTest1(Test& test)
 void LocalPresentationRepositoryTests::ConstructorTest2(Test& test)
 {
     boost::filesystem::path presentationConfigurationFile =
-        test.context().getTestDataPath("websites/doxygen-test-site-1/presentation.json");
+        test.context().getDataPath("websites/doxygen-test-site-1/presentation.json");
 
     LocalPresentationRepository repository(presentationConfigurationFile);
 

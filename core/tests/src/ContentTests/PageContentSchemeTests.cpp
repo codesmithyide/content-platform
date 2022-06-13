@@ -34,8 +34,7 @@ void PageContentSchemeTests::ConstructorTest1(Test& test)
 
 void PageContentSchemeTests::InstantiateTest1(Test& test)
 {
-    boost::filesystem::path outputPath =
-        test.context().getTestOutputPath("PageContentSchemeTests_InstantiateTest1.html");
+    boost::filesystem::path outputPath = test.context().getOutputPath("PageContentSchemeTests_InstantiateTest1.html");
 
     Nemu::Views views;
     views.set("page", std::make_shared<Nemu::DebugTemplateEngineProfile>());
@@ -63,7 +62,6 @@ void PageContentSchemeTests::InstantiateTest1(Test& test)
     file.write(response.body().c_str(), response.body().size());
     file.close();
 
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("PageContentSchemeTests_InstantiateTest1.html",
-        "PageContentSchemeTests_InstantiateTest1.html");
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("PageContentSchemeTests_InstantiateTest1.html");
     ISHIKO_TEST_PASS();
 }

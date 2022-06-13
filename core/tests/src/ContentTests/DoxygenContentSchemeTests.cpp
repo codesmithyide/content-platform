@@ -57,8 +57,7 @@ void DoxygenContentSchemeTests::ConstructorTest1(Test& test)
 
 void DoxygenContentSchemeTests::InstantiateTest1(Test& test)
 {
-    boost::filesystem::path inputhPath =
-        test.context().getTestDataPath("websites/doxygen-test-site-1/doxygen/index.xml");
+    boost::filesystem::path inputhPath = test.context().getDataPath("websites/doxygen-test-site-1/doxygen/index.xml");
 
     Nemu::Views views;
     views.set("doxygen", std::make_shared<Nemu::DebugTemplateEngineProfile>());
@@ -75,24 +74,21 @@ void DoxygenContentSchemeTests::InstantiateTest1(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(routes[1].pathPattern(), "/docs/api/class/class_polygon.html");
 
     boost::filesystem::path outputPath =
-        test.context().getTestOutputPath("DoxygenContentSchemeTests_InstantiateTest1_index.html");
+        test.context().getOutputPath("DoxygenContentSchemeTests_InstantiateTest1_index.html");
     RunHandlerAndSaveToFile(views, routes[0], "/docs/api/index.html", outputPath);
     
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest1_index.html",
-        "DoxygenContentSchemeTests_InstantiateTest1_index.html");
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest1_index.html");
 
-    outputPath = test.context().getTestOutputPath("DoxygenContentSchemeTests_InstantiateTest1_class_polygon.html");
+    outputPath = test.context().getOutputPath("DoxygenContentSchemeTests_InstantiateTest1_class_polygon.html");
     RunHandlerAndSaveToFile(views, routes[1], "/docs/api/class/class_polygon.html", outputPath);
 
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest1_class_polygon.html",
-        "DoxygenContentSchemeTests_InstantiateTest1_class_polygon.html");
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest1_class_polygon.html");
     ISHIKO_TEST_PASS();
 }
 
 void DoxygenContentSchemeTests::InstantiateTest2(Test& test)
 {
-    boost::filesystem::path inputhPath =
-        test.context().getTestDataPath("websites/doxygen-test-site-2/doxygen/index.xml");
+    boost::filesystem::path inputhPath = test.context().getDataPath("websites/doxygen-test-site-2/doxygen/index.xml");
 
     Nemu::Views views;
     views.set("doxygen", std::make_shared<Nemu::DebugTemplateEngineProfile>());
@@ -110,23 +106,20 @@ void DoxygenContentSchemeTests::InstantiateTest2(Test& test)
     ISHIKO_TEST_FAIL_IF_NEQ(routes[2].pathPattern(), "/docs/api/class/class_rectangle.html");
 
     boost::filesystem::path outputPath =
-        test.context().getTestOutputPath("DoxygenContentSchemeTests_InstantiateTest2_index.html");
+        test.context().getOutputPath("DoxygenContentSchemeTests_InstantiateTest2_index.html");
     RunHandlerAndSaveToFile(views, routes[0], "/docs/api/index.html", outputPath);
 
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest2_index.html",
-        "DoxygenContentSchemeTests_InstantiateTest2_index.html");
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest2_index.html");
 
-    outputPath = test.context().getTestOutputPath("DoxygenContentSchemeTests_InstantiateTest2_class_polygon.html");
+    outputPath = test.context().getOutputPath("DoxygenContentSchemeTests_InstantiateTest2_class_polygon.html");
     RunHandlerAndSaveToFile(views, routes[1], "/docs/api/class/class_polygon.html", outputPath);
 
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest2_class_polygon.html",
-        "DoxygenContentSchemeTests_InstantiateTest2_class_polygon.html");
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest2_class_polygon.html");
 
-    outputPath = test.context().getTestOutputPath("DoxygenContentSchemeTests_InstantiateTest2_class_rectangle.html");
+    outputPath = test.context().getOutputPath("DoxygenContentSchemeTests_InstantiateTest2_class_rectangle.html");
     RunHandlerAndSaveToFile(views, routes[2], "/docs/api/class/class_polygon.html", outputPath);
 
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest2_class_rectangle.html",
-        "DoxygenContentSchemeTests_InstantiateTest2_class_rectangle.html");
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("DoxygenContentSchemeTests_InstantiateTest2_class_rectangle.html");
     
     ISHIKO_TEST_PASS();
 }

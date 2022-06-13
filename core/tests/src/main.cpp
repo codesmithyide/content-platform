@@ -15,11 +15,15 @@ using namespace Ishiko;
 
 int main(int argc, char* argv[])
 {
-    TestHarness theTestHarness("CodeSmithyContentPlatformCore Library Tests");
+    TestHarness::CommandLineSpecification commandLineSpec;
+    Configuration configuration = commandLineSpec.createDefaultConfiguration();
+    CommandLineParser::parse(commandLineSpec, argc, argv, configuration);
 
-    theTestHarness.context().setTestDataDirectory("../../data");
-    theTestHarness.context().setTestOutputDirectory("../../output");
-    theTestHarness.context().setReferenceDataDirectory("../../reference");
+    TestHarness theTestHarness("CodeSmithyContentPlatformCore Library Tests", configuration);
+
+    theTestHarness.context().setDataDirectory("../../data");
+    theTestHarness.context().setOutputDirectory("../../output");
+    theTestHarness.context().setReferenceDirectory("../../reference");
 
     TestSequence& theTests = theTestHarness.tests();
     theTests.append<PresentationTests>();
