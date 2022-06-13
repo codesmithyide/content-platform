@@ -23,7 +23,12 @@ jobs:
           command: cd /projects/codesmithyide/content-platform/core/tests/build/gnumake && make
       - run:
           name: Run the tests
-          command: cd /projects/codesmithyide/content-platform/core/tests/build/gnumake && ./CodeSmithyContentPlatformCoreTests
+          command: cd /projects/codesmithyide/content-platform/core/tests/build/gnumake && ./CodeSmithyContentPlatformCoreTests --junit-xml-test-report=/build/test-results/CodeSmithyContentPlatformCore.xml
+      - store_artifacts:
+          path: /build/test-results/CodeSmithyContentPlatformCore.xml
+          destination: CodeSmithyContentPlatformCore-test-results.xml
+      - store_test_results:
+          path: /build/test-results/CodeSmithyContentPlatformCore.xml
       - run:
           name: Build CodeSmithyContentPlatformWebServer binary
           command: cd /projects/codesmithyide/content-platform/web-server/build/gnumake && make
