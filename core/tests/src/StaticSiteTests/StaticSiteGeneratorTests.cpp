@@ -25,11 +25,11 @@ StaticSiteGeneratorTests::StaticSiteGeneratorTests(const TestNumber& number, con
 void StaticSiteGeneratorTests::ConstructorTest1(Test& test)
 {
     boost::filesystem::path contentConfigurationFile =
-        test.context().getTestDataPath("websites/test-site-1/content.json");
+        test.context().getDataPath("websites/test-site-1/content.json");
     boost::filesystem::path presentationConfigurationFile =
-        test.context().getTestDataPath("websites/test-site-1/presentation.json");
+        test.context().getDataPath("websites/test-site-1/presentation.json");
     boost::filesystem::path outputDirectory =
-        test.context().getTestOutputPath("StaticSiteGeneratorTests_ConstructorTest1");
+        test.context().getOutputPath("StaticSiteGeneratorTests_ConstructorTest1");
 
     NullLoggingSink sink;
     Logger log(sink);
@@ -46,11 +46,10 @@ void StaticSiteGeneratorTests::ConstructorTest1(Test& test)
 
 void StaticSiteGeneratorTests::RunTest1(Test& test)
 {
-    boost::filesystem::path contentConfigurationFile =
-        test.context().getTestDataPath("websites/test-site-1/content.json");
+    boost::filesystem::path contentConfigurationFile = test.context().getDataPath("websites/test-site-1/content.json");
     boost::filesystem::path presentationConfigurationFile =
-        test.context().getTestDataPath("websites/test-site-1/presentation.json");
-    boost::filesystem::path outputDirectory = test.context().getTestOutputPath("StaticSiteGeneratorTests_RunTest1");
+        test.context().getDataPath("websites/test-site-1/presentation.json");
+    boost::filesystem::path outputDirectory = test.context().getOutputPath("StaticSiteGeneratorTests_RunTest1");
 
     NullLoggingSink sink;
     Logger log(sink);
@@ -65,18 +64,16 @@ void StaticSiteGeneratorTests::RunTest1(Test& test)
     generator.run();
 
     // TODO: directory comparison macro
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest1/index.html",
-        "StaticSiteGeneratorTests_RunTest1/index.html");
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("StaticSiteGeneratorTests_RunTest1/index.html");
     ISHIKO_TEST_PASS();
 }
 
 void StaticSiteGeneratorTests::RunTest2(Test& test)
 {
-    boost::filesystem::path contentConfigurationFile =
-        test.context().getTestDataPath("websites/test-site-2/content.json");
+    boost::filesystem::path contentConfigurationFile = test.context().getDataPath("websites/test-site-2/content.json");
     boost::filesystem::path presentationConfigurationFile =
-        test.context().getTestDataPath("websites/test-site-2/presentation.json");
-    boost::filesystem::path outputDirectory = test.context().getTestOutputPath("StaticSiteGeneratorTests_RunTest2");
+        test.context().getDataPath("websites/test-site-2/presentation.json");
+    boost::filesystem::path outputDirectory = test.context().getOutputPath("StaticSiteGeneratorTests_RunTest2");
 
     NullLoggingSink sink;
     Logger log(sink);
@@ -91,20 +88,18 @@ void StaticSiteGeneratorTests::RunTest2(Test& test)
     generator.run();
 
     // TODO: directory comparison macro
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest2/index.html",
-        "StaticSiteGeneratorTests_RunTest2/index.html");
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest2/docs/index.html",
-        "StaticSiteGeneratorTests_RunTest2/docs/index.html");
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("StaticSiteGeneratorTests_RunTest2/index.html");
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("StaticSiteGeneratorTests_RunTest2/docs/index.html");
     ISHIKO_TEST_PASS();
 }
 
 void StaticSiteGeneratorTests::RunTest3(Test& test)
 {
     boost::filesystem::path contentConfigurationFile =
-        test.context().getTestDataPath("websites/doxygen-test-site-1/content.json");
+        test.context().getDataPath("websites/doxygen-test-site-1/content.json");
     boost::filesystem::path presentationConfigurationFile =
-        test.context().getTestDataPath("websites/doxygen-test-site-1/presentation.json");
-    boost::filesystem::path outputDirectory = test.context().getTestOutputPath("StaticSiteGeneratorTests_RunTest3");
+        test.context().getDataPath("websites/doxygen-test-site-1/presentation.json");
+    boost::filesystem::path outputDirectory = test.context().getOutputPath("StaticSiteGeneratorTests_RunTest3");
 
     NullLoggingSink sink;
     Logger log(sink);
@@ -119,11 +114,9 @@ void StaticSiteGeneratorTests::RunTest3(Test& test)
     generator.run();
 
     // TODO: directory comparison macro
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest3/index.html",
-        "StaticSiteGeneratorTests_RunTest3/index.html");
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest3/docs/api/index.html",
-        "StaticSiteGeneratorTests_RunTest3/docs/api/index.html");
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest3/docs/api/class/class_polygon.html",
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("StaticSiteGeneratorTests_RunTest3/index.html");
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("StaticSiteGeneratorTests_RunTest3/docs/api/index.html");
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(
         "StaticSiteGeneratorTests_RunTest3/docs/api/class/class_polygon.html");
     ISHIKO_TEST_PASS();
 }
@@ -131,10 +124,10 @@ void StaticSiteGeneratorTests::RunTest3(Test& test)
 void StaticSiteGeneratorTests::RunTest4(Test& test)
 {
     boost::filesystem::path contentConfigurationFile =
-        test.context().getTestDataPath("websites/doxygen-test-site-2/content.json");
+        test.context().getDataPath("websites/doxygen-test-site-2/content.json");
     boost::filesystem::path presentationConfigurationFile =
-        test.context().getTestDataPath("websites/doxygen-test-site-2/presentation.json");
-    boost::filesystem::path outputDirectory = test.context().getTestOutputPath("StaticSiteGeneratorTests_RunTest4");
+        test.context().getDataPath("websites/doxygen-test-site-2/presentation.json");
+    boost::filesystem::path outputDirectory = test.context().getOutputPath("StaticSiteGeneratorTests_RunTest4");
 
     NullLoggingSink sink;
     Logger log(sink);
@@ -149,13 +142,11 @@ void StaticSiteGeneratorTests::RunTest4(Test& test)
     generator.run();
 
     // TODO: directory comparison macro
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest4/index.html",
-        "StaticSiteGeneratorTests_RunTest4/index.html");
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest4/docs/api/index.html",
-        "StaticSiteGeneratorTests_RunTest4/docs/api/index.html");
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest4/docs/api/class/class_polygon.html",
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("StaticSiteGeneratorTests_RunTest4/index.html");
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("StaticSiteGeneratorTests_RunTest4/docs/api/index.html");
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(
         "StaticSiteGeneratorTests_RunTest4/docs/api/class/class_polygon.html");
-    ISHIKO_TEST_FAIL_IF_FILES_NEQ("StaticSiteGeneratorTests_RunTest4/docs/api/class/class_rectangle.html",
+    ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ(
         "StaticSiteGeneratorTests_RunTest4/docs/api/class/class_rectangle.html");
     ISHIKO_TEST_PASS();
 }
