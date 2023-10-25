@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2022 Xavier Leclercq
+    Copyright (c) 2022-2023 Xavier Leclercq
     Released under the MIT License
     See https://github.com/codesmithyide/content-platform/blob/main/LICENSE.txt
 */
@@ -85,6 +85,6 @@ void StaticSiteGenerator::run()
 
         Ishiko::Error error;
         Ishiko::BinaryFile outputFile = Ishiko::BinaryFile::Create(outputPath, error);
-        outputFile.write(response.body().c_str(), response.body().size());
+        outputFile.write(response.body().c_str(), response.body().size(), error);
     }
 }

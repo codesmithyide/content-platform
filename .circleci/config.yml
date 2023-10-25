@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: nemuframework/gcc-nemu-cpp:0.16.0
+      - image: nemuframework/gcc-nemu-cpp:0.18.0
     steps:
       - run:
           name: Add GitHub SSH fingerprints

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2022 Xavier Leclercq
+    Copyright (c) 2022-2023 Xavier Leclercq
     Released under the MIT License
     See https://github.com/codesmithyide/content-platform/blob/main/LICENSE.txt
 */
@@ -59,7 +59,7 @@ void PageContentSchemeTests::InstantiateTest1(Test& test)
     // TODO: use exceptions
     Ishiko::Error error;
     BinaryFile file = BinaryFile::Create(outputPath, error);
-    file.write(response.body().c_str(), response.body().size());
+    file.write(response.body().c_str(), response.body().size(), error);
     file.close();
 
     ISHIKO_TEST_FAIL_IF_OUTPUT_AND_REFERENCE_FILES_NEQ("PageContentSchemeTests_InstantiateTest1.html");
