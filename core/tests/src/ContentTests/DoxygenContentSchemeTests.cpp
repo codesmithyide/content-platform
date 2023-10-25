@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2022 Xavier Leclercq
+    Copyright (c) 2022-2023 Xavier Leclercq
     Released under the MIT License
     See https://github.com/codesmithyide/content-platform/blob/main/LICENSE.txt
 */
@@ -34,7 +34,7 @@ void RunHandlerAndSaveToFile(Nemu::Views& views, const Nemu::Route& route, const
     // TODO: use exceptions
     Ishiko::Error error;
     BinaryFile file = BinaryFile::Create(outputPath, error);
-    file.write(response.body().c_str(), response.body().size());
+    file.write(response.body().c_str(), response.body().size(), error);
 }
 
 }
