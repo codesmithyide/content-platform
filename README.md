@@ -4,7 +4,7 @@ A content platform geared towards documenting software projects.
 
 # Project Status
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/codesmithyide/content-platform/tree/main.svg?style=shiel)](https://dl.circleci.com/status-badge/redirect/gh/codesmithyide/content-platform/tree/main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/codesmithyide/content-platform/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/codesmithyide/content-platform/tree/main)
 
 This project is in early development and not ready for public use yet. 
 
